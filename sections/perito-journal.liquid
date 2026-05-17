@@ -1,0 +1,890 @@
+{% style %}
+  .perito-journal {
+    background: {{ section.settings.section_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-journal__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: calc(var(--perito-section-space-bottom) + {{ section.settings.padding_bottom }}px);
+  }
+
+  .perito-journal__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: {{ section.settings.header_margin_bottom }}px;
+  }
+
+  .perito-journal__eyebrow {
+    margin: 0 0 {{ section.settings.eyebrow_margin_bottom }}px;
+    color: {{ section.settings.eyebrow_color }};
+    font-size: {{ section.settings.eyebrow_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.eyebrow_font_weight }};
+  }
+
+  .perito-journal__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size }}px;
+    line-height: {{ section.settings.heading_line_height }};
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+
+  .perito-journal__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    color: {{ section.settings.link_color }};
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: {{ section.settings.link_font_size }}px;
+    letter-spacing: {{ section.settings.link_letter_spacing }}em;
+    line-height: 1;
+    font-weight: {{ section.settings.link_font_weight }};
+    white-space: nowrap;
+  }
+
+  .perito-journal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: {{ section.settings.column_gap }}px;
+    row-gap: {{ section.settings.row_gap }}px;
+  }
+
+  .perito-journal__card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .perito-journal__media {
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    background: {{ section.settings.image_bg }};
+    overflow: hidden;
+    margin-bottom: {{ section.settings.card_content_top }}px;
+  }
+
+  .perito-journal__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center center;
+    transition: transform 0.35s ease;
+  }
+
+  .perito-journal__card:hover .perito-journal__image {
+    transform: scale(1.025);
+  }
+
+  .perito-journal__placeholder {
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.image_bg }};
+  }
+
+  .perito-journal__category {
+    margin: 0 0 {{ section.settings.category_margin_bottom }}px;
+    color: {{ section.settings.category_color }};
+    font-size: {{ section.settings.category_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.category_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.category_font_weight }};
+  }
+
+  .perito-journal__title {
+    margin: 0 0 {{ section.settings.title_margin_bottom }}px;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_font_size }}px;
+    line-height: {{ section.settings.title_line_height }};
+    font-weight: {{ section.settings.title_font_weight }};
+  }
+
+  .perito-journal__excerpt {
+    margin: 0 0 {{ section.settings.excerpt_margin_bottom }}px;
+    color: {{ section.settings.excerpt_color }};
+    font-size: {{ section.settings.excerpt_font_size }}px;
+    line-height: {{ section.settings.excerpt_line_height }};
+    font-weight: {{ section.settings.excerpt_font_weight }};
+    opacity: 0.9;
+  }
+
+  .perito-journal__meta {
+    margin: 0;
+    color: {{ section.settings.meta_color }};
+    font-size: {{ section.settings.meta_font_size }}px;
+    line-height: 1.4;
+    font-weight: {{ section.settings.meta_font_weight }};
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-journal__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-journal__header {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .perito-journal__heading {
+      font-size: {{ section.settings.mobile_heading_font_size }}px;
+    }
+
+    .perito-journal__grid {
+      grid-template-columns: 1fr;
+      row-gap: {{ section.settings.mobile_row_gap }}px;
+    }
+
+    .perito-journal__media {
+      height: {{ section.settings.mobile_image_height }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-journal">
+  <div class="perito-journal__inner perito-container perito-section-inner">
+    <div class="perito-journal__header">
+      <div>
+        {% if section.settings.eyebrow != blank %}
+          <p class="perito-journal__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="perito-journal__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+
+      {% if section.settings.link_label != blank %}
+        <a class="perito-journal__link" href="{{ section.settings.link_url | default: '#' }}">
+          {{ section.settings.link_label }}
+          <span>→</span>
+        </a>
+      {% endif %}
+    </div>
+
+    {% liquid
+      assign fallback_excerpt = section.settings.fallback_excerpt | default: 'Discover stories, rituals, ingredients, and perspectives from the world of Perito Moreno.'
+      assign rendered_articles = 0
+      assign articles_per_blog = section.settings.articles_per_blog | default: 1
+      assign blog_handles = section.settings.blog_handles | default: 'news' | split: ','
+    %}
+
+    {% capture journal_sizes %}(min-width: 990px) 33vw, 100vw{% endcapture %}
+
+    <div class="perito-journal__grid">
+      {% for handle in blog_handles %}
+        {% assign handle_clean = handle | strip %}
+        {% assign current_blog = blogs[handle_clean] %}
+        {% if current_blog != blank %}
+          {% assign blog_count = 0 %}
+          {% for article in current_blog.articles %}
+            {% if blog_count < articles_per_blog %}
+              {% liquid
+                assign blog_count = blog_count | plus: 1
+                assign rendered_articles = rendered_articles | plus: 1
+
+                assign first_tag = article.tags | first
+                assign article_category = current_blog.title
+
+                if first_tag != blank
+                  assign article_category = current_blog.title | append: ' / ' | append: first_tag
+                endif
+
+                assign article_excerpt = article.excerpt_or_content | strip_html | strip | truncate: 145
+
+                if article_excerpt == blank
+                  assign article_excerpt = fallback_excerpt
+                endif
+
+                assign article_words = article.content | strip_html | split: ' ' | size
+                assign read_minutes = article_words | divided_by: 200
+
+                if read_minutes < 1
+                  assign read_minutes = 1
+                endif
+
+                assign article_meta = article.published_at | date: '%b %d, %Y'
+              %}
+
+              <a class="perito-journal__card" href="{{ article.url }}">
+                {% liquid
+                  if rendered_articles == 1
+                    assign fallback_img = section.settings.fallback_image_1
+                  elsif rendered_articles == 2
+                    assign fallback_img = section.settings.fallback_image_2
+                  else
+                    assign fallback_img = section.settings.fallback_image_3
+                  endif
+                %}
+                <div class="perito-journal__media">
+                  {% if article.image != blank %}
+                    {{
+                      article.image
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'perito-journal__image',
+                        loading: 'lazy',
+                        widths: '400, 600, 800, 1000',
+                        sizes: journal_sizes,
+                        alt: article.title
+                    }}
+                  {% elsif fallback_img != blank %}
+                    {{
+                      fallback_img
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'perito-journal__image',
+                        loading: 'lazy',
+                        widths: '400, 600, 800, 1000',
+                        sizes: journal_sizes,
+                        alt: article.title
+                    }}
+                  {% else %}
+                    <div class="perito-journal__placeholder"></div>
+                  {% endif %}
+                </div>
+
+                {% if article_category != blank %}
+                  <p class="perito-journal__category">{{ article_category }}</p>
+                {% endif %}
+
+                <h3 class="perito-journal__title">{{ article.title }}</h3>
+                <p class="perito-journal__excerpt">{{ article_excerpt }}</p>
+                <p class="perito-journal__meta">{{ article_meta }} · {{ read_minutes }} min read</p>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+
+      {% if rendered_articles == 0 %}
+        {% for block in section.blocks %}
+          <a class="perito-journal__card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+            <div class="perito-journal__media">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'perito-journal__image',
+                    loading: 'lazy',
+                    widths: '400, 600, 800, 1000',
+                    sizes: journal_sizes,
+                    alt: block.settings.title
+                }}
+              {% else %}
+                <div class="perito-journal__placeholder"></div>
+              {% endif %}
+            </div>
+            {% if block.settings.category != blank %}
+              <p class="perito-journal__category">{{ block.settings.category }}</p>
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <h3 class="perito-journal__title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.excerpt != blank %}
+              <p class="perito-journal__excerpt">{{ block.settings.excerpt }}</p>
+            {% endif %}
+            {% if block.settings.meta != blank %}
+              <p class="perito-journal__meta">{{ block.settings.meta }}</p>
+            {% endif %}
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito Journal",
+  "tag": "section",
+  "class": "section-perito-journal",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE JOURNAL"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stories & Insights"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "VIEW ALL ARTICLES"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Blog Sources"
+    },
+    {
+      "type": "text",
+      "id": "blog_handles",
+      "label": "Blog handles (comma-separated)",
+      "info": "Enter your blog handles separated by commas e.g. news, journal, the-journal. Find them in Shopify Admin → Online Store → Blog Posts → Manage blogs → each blog URL contains the handle.",
+      "default": "news"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom",
+      "label": "Header bottom margin",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 20,
+      "max": 70,
+      "step": 2,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 240,
+      "max": 520,
+      "step": 5,
+      "default": 360,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_content_top",
+      "label": "Card content top spacing",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Fallback Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image_1",
+      "label": "Fallback image – Blog 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image_2",
+      "label": "Fallback image – Blog 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image_3",
+      "label": "Fallback image – Blog 3"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 6,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow letter spacing",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.4
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_margin_bottom",
+      "label": "Eyebrow bottom margin",
+      "min": 8,
+      "max": 26,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 22,
+      "max": 52,
+      "step": 1,
+      "default": 31,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 1.5,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "label": "Heading weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "label": "Link font size",
+      "min": 6,
+      "max": 14,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "link_letter_spacing",
+      "label": "Link letter spacing",
+      "min": 0,
+      "max": 0.4,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "link_font_weight",
+      "label": "Link weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Card typography"
+    },
+    {
+      "type": "range",
+      "id": "category_font_size",
+      "label": "Category font size",
+      "min": 6,
+      "max": 14,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "category_letter_spacing",
+      "label": "Category letter spacing",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "category_font_weight",
+      "label": "Category weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "category_margin_bottom",
+      "label": "Category bottom margin",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title line height",
+      "min": 1,
+      "max": 1.8,
+      "step": 0.1,
+      "default": 1.3
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "Title weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "label": "Title bottom margin",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "excerpt_font_size",
+      "label": "Excerpt font size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "excerpt_line_height",
+      "label": "Excerpt line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "excerpt_font_weight",
+      "label": "Excerpt weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "excerpt_margin_bottom",
+      "label": "Excerpt bottom margin",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size",
+      "label": "Meta font size",
+      "min": 7,
+      "max": 14,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "meta_font_weight",
+      "label": "Meta weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 90,
+      "step": 2,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 90,
+      "step": 2,
+      "default": 42,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "label": "Mobile heading font size",
+      "min": 22,
+      "max": 42,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_gap",
+      "label": "Mobile row gap",
+      "min": 24,
+      "max": 70,
+      "step": 2,
+      "default": 42,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile image height",
+      "min": 220,
+      "max": 460,
+      "step": 5,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#efe9d8"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#a5ad92"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image background",
+      "default": "#d9d9d9"
+    },
+    {
+      "type": "color",
+      "id": "category_color",
+      "label": "Category color",
+      "default": "#9fa98f"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Excerpt color",
+      "default": "#c1c8b5"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Meta color",
+      "default": "#9fa98f"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Article card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "CRAFTSMANSHIP"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The Art of Layering Fragrances"
+        },
+        {
+          "type": "textarea",
+          "id": "excerpt",
+          "label": "Excerpt",
+          "default": "Discover how to create your own signature scent by thoughtfully combining our fragrances."
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Meta",
+          "default": "5 min read"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Journal",
+      "category": "Blog",
+      "blocks": [
+        {
+          "type": "article_card",
+          "settings": {
+            "category": "CRAFTSMANSHIP",
+            "title": "The Art of Layering Fragrances",
+            "excerpt": "Discover how to create your own signature scent by thoughtfully combining our fragrances.",
+            "meta": "5 min read"
+          }
+        },
+        {
+          "type": "article_card",
+          "settings": {
+            "category": "BEHIND THE SCENES",
+            "title": "Sourcing Rare Ingredients",
+            "excerpt": "A journey through the valleys of Bulgaria in search of the perfect rose absolute.",
+            "meta": "8 min read"
+          }
+        },
+        {
+          "type": "article_card",
+          "settings": {
+            "category": "GUIDE",
+            "title": "Seasonal Scent Wardrobing",
+            "excerpt": "How to build a fragrance collection that evolves with the seasons.",
+            "meta": "6 min read"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

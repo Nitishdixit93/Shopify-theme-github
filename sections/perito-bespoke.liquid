@@ -1,0 +1,469 @@
+{% style %}
+  .perito-bespoke {
+    background: {{ section.settings.section_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-bespoke__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: calc(var(--perito-section-space-bottom) + {{ section.settings.padding_bottom }}px);
+  }
+
+  .perito-bespoke__intro {
+    max-width: {{ section.settings.intro_width }}px;
+    margin: 0 auto {{ section.settings.intro_margin_bottom }}px;
+    text-align: center;
+  }
+
+  .perito-bespoke__eyebrow,
+  .perito-bespoke__investment-eyebrow {
+    margin: 0 0 {{ section.settings.eyebrow_margin_bottom }}px;
+    color: {{ section.settings.eyebrow_color }};
+    font-size: {{ section.settings.eyebrow_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.eyebrow_font_weight }};
+    opacity: 0.9;
+  }
+
+  .perito-bespoke__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size }}px;
+    line-height: {{ section.settings.heading_line_height }};
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+
+  .perito-bespoke__description {
+    margin: {{ section.settings.description_margin_top }}px auto 0;
+    max-width: {{ section.settings.description_width }}px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.description_font_size }}px;
+    line-height: {{ section.settings.description_line_height }};
+    font-weight: {{ section.settings.description_font_weight }};
+    opacity: 0.92;
+  }
+
+  .perito-bespoke__media {
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    margin-bottom: {{ section.settings.image_margin_bottom }}px;
+    background: {{ section.settings.image_bg }};
+    overflow: hidden;
+  }
+
+  .perito-bespoke__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center center;
+  }
+
+  .perito-bespoke__placeholder {
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.image_bg }};
+  }
+
+  .perito-bespoke__journey-title {
+    margin: 0 0 {{ section.settings.steps_margin_bottom }}px;
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+    font-size: {{ section.settings.journey_title_size }}px;
+    line-height: 1.2;
+    font-weight: {{ section.settings.journey_title_weight }};
+  }
+
+  .perito-bespoke__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: {{ section.settings.steps_gap }}px;
+    margin-bottom: {{ section.settings.steps_bottom_space }}px;
+  }
+
+  .perito-bespoke__step-icon {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    border: 1px solid {{ section.settings.icon_border_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: {{ section.settings.icon_margin_bottom }}px;
+    color: {{ section.settings.icon_color }};
+  }
+
+  .perito-bespoke__step-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .perito-bespoke__step-number {
+    margin: 0 0 {{ section.settings.step_number_margin_bottom }}px;
+    color: {{ section.settings.step_number_color }};
+    font-size: {{ section.settings.step_number_size }}px;
+    line-height: 1;
+    font-weight: {{ section.settings.step_number_weight }};
+    opacity: 0.95;
+  }
+
+  .perito-bespoke__step-title {
+    margin: 0 0 {{ section.settings.step_title_margin_bottom }}px;
+    color: {{ section.settings.step_title_color }};
+    font-size: {{ section.settings.step_title_size }}px;
+    line-height: 1.3;
+    font-weight: {{ section.settings.step_title_weight }};
+  }
+
+  .perito-bespoke__step-text {
+    margin: 0;
+    color: {{ section.settings.step_text_color }};
+    font-size: {{ section.settings.step_text_size }}px;
+    line-height: {{ section.settings.step_text_line_height }};
+    font-weight: {{ section.settings.step_text_weight }};
+    opacity: 0.88;
+  }
+
+  .perito-bespoke__divider {
+    height: 1px;
+    background: {{ section.settings.divider_color }};
+    margin-bottom: {{ section.settings.investment_margin_top }}px;
+    opacity: 0.8;
+  }
+
+  .perito-bespoke__investment {
+    max-width: {{ section.settings.investment_width }}px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .perito-bespoke__price {
+    margin: 0;
+    color: {{ section.settings.price_color }};
+    font-size: {{ section.settings.price_size }}px;
+    line-height: 1.15;
+    font-weight: {{ section.settings.price_weight }};
+  }
+
+  .perito-bespoke__investment-text {
+    margin: {{ section.settings.investment_text_margin_top }}px auto 0;
+    max-width: {{ section.settings.investment_text_width }}px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.investment_text_size }}px;
+    line-height: {{ section.settings.investment_text_line_height }};
+    opacity: 0.9;
+  }
+
+  .perito-bespoke__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.button_width }}px;
+    height: {{ section.settings.button_height }}px;
+    margin-top: {{ section.settings.button_margin_top }}px;
+    border: 1px solid {{ section.settings.button_border }};
+    color: {{ section.settings.button_text }};
+    background: {{ section.settings.button_bg }};
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: {{ section.settings.button_font_size }}px;
+    letter-spacing: {{ section.settings.button_letter_spacing }}em;
+    font-weight: {{ section.settings.button_font_weight }};
+  }
+
+  .perito-bespoke__limited {
+    margin: {{ section.settings.limited_margin_top }}px 0 0;
+    color: {{ section.settings.limited_color }};
+    font-size: {{ section.settings.limited_size }}px;
+    line-height: 1.4;
+    opacity: 0.75;
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-bespoke__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-bespoke__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-bespoke__media {
+      height: {{ section.settings.mobile_image_height }}px;
+    }
+
+    .perito-bespoke__steps {
+      grid-template-columns: 1fr;
+      row-gap: {{ section.settings.mobile_steps_gap }}px;
+    }
+
+    .perito-bespoke__price {
+      font-size: {{ section.settings.mobile_price_size }}px;
+    }
+
+    .perito-bespoke__button {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+{% capture bespoke_sizes %}(min-width: 990px) {{ settings.page_width | default: 1320 }}px, 100vw{% endcapture %}
+
+<section class="perito-bespoke">
+  <div class="perito-bespoke__inner perito-container perito-section-inner">
+    <div class="perito-bespoke__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="perito-bespoke__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="perito-bespoke__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="perito-bespoke__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="perito-bespoke__media">
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 1800
+          | image_tag:
+            class: 'perito-bespoke__image',
+            loading: 'lazy',
+            widths: '700, 900, 1200, 1500, 1800',
+            sizes: bespoke_sizes,
+            alt: section.settings.heading
+        }}
+      {% else %}
+        <div class="perito-bespoke__placeholder"></div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.journey_title != blank %}
+      <h3 class="perito-bespoke__journey-title">{{ section.settings.journey_title }}</h3>
+    {% endif %}
+
+    <div class="perito-bespoke__steps">
+      {% for block in section.blocks %}
+        <div class="perito-bespoke__step" {{ block.shopify_attributes }}>
+          <div class="perito-bespoke__step-icon">
+            {% case block.settings.icon %}
+              {% when 'mail' %}
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M23.333 4.6665H4.66634C3.37768 4.6665 2.33301 5.71117 2.33301 6.99984V20.9998C2.33301 22.2885 3.37768 23.3332 4.66634 23.3332H23.333C24.6217 23.3332 25.6663 22.2885 25.6663 20.9998V6.99984C25.6663 5.71117 24.6217 4.6665 23.333 4.6665Z" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.6663 8.1665L15.2013 14.8165C14.8412 15.0422 14.4247 15.1618 13.9997 15.1618C13.5746 15.1618 13.1582 15.0422 12.798 14.8165L2.33301 8.1665" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% when 'palette' %}
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M15.7503 8.16667C16.0725 8.16667 16.3337 7.9055 16.3337 7.58333C16.3337 7.26117 16.0725 7 15.7503 7C15.4282 7 15.167 7.26117 15.167 7.58333C15.167 7.9055 15.4282 8.16667 15.7503 8.16667Z" fill="white" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20.4163 12.8332C20.7385 12.8332 20.9997 12.572 20.9997 12.2498C20.9997 11.9277 20.7385 11.6665 20.4163 11.6665C20.0942 11.6665 19.833 11.9277 19.833 12.2498C19.833 12.572 20.0942 12.8332 20.4163 12.8332Z" fill="white" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.91634 9.33317C10.2385 9.33317 10.4997 9.072 10.4997 8.74984C10.4997 8.42767 10.2385 8.1665 9.91634 8.1665C9.59418 8.1665 9.33301 8.42767 9.33301 8.74984C9.33301 9.072 9.59418 9.33317 9.91634 9.33317Z" fill="white" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.58333 15.1667C7.9055 15.1667 8.16667 14.9055 8.16667 14.5833C8.16667 14.2612 7.9055 14 7.58333 14C7.26117 14 7 14.2612 7 14.5833C7 14.9055 7.26117 15.1667 7.58333 15.1667Z" fill="white" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.9997 2.3335C7.58301 2.3335 2.33301 7.5835 2.33301 14.0002C2.33301 20.4168 7.58301 25.6668 13.9997 25.6668C15.08 25.6668 15.9223 24.7965 15.9223 23.6975C15.9223 23.1877 15.7123 22.7233 15.4125 22.385C15.0742 22.0478 14.9015 21.6243 14.9015 21.0725C14.8971 20.8157 14.9444 20.5607 15.0406 20.3226C15.1369 20.0845 15.28 19.8682 15.4616 19.6866C15.6432 19.505 15.8595 19.3618 16.0976 19.2656C16.3357 19.1694 16.5907 19.1221 16.8475 19.1265H19.1762C22.7357 19.1265 25.657 16.2063 25.657 12.6468C25.6255 7.01416 20.3708 2.3335 13.9997 2.3335Z" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {% when 'sparkle' %}
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M11.593 18.0833C11.4889 17.6795 11.2784 17.3111 10.9836 17.0162C10.6887 16.7214 10.3203 16.511 9.91651 16.4068L2.75902 14.5611C2.6369 14.5265 2.52943 14.4529 2.4529 14.3517C2.37637 14.2504 2.33496 14.1269 2.33496 14C2.33496 13.873 2.37637 13.7496 2.4529 13.6483C2.52943 13.547 2.6369 13.4735 2.75902 13.4388L9.91651 11.592C10.3201 11.4879 10.6885 11.2776 10.9833 10.983C11.2781 10.6884 11.4887 10.3202 11.593 9.91663L13.4387 2.75913C13.473 2.63654 13.5465 2.52853 13.6479 2.45159C13.7493 2.37465 13.8731 2.33301 14.0004 2.33301C14.1277 2.33301 14.2515 2.37465 14.353 2.45159C14.4544 2.52853 14.5279 2.63654 14.5622 2.75913L16.4067 9.91663C16.5108 10.3204 16.7213 10.6888 17.0161 10.9837C17.311 11.2785 17.6794 11.489 18.0832 11.5931L25.2407 13.4376C25.3638 13.4716 25.4723 13.545 25.5497 13.6466C25.627 13.7481 25.6689 13.8723 25.6689 14C25.6689 14.1276 25.627 14.2518 25.5497 14.3534C25.4723 14.455 25.3638 14.5283 25.2407 14.5623L18.0832 16.4068C17.6794 16.511 17.311 16.7214 17.0161 17.0162C16.7213 17.3111 16.5108 17.6795 16.4067 18.0833L14.561 25.2408C14.5267 25.3634 14.4532 25.4714 14.3518 25.5483C14.2504 25.6253 14.1266 25.6669 13.9993 25.6669C13.872 25.6669 13.7481 25.6253 13.6467 25.5483C13.5453 25.4714 13.4718 25.3634 13.4375 25.2408L11.593 18.0833Z" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23.333 3.5V8.16667" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.6667 5.8335H21" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.66699 19.8335V22.1668" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.83333 21H3.5" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% else %}
+                <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M13.9997 25.6668C20.443 25.6668 25.6663 20.4435 25.6663 14.0002C25.6663 7.55684 20.443 2.3335 13.9997 2.3335C7.55635 2.3335 2.33301 7.55684 2.33301 14.0002C2.33301 20.4435 7.55635 25.6668 13.9997 25.6668Z" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 7V14L18.6667 16.3333" stroke="white" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            {% endcase %}
+          </div>
+
+          <p class="perito-bespoke__step-number">{{ block.settings.number }}</p>
+          <h4 class="perito-bespoke__step-title">{{ block.settings.title }}</h4>
+          <p class="perito-bespoke__step-text">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="perito-bespoke__divider"></div>
+
+    <div class="perito-bespoke__investment">
+      {% if section.settings.investment_eyebrow != blank %}
+        <p class="perito-bespoke__investment-eyebrow">{{ section.settings.investment_eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.price != blank %}
+        <p class="perito-bespoke__price">{{ section.settings.price }}</p>
+      {% endif %}
+
+      {% if section.settings.investment_text != blank %}
+        <p class="perito-bespoke__investment-text">{{ section.settings.investment_text }}</p>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a class="perito-bespoke__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+
+      {% if section.settings.limited_text != blank %}
+        <p class="perito-bespoke__limited">{{ section.settings.limited_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito Bespoke Service",
+  "tag": "section",
+  "class": "section-perito-bespoke",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Main image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "BESPOKE SERVICE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Story,\nOur Craft" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Commission a one-of-a-kind fragrance that tells your unique story. From concept to bottle, we create an intimate olfactory portrait that exists nowhere else in the world." },
+    { "type": "text", "id": "journey_title", "label": "Journey title", "default": "The Journey" },
+    { "type": "text", "id": "investment_eyebrow", "label": "Investment eyebrow", "default": "INVESTMENT" },
+    { "type": "text", "id": "price", "label": "Price", "default": "Starting at $ 85,000" },
+    { "type": "textarea", "id": "investment_text", "label": "Investment text", "default": "Includes consultation, formula creation, refinement sessions, 100ml bespoke bottle, and exclusive ownership of your fragrance formula." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "START YOUR BESPOKE JOURNEY" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "limited_text", "label": "Limited text", "default": "Limited to 12 commissions per year" },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ]
+    },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 140, "step": 2, "default": 74, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 2, "default": 82, "unit": "px" },
+    { "type": "range", "id": "intro_width", "label": "Intro width", "min": 500, "max": 1000, "step": 20, "default": 760, "unit": "px" },
+    { "type": "range", "id": "intro_margin_bottom", "label": "Intro bottom margin", "min": 30, "max": 100, "step": 2, "default": 78, "unit": "px" },
+    { "type": "range", "id": "image_height", "label": "Image height", "min": 300, "max": 620, "step": 10, "default": 460, "unit": "px" },
+    { "type": "range", "id": "image_margin_bottom", "label": "Image bottom margin", "min": 40, "max": 110, "step": 2, "default": 78, "unit": "px" },
+    { "type": "range", "id": "steps_gap", "label": "Steps gap", "min": 30, "max": 120, "step": 2, "default": 72, "unit": "px" },
+    { "type": "range", "id": "steps_margin_bottom", "label": "Journey title bottom margin", "min": 30, "max": 90, "step": 2, "default": 56, "unit": "px" },
+    { "type": "range", "id": "steps_bottom_space", "label": "Steps bottom space", "min": 50, "max": 130, "step": 2, "default": 82, "unit": "px" },
+    { "type": "range", "id": "investment_margin_top", "label": "Investment top space", "min": 40, "max": 110, "step": 2, "default": 62, "unit": "px" },
+    { "type": "range", "id": "investment_width", "label": "Investment width", "min": 460, "max": 900, "step": 20, "default": 720, "unit": "px" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "eyebrow_font_size", "label": "Eyebrow font size", "min": 6, "max": 16, "step": 1, "default": 9, "unit": "px" },
+    { "type": "range", "id": "eyebrow_letter_spacing", "label": "Eyebrow letter spacing", "min": 0, "max": 0.5, "step": 0.1, "default": 0.4 },
+    { "type": "range", "id": "eyebrow_font_weight", "label": "Eyebrow weight", "min": 300, "max": 700, "step": 50, "default": 400 },
+    { "type": "range", "id": "eyebrow_margin_bottom", "label": "Eyebrow bottom margin", "min": 8, "max": 32, "step": 1, "default": 20, "unit": "px" },
+    { "type": "range", "id": "heading_font_size", "label": "Heading font size", "min": 36, "max": 76, "step": 1, "default": 50, "unit": "px" },
+    { "type": "range", "id": "heading_line_height", "label": "Heading line height", "min": 1, "max": 1.4, "step": 0.1, "default": 1.2 },
+    { "type": "range", "id": "heading_font_weight", "label": "Heading weight", "min": 300, "max": 700, "step": 50, "default": 500 },
+    { "type": "range", "id": "description_margin_top", "label": "Description top margin", "min": 16, "max": 60, "step": 1, "default": 42, "unit": "px" },
+    { "type": "range", "id": "description_width", "label": "Description width", "min": 480, "max": 900, "step": 20, "default": 780, "unit": "px" },
+    { "type": "range", "id": "description_font_size", "label": "Description font size", "min": 10, "max": 22, "step": 1, "default": 15, "unit": "px" },
+    { "type": "range", "id": "description_line_height", "label": "Description line height", "min": 1.2, "max": 2.4, "step": 0.1, "default": 1.9 },
+    { "type": "range", "id": "description_font_weight", "label": "Description weight", "min": 300, "max": 700, "step": 50, "default": 400 },
+
+    { "type": "header", "content": "Steps" },
+    { "type": "range", "id": "journey_title_size", "label": "Journey title size", "min": 20, "max": 42, "step": 1, "default": 28, "unit": "px" },
+    { "type": "range", "id": "journey_title_weight", "label": "Journey title weight", "min": 300, "max": 700, "step": 50, "default": 500 },
+    { "type": "range", "id": "icon_size", "label": "Icon box size", "min": 36, "max": 70, "step": 2, "default": 50, "unit": "px" },
+    { "type": "range", "id": "icon_margin_bottom", "label": "Icon bottom margin", "min": 14, "max": 40, "step": 1, "default": 24, "unit": "px" },
+    { "type": "range", "id": "step_number_size", "label": "Step number size", "min": 28, "max": 56, "step": 1, "default": 40, "unit": "px" },
+    { "type": "range", "id": "step_number_weight", "label": "Step number weight", "min": 200, "max": 600, "step": 50, "default": 300 },
+    { "type": "range", "id": "step_number_margin_bottom", "label": "Step number bottom margin", "min": 12, "max": 34, "step": 1, "default": 22, "unit": "px" },
+    { "type": "range", "id": "step_title_size", "label": "Step title size", "min": 10, "max": 20, "step": 1, "default": 14, "unit": "px" },
+    { "type": "range", "id": "step_title_weight", "label": "Step title weight", "min": 300, "max": 700, "step": 50, "default": 600 },
+    { "type": "range", "id": "step_title_margin_bottom", "label": "Step title bottom margin", "min": 8, "max": 24, "step": 1, "default": 16, "unit": "px" },
+    { "type": "range", "id": "step_text_size", "label": "Step text size", "min": 8, "max": 16, "step": 1, "default": 11, "unit": "px" },
+    { "type": "range", "id": "step_text_line_height", "label": "Step text line height", "min": 1.2, "max": 2.3, "step": 0.1, "default": 1.8 },
+    { "type": "range", "id": "step_text_weight", "label": "Step text weight", "min": 300, "max": 700, "step": 50, "default": 400 },
+
+    { "type": "header", "content": "Investment" },
+    { "type": "range", "id": "price_size", "label": "Price size", "min": 30, "max": 64, "step": 1, "default": 42, "unit": "px" },
+    { "type": "range", "id": "price_weight", "label": "Price weight", "min": 200, "max": 600, "step": 50, "default": 300 },
+    { "type": "range", "id": "investment_text_margin_top", "label": "Investment text top margin", "min": 10, "max": 34, "step": 1, "default": 18, "unit": "px" },
+    { "type": "range", "id": "investment_text_width", "label": "Investment text width", "min": 420, "max": 800, "step": 20, "default": 620, "unit": "px" },
+    { "type": "range", "id": "investment_text_size", "label": "Investment text size", "min": 8, "max": 16, "step": 1, "default": 11, "unit": "px" },
+    { "type": "range", "id": "investment_text_line_height", "label": "Investment line height", "min": 1.2, "max": 2.2, "step": 0.1, "default": 1.7 },
+    { "type": "range", "id": "button_width", "label": "Button width", "min": 220, "max": 420, "step": 5, "default": 290, "unit": "px" },
+    { "type": "range", "id": "button_height", "label": "Button height", "min": 42, "max": 70, "step": 1, "default": 54, "unit": "px" },
+    { "type": "range", "id": "button_margin_top", "label": "Button top margin", "min": 24, "max": 60, "step": 1, "default": 36, "unit": "px" },
+    { "type": "range", "id": "button_font_size", "label": "Button font size", "min": 7, "max": 14, "step": 1, "default": 10, "unit": "px" },
+    { "type": "range", "id": "button_letter_spacing", "label": "Button letter spacing", "min": 0, "max": 0.4, "step": 0.1, "default": 0.1 },
+    { "type": "range", "id": "button_font_weight", "label": "Button weight", "min": 300, "max": 700, "step": 50, "default": 400 },
+    { "type": "range", "id": "limited_margin_top", "label": "Limited text top margin", "min": 18, "max": 50, "step": 1, "default": 32, "unit": "px" },
+    { "type": "range", "id": "limited_size", "label": "Limited font size", "min": 8, "max": 14, "step": 1, "default": 10, "unit": "px" },
+
+    { "type": "header", "content": "Mobile" },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile top padding", "min": 0, "max": 100, "step": 2, "default": 40, "unit": "px" },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile bottom padding", "min": 0, "max": 120, "step": 2, "default": 48, "unit": "px" },
+    { "type": "range", "id": "mobile_heading_size", "label": "Mobile heading size", "min": 28, "max": 54, "step": 1, "default": 36, "unit": "px" },
+    { "type": "range", "id": "mobile_image_height", "label": "Mobile image height", "min": 240, "max": 460, "step": 5, "default": 300, "unit": "px" },
+    { "type": "range", "id": "mobile_steps_gap", "label": "Mobile steps gap", "min": 20, "max": 60, "step": 2, "default": 34, "unit": "px" },
+    { "type": "range", "id": "mobile_price_size", "label": "Mobile price size", "min": 24, "max": 44, "step": 1, "default": 32, "unit": "px" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_bg", "label": "Section background", "default": "#273315" },
+    { "type": "color", "id": "text_color", "label": "Base text color", "default": "#efe9d8" },
+    { "type": "color", "id": "eyebrow_color", "label": "Eyebrow color", "default": "#a3ac92" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#f3efe4" },
+    { "type": "color", "id": "description_color", "label": "Description color", "default": "#c4cab9" },
+    { "type": "color", "id": "image_bg", "label": "Image background", "default": "#d9d9d9" },
+    { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#f3efe4" },
+    { "type": "color", "id": "icon_border_color", "label": "Icon border", "default": "#aab29a" },
+    { "type": "color", "id": "step_number_color", "label": "Step number", "default": "#f3efe4" },
+    { "type": "color", "id": "step_title_color", "label": "Step title", "default": "#f3efe4" },
+    { "type": "color", "id": "step_text_color", "label": "Step text", "default": "#bfc7b1" },
+    { "type": "color", "id": "divider_color", "label": "Divider", "default": "#596641" },
+    { "type": "color", "id": "price_color", "label": "Price", "default": "#f3efe4" },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "transparent" },
+    { "type": "color", "id": "button_border", "label": "Button border", "default": "#f0ebdb" },
+    { "type": "color", "id": "button_text", "label": "Button text", "default": "#f0ebdb" },
+    { "type": "color", "id": "limited_color", "label": "Limited text", "default": "#aab29a" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Journey step",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "mail",
+          "options": [
+            { "value": "mail", "label": "Mail" },
+            { "value": "palette", "label": "Palette" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "clock", "label": "Clock" }
+          ]
+        },
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Initial Consultation" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Share your vision, memories, and scent preferences through an in-depth conversation." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Bespoke Service",
+      "category": "Image",
+      "blocks": [
+        { "type": "step", "settings": { "icon": "mail", "number": "01", "title": "Initial Consultation", "text": "Share your vision, memories, and scent preferences through an in-depth conversation." } },
+        { "type": "step", "settings": { "icon": "palette", "number": "02", "title": "Bespoke Composition", "text": "Our perfumer creates a unique formula tailored exclusively to your story and desires." } },
+        { "type": "step", "settings": { "icon": "sparkle", "number": "03", "title": "Refinement Sessions", "text": "We refine the fragrance together through multiple iterations until perfection." } },
+        { "type": "step", "settings": { "icon": "clock", "number": "04", "title": "Final Creation", "text": "Your signature scent is crafted, bottled, and presented in a bespoke vessel." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

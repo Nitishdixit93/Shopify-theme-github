@@ -1,0 +1,630 @@
+{% style %}
+  .perito-contact {
+    background: {{ section.settings.bg }};
+    color: {{ section.settings.text }};
+  }
+
+  .perito-contact__hero {
+    min-height: {{ section.settings.hero_height }}px;
+    background-image:
+      linear-gradient(rgba(9, 20, 16, {{ section.settings.overlay_opacity | divided_by: 100.0 }}), rgba(9, 20, 16, {{ section.settings.overlay_opacity | divided_by: 100.0 }})),
+      {% if section.settings.hero_image != blank %}
+        url({{ section.settings.hero_image | image_url: width: 2200 }})
+      {% else %}
+        none
+      {% endif %};
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  .perito-contact__hero h1 {
+    margin: 0;
+    font-size: {{ section.settings.hero_title_size }}px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: {{ section.settings.hero_text }};
+  }
+
+  .perito-contact__hero p {
+    margin: 22px 0 0;
+    font-size: {{ section.settings.hero_subtitle_size }}px;
+    color: {{ section.settings.hero_text }};
+  }
+
+  .perito-contact__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 74px 64px 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
+
+  .perito-contact h2 {
+    margin: 0 0 28px;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .perito-contact__field {
+    margin-bottom: 14px;
+  }
+
+  .perito-contact__field label {
+    display: block;
+    font-size: {{ section.settings.field_label_size }}px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
+
+  .perito-contact__field input,
+  .perito-contact__field textarea {
+    width: 100%;
+    border: 0;
+    background: #f7f5ef;
+    color: #1d3210;
+    padding: 13px 15px;
+    font-size: {{ section.settings.input_text_size }}px;
+    min-height: 42px;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .perito-contact__field textarea {
+    min-height: 124px;
+    resize: vertical;
+  }
+
+  .perito-contact__button {
+    width: 100%;
+    border: 0;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    min-height: 44px;
+    font-size: {{ section.settings.button_font_size }}px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .perito-contact__info {
+    max-width: 520px;
+  }
+
+  .perito-contact__item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 14px;
+    margin-bottom: 22px;
+    font-size: {{ section.settings.info_text_size }}px;
+    line-height: 1.5;
+  }
+
+  .perito-contact__icon {
+    width: 24px;
+    height: 24px;
+    color: {{ section.settings.text }};
+    opacity: 0.85;
+  }
+
+  .perito-contact__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .perito-contact__label {
+    font-size: {{ section.settings.info_label_size }}px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 3px;
+  }
+
+  .perito-contact__visit {
+    margin-top: 42px;
+  }
+
+  .perito-contact__visit p {
+    font-size: {{ section.settings.visit_text_size }}px;
+    line-height: 1.7;
+    opacity: 0.78;
+    margin: 0 0 14px;
+  }
+
+  .perito-contact__hours {
+    margin-top: 44px;
+  }
+
+  .perito-contact__hours-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    font-size: {{ section.settings.hours_text_size }}px;
+    line-height: 1.8;
+    opacity: 0.78;
+  }
+
+  .perito-contact__success,
+  .perito-contact__errors {
+    font-size: {{ section.settings.message_text_size }}px;
+    margin-bottom: 18px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .perito-contact__hero {
+      min-height: {{ section.settings.mobile_hero_height }}px;
+      padding: 0 20px;
+    }
+
+    .perito-contact__hero h1 {
+      font-size: {{ section.settings.mobile_hero_title_size }}px;
+    }
+
+    .perito-contact__hero p {
+      font-size: {{ section.settings.mobile_hero_subtitle_size }}px;
+    }
+
+    .perito-contact h2 {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-contact__inner {
+      grid-template-columns: 1fr;
+      padding: 50px 20px 70px;
+      gap: 56px;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-contact">
+  <div class="perito-contact__hero">
+    <div>
+      <h1>{{ section.settings.hero_title }}</h1>
+
+      {% if section.settings.hero_subtitle != blank %}
+        <p>{{ section.settings.hero_subtitle }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="perito-contact__inner">
+    <div>
+      <h2>{{ section.settings.form_heading }}</h2>
+
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div class="perito-contact__success">
+            {{ section.settings.success_message }}
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="perito-contact__errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="perito-contact__field">
+          <label for="ContactFormName">Name</label>
+          <input id="ContactFormName" type="text" name="contact[name]" placeholder="Your name" value="{% if form.name %}{{ form.name }}{% endif %}">
+        </div>
+
+        <div class="perito-contact__field">
+          <label for="ContactFormEmail">Email</label>
+          <input id="ContactFormEmail" type="email" name="contact[email]" placeholder="your@email.com" value="{% if form.email %}{{ form.email }}{% endif %}" required>
+        </div>
+
+        <div class="perito-contact__field">
+          <label for="ContactFormSubject">Subject</label>
+          <input id="ContactFormSubject" type="text" name="contact[subject]" placeholder="How can we help?">
+        </div>
+
+        <div class="perito-contact__field">
+          <label for="ContactFormMessage">Message</label>
+          <textarea id="ContactFormMessage" name="contact[body]" placeholder="Tell us more...">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+
+        <button class="perito-contact__button" type="submit">
+          {{ section.settings.button_label }}
+        </button>
+      {% endform %}
+    </div>
+
+    <div class="perito-contact__info">
+      <h2>{{ section.settings.info_heading }}</h2>
+
+      <div class="perito-contact__item">
+        <div class="perito-contact__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="perito-contact__label">Email</div>
+          <div>{{ section.settings.email }}</div>
+        </div>
+      </div>
+
+      <div class="perito-contact__item">
+        <div class="perito-contact__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M21.9994 16.92V19.92C22.0006 20.1985 21.9435 20.4741 21.832 20.7293C21.7204 20.9845 21.5567 21.2136 21.3515 21.4018C21.1463 21.5901 20.904 21.7335 20.6402 21.8227C20.3764 21.9119 20.0968 21.945 19.8194 21.92C16.7423 21.5856 13.7864 20.5341 11.1894 18.85C8.77327 17.3146 6.72478 15.2661 5.18945 12.85C3.49942 10.2412 2.44769 7.27097 2.11944 4.17997C2.09446 3.90344 2.12732 3.62474 2.21595 3.3616C2.30457 3.09846 2.44702 2.85666 2.63421 2.6516C2.82141 2.44653 3.04925 2.28268 3.30324 2.1705C3.55722 2.05831 3.83179 2.00024 4.10945 1.99997H7.10945C7.59475 1.9952 8.06524 2.16705 8.43321 2.48351C8.80118 2.79996 9.04152 3.23942 9.10944 3.71997C9.23607 4.68004 9.47089 5.6227 9.80945 6.52997C9.94399 6.8879 9.97311 7.27689 9.89335 7.65086C9.8136 8.02482 9.62831 8.36809 9.35944 8.63998L8.08945 9.90997C9.513 12.4135 11.5859 14.4864 14.0894 15.91L15.3594 14.64C15.6313 14.3711 15.9746 14.1858 16.3486 14.1061C16.7225 14.0263 17.1115 14.0554 17.4694 14.19C18.3767 14.5285 19.3194 14.7634 20.2794 14.89C20.7652 14.9585 21.2088 15.2032 21.526 15.5775C21.8431 15.9518 22.0116 16.4296 21.9994 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="perito-contact__label">Phone</div>
+          <div>{{ section.settings.phone }}</div>
+        </div>
+      </div>
+
+      <div class="perito-contact__item">
+        <div class="perito-contact__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M20 10C20 14.993 14.461 20.193 12.601 21.799C12.4277 21.9293 12.2168 21.9998 12 21.9998C11.7832 21.9998 11.5723 21.9293 11.399 21.799C9.539 20.193 4 14.993 4 10C4 7.87827 4.84285 5.84344 6.34315 4.34315C7.84344 2.84285 9.87827 2 12 2C14.1217 2 16.1566 2.84285 17.6569 4.34315C19.1571 5.84344 20 7.87827 20 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="perito-contact__label">Studio</div>
+          <div>{{ section.settings.studio }}</div>
+        </div>
+      </div>
+
+      <div class="perito-contact__visit">
+        <h2>{{ section.settings.visit_heading }}</h2>
+        <p>{{ section.settings.visit_text }}</p>
+        <p>{{ section.settings.visit_note }}</p>
+      </div>
+
+      <div class="perito-contact__hours">
+        <h2>{{ section.settings.hours_heading }}</h2>
+
+        <div class="perito-contact__hours-row">
+          <span>Monday - Friday</span>
+          <span>{{ section.settings.weekday_hours }}</span>
+        </div>
+
+        <div class="perito-contact__hours-row">
+          <span>Saturday</span>
+          <span>{{ section.settings.saturday_hours }}</span>
+        </div>
+
+        <div class="perito-contact__hours-row">
+          <span>Sunday</span>
+          <span>{{ section.settings.sunday_hours }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito contact",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#1D3210"
+    },
+    {
+      "type": "color",
+      "id": "text",
+      "label": "Text",
+      "default": "#F4F0E7"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Hero height",
+      "min": 220,
+      "max": 640,
+      "step": 10,
+      "default": 330,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_hero_height",
+      "label": "Mobile hero height",
+      "min": 220,
+      "max": 520,
+      "step": 10,
+      "default": 390,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Hero overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 65
+    },
+    {
+      "type": "color",
+      "id": "hero_text",
+      "label": "Hero text",
+      "default": "#F4F0E7"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "We’d love to hear from you"
+    },
+    {
+      "type": "header",
+      "content": "Font sizes"
+    },
+    {
+      "type": "range",
+      "id": "hero_title_size",
+      "label": "Hero title font size",
+      "min": 28,
+      "max": 90,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_subtitle_size",
+      "label": "Hero subtitle font size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_hero_title_size",
+      "label": "Mobile hero title font size",
+      "min": 24,
+      "max": 70,
+      "step": 1,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_hero_subtitle_size",
+      "label": "Mobile hero subtitle font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "default": 21,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "default": 21,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "field_label_size",
+      "label": "Form label font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "input_text_size",
+      "label": "Input text font size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "info_label_size",
+      "label": "Info label font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "info_text_size",
+      "label": "Info text font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "visit_text_size",
+      "label": "Visit text font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hours_text_size",
+      "label": "Hours text font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "message_text_size",
+      "label": "Success/error message font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Send us a message"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for contacting us. We’ll get back to you soon."
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#66773A"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#F4F0E7"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Send Message"
+    },
+    {
+      "type": "text",
+      "id": "info_heading",
+      "label": "Info heading",
+      "default": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "hello@peritomoreno.in"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+91 12345 67890"
+    },
+    {
+      "type": "textarea",
+      "id": "studio",
+      "label": "Studio",
+      "default": "United Kingdom"
+    },
+    {
+      "type": "text",
+      "id": "visit_heading",
+      "label": "Visit heading",
+      "default": "Visit Our Studio"
+    },
+    {
+      "type": "textarea",
+      "id": "visit_text",
+      "label": "Visit text",
+      "default": "Private studio visits are available by appointment. Experience our complete collection, consult with our perfumer, and explore bespoke services."
+    },
+    {
+      "type": "textarea",
+      "id": "visit_note",
+      "label": "Visit note",
+      "default": "Please contact us to schedule your visit."
+    },
+    {
+      "type": "text",
+      "id": "hours_heading",
+      "label": "Hours heading",
+      "default": "Business Hours"
+    },
+    {
+      "type": "text",
+      "id": "weekday_hours",
+      "label": "Monday - Friday hours",
+      "default": "10:00 AM - 6:00 PM"
+    },
+    {
+      "type": "text",
+      "id": "saturday_hours",
+      "label": "Saturday hours",
+      "default": "11:00 AM - 5:00 PM"
+    },
+    {
+      "type": "text",
+      "id": "sunday_hours",
+      "label": "Sunday hours",
+      "default": "Closed"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito contact"
+    }
+  ]
+}
+{% endschema %}

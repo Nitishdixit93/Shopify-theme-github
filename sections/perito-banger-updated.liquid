@@ -1,0 +1,239 @@
+{% style %}
+  .perito-stay-updated {
+    background: #5E6B36;
+    color: #ffffff;
+    text-align: center;
+    padding: 92px 24px;
+  }
+
+  .perito-stay-updated__inner {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .perito-stay-updated h2 {
+    margin: 0 0 22px;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  .perito-stay-updated p {
+    margin: 0 auto 28px;
+    font-size: {{ section.settings.paragraph_size }}px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-stay-updated form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .perito-stay-updated input[type="email"] {
+    width: 260px;
+    min-height: 40px;
+    border: 0;
+    background: #FAF8F5;
+    color: #283416;
+    padding: 0 16px;
+    font-size: {{ section.settings.input_size }}px;
+    outline: none;
+  }
+
+  .perito-stay-updated button {
+    min-height: 40px;
+    border: 0;
+    background: #FAF8F5;
+    color: #283416;
+    padding: 0 26px;
+    font-size: {{ section.settings.button_size }}px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .perito-stay-updated__message {
+    margin-top: 16px;
+    font-size: {{ section.settings.message_size }}px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media screen and (max-width: 640px) {
+    .perito-stay-updated {
+      padding: 72px 20px;
+    }
+
+    .perito-stay-updated h2 {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-stay-updated p {
+      font-size: {{ section.settings.mobile_paragraph_size }}px;
+    }
+
+    .perito-stay-updated form {
+      flex-direction: column;
+    }
+
+    .perito-stay-updated input[type="email"],
+    .perito-stay-updated button {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-stay-updated">
+  <div class="perito-stay-updated__inner">
+    <h2>{{ section.settings.heading }}</h2>
+
+    {% if section.settings.text != blank %}
+      <p>{{ section.settings.text }}</p>
+    {% endif %}
+
+    {% form 'customer' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <input
+        type="email"
+        name="contact[email]"
+        placeholder="{{ section.settings.placeholder }}"
+        required
+      >
+
+      <button type="submit">
+        {{ section.settings.button_label }}
+      </button>
+
+      {% if form.posted_successfully? %}
+        <div class="perito-stay-updated__message">
+          {{ section.settings.success_message }}
+        </div>
+      {% endif %}
+
+      {% if form.errors %}
+        <div class="perito-stay-updated__message">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito stay updated",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stay Updated"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Receive our monthly curation directly in your inbox, along with seasonal fragrance tips and new release announcements."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for subscribing."
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 18,
+      "max": 50,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_size",
+      "label": "Mobile paragraph font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "input_size",
+      "label": "Input text font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "message_size",
+      "label": "Message font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito stay updated"
+    }
+  ]
+}
+{% endschema %}

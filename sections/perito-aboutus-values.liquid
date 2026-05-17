@@ -1,0 +1,328 @@
+{% style %}
+.perito-our-values {
+  background-color: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  text-align: center;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.padding_bottom }}px;
+}
+
+.perito-our-values h2 {
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 600;
+  margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+}
+
+.perito-our-values__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: {{ section.settings.grid_gap }}px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.perito-our-values__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.perito-our-values__item svg,
+.perito-our-values__item img {
+  width: {{ section.settings.icon_size }}px;
+  height: {{ section.settings.icon_size }}px;
+  margin-bottom: {{ section.settings.icon_text_gap }}px;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perito-our-values__item h3 {
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 600;
+  margin-bottom: {{ section.settings.text_gap }}px;
+}
+
+.perito-our-values__item p {
+  font-size: {{ section.settings.text_size }}px;
+  line-height: 1.5;
+  max-width: 220px;
+  margin: 0 auto;
+  color: {{ section.settings.text_color }};
+}
+{% endstyle %}
+
+<section class="perito-our-values">
+  <h2>{{ section.settings.section_title }}</h2>
+  <div class="perito-our-values__grid">
+    {% for block in section.blocks %}
+      <div class="perito-our-values__item">
+        {% if block.settings.icon_image != blank %}
+          <img src="{{ block.settings.icon_image | img_url: '56x56' }}" alt="{{ block.settings.title }}">
+        {% else %}
+          {% case block.type %}
+            {% when 'value_item_1' %}
+              <!-- Excellence SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M20.6357 17.1866L22.6557 28.5546C22.6783 28.6885 22.6595 28.8261 22.6018 28.949C22.5442 29.0719 22.4503 29.1742 22.3329 29.2424C22.2155 29.3105 22.0801 29.3412 21.9447 29.3303C21.8094 29.3193 21.6807 29.2674 21.5757 29.1813L16.8023 25.5986C16.5719 25.4265 16.292 25.3335 16.0043 25.3335C15.7167 25.3335 15.4368 25.4265 15.2063 25.5986L10.425 29.18C10.3201 29.2659 10.1915 29.3178 10.0563 29.3287C9.92117 29.3396 9.7859 29.3091 9.66855 29.2411C9.55121 29.1732 9.45737 29.0711 9.39956 28.9484C9.34175 28.8258 9.32272 28.6884 9.345 28.5546L11.3637 17.1866" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 18.6666C20.4183 18.6666 24 15.0849 24 10.6666C24 6.24835 20.4183 2.66663 16 2.66663C11.5817 2.66663 8 6.24835 8 10.6666C8 15.0849 11.5817 18.6666 16 18.6666Z" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {% when 'value_item_2' %}
+              <!-- Sustainability SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M14.6663 26.6666C12.3251 26.6737 10.0667 25.8006 8.339 24.2205C6.61136 22.6404 5.54067 20.4687 5.33929 18.1361C5.13792 15.8035 5.82057 13.4804 7.25185 11.6276C8.68312 9.77479 10.7585 8.52756 13.0663 8.13329C20.6663 6.66663 22.6663 5.97329 25.333 2.66663C26.6663 5.33329 27.9996 8.23996 27.9996 13.3333C27.9996 20.6666 21.6263 26.6666 14.6663 26.6666Z" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.66602 28C2.66602 24 5.13268 20.8533 9.43935 20C12.666 19.36 15.9993 17.3333 17.3327 16" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {% when 'value_item_3' %}
+              <!-- Community SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M21.3346 28V25.3333C21.3346 23.9188 20.7727 22.5623 19.7725 21.5621C18.7723 20.5619 17.4158 20 16.0013 20H8.0013C6.58681 20 5.23026 20.5619 4.23007 21.5621C3.22987 22.5623 2.66797 23.9188 2.66797 25.3333V28" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.0013 14.6667C14.9468 14.6667 17.3346 12.2789 17.3346 9.33333C17.3346 6.38781 14.9468 4 12.0013 4C9.05578 4 6.66797 6.38781 6.66797 9.33333C6.66797 12.2789 9.05578 14.6667 12.0013 14.6667Z" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M29.332 28V25.3333C29.3311 24.1516 28.9378 23.0037 28.2139 22.0698C27.4899 21.1358 26.4762 20.4688 25.332 20.1733" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21.332 4.17334C22.4793 4.46707 23.4961 5.13427 24.2222 6.06975C24.9484 7.00523 25.3425 8.15578 25.3425 9.34001C25.3425 10.5242 24.9484 11.6748 24.2222 12.6103C23.4961 13.5457 22.4793 14.2129 21.332 14.5067" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {% when 'value_item_4' %}
+              <!-- Innovation SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M13.2486 20.6667C13.1296 20.2053 12.8891 19.7842 12.5521 19.4472C12.2151 19.1103 11.794 18.8698 11.3326 18.7507L3.1526 16.6414C3.01304 16.6018 2.89021 16.5177 2.80275 16.402C2.71529 16.2862 2.66797 16.1451 2.66797 16C2.66797 15.855 2.71529 15.7139 2.80275 15.5981C2.89021 15.4824 3.01304 15.3983 3.1526 15.3587L11.3326 13.248C11.7939 13.1291 12.2149 12.8888 12.5518 12.5521C12.8888 12.2154 13.1294 11.7946 13.2486 11.3334L15.3579 3.15338C15.3971 3.01327 15.4811 2.88984 15.597 2.80191C15.7129 2.71398 15.8544 2.66638 15.9999 2.66638C16.1454 2.66638 16.2869 2.71398 16.4028 2.80191C16.5188 2.88984 16.6027 3.01327 16.6419 3.15338L18.7499 11.3334C18.869 11.7948 19.1095 12.2159 19.4464 12.5529C19.7834 12.8898 20.2045 13.1303 20.6659 13.2494L28.8459 15.3574C28.9866 15.3962 29.1107 15.4801 29.1991 15.5961C29.2875 15.7122 29.3353 15.8541 29.3353 16C29.3353 16.146 29.2875 16.2879 29.1991 16.4039C29.1107 16.52 28.9866 16.6039 28.8459 16.6427L20.6659 18.7507C20.2045 18.8698 19.7834 19.1103 19.4464 19.4472C19.1095 19.7842 18.869 20.2053 18.7499 20.6667L16.6406 28.8467C16.6014 28.9868 16.5174 29.1103 16.4015 29.1982C16.2856 29.2861 16.1441 29.3337 15.9986 29.3337C15.8531 29.3337 15.7116 29.2861 15.5957 29.1982C15.4798 29.1103 15.3958 28.9868 15.3566 28.8467L13.2486 20.6667Z" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M26.668 4V9.33333" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M29.3333 6.66663H24" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.33203 22.6666V25.3333" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66667 24H4" stroke="#283416" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          {% endcase %}
+        {% endif %}
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Our Values"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#6b7a43"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 2,
+      "max": 200,
+      "step": 2,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 2,
+      "max": 200,
+      "step": 2,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_sides",
+      "label": "Padding Sides (px)",
+      "min": 2,
+      "max": 200,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size (px)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Heading Margin Bottom (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid Gap (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size (px)",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "Gap Between Icon & Title (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Size (px)",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text Size (px)",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "text_gap",
+      "label": "Gap Between Title & Text (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_item_1",
+      "name": "Excellence",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Optional icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Excellence"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "We refuse to compromise on quality…"
+        }
+      ]
+    },
+    {
+      "type": "value_item_2",
+      "name": "Sustainability",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Optional icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sustainability"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Ethical sourcing, fair compensation…"
+        }
+      ]
+    },
+    {
+      "type": "value_item_3",
+      "name": "Community",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Optional icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Community"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "We work directly with distillers…"
+        }
+      ]
+    },
+    {
+      "type": "value_item_4",
+      "name": "Innovation",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Optional icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Innovation"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "While respecting tradition, we embrace modern techniques…"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Values",
+      "category": "About Page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,476 @@
+{% style %}
+.perito-how-we-create {
+  background-color: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.padding_bottom }}px;
+}
+
+.perito-how-we-create__inner {
+  max-width: {{ section.settings.section_max_width }}px;
+  margin: 0 auto;
+}
+
+.perito-how-we-create__header {
+  text-align: center;
+  margin-bottom: {{ section.settings.header_margin_bottom }}px;
+}
+
+.perito-how-we-create__heading {
+  color: {{ section.settings.text_color }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: {{ section.settings.heading_weight }};
+  line-height: 1.1;
+  letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px;
+}
+
+.perito-how-we-create__description {
+  color: {{ section.settings.description_color }};
+  font-size: {{ section.settings.description_size }}px;
+  font-weight: {{ section.settings.description_weight }};
+  line-height: {{ section.settings.description_line_height }};
+  margin: 0 auto;
+  max-width: {{ section.settings.description_max_width }}px;
+}
+
+.perito-how-we-create__steps {
+  max-width: {{ section.settings.steps_max_width }}px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: {{ section.settings.step_gap }}px;
+}
+
+.perito-how-we-create__step {
+  display: grid;
+  grid-template-columns: {{ section.settings.line_width }}px 1fr;
+  gap: {{ section.settings.line_text_gap }}px;
+  align-items: start;
+}
+
+.perito-how-we-create__line {
+  width: {{ section.settings.line_width }}px;
+  height: {{ section.settings.line_height }}px;
+  background-color: {{ section.settings.line_color }};
+  margin-top: {{ section.settings.line_margin_top }}px;
+}
+
+.perito-how-we-create__content {
+  padding-top: 0;
+}
+
+.perito-how-we-create__title {
+  color: {{ section.settings.text_color }};
+  font-size: {{ section.settings.step_title_size }}px;
+  font-weight: {{ section.settings.step_title_weight }};
+  line-height: 1.25;
+  margin: 0 0 {{ section.settings.step_title_margin_bottom }}px;
+}
+
+.perito-how-we-create__number {
+  margin-right: {{ section.settings.number_gap }}px;
+}
+
+.perito-how-we-create__text {
+  color: {{ section.settings.step_text_color }};
+  font-size: {{ section.settings.step_text_size }}px;
+  font-weight: {{ section.settings.step_text_weight }};
+  line-height: {{ section.settings.step_text_line_height }};
+  margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .perito-how-we-create {
+    padding: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_sides }}px {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  .perito-how-we-create__heading {
+    font-size: {{ section.settings.mobile_heading_size }}px;
+  }
+
+  .perito-how-we-create__description {
+    font-size: {{ section.settings.mobile_description_size }}px;
+  }
+
+  .perito-how-we-create__steps {
+    gap: {{ section.settings.mobile_step_gap }}px;
+  }
+
+  .perito-how-we-create__step {
+    gap: {{ section.settings.mobile_line_text_gap }}px;
+  }
+
+  .perito-how-we-create__title {
+    font-size: {{ section.settings.mobile_step_title_size }}px;
+  }
+
+  .perito-how-we-create__text {
+    font-size: {{ section.settings.mobile_step_text_size }}px;
+  }
+}
+{% endstyle %}
+
+<section class="perito-how-we-create">
+  <div class="perito-how-we-create__inner">
+    <div class="perito-how-we-create__header">
+      {% if section.settings.section_title != blank %}
+        <h2 class="perito-how-we-create__heading">
+          {{ section.settings.section_title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.section_description != blank %}
+        <p class="perito-how-we-create__description">
+          {{ section.settings.section_description }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="perito-how-we-create__steps">
+      {% for block in section.blocks %}
+        {% liquid
+          assign step_number = forloop.index
+          if step_number < 10
+            assign formatted_number = step_number | prepend: '0'
+          else
+            assign formatted_number = step_number
+          endif
+        %}
+
+        <div class="perito-how-we-create__step" {{ block.shopify_attributes }}>
+          <div class="perito-how-we-create__line"></div>
+
+          <div class="perito-how-we-create__content">
+            {% if block.settings.step_title != blank %}
+              <h3 class="perito-how-we-create__title">
+                <span class="perito-how-we-create__number">{{ formatted_number }}.</span>{{ block.settings.step_title }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.step_text != blank %}
+              <p class="perito-how-we-create__text">
+                {{ block.settings.step_text }}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How We Create",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "How We Create"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section description",
+      "default": "From concept to bottle, every fragrance undergoes a rigorous creative and technical process"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#5F7137"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#D8DEC4"
+    },
+    {
+      "type": "color",
+      "id": "step_text_color",
+      "label": "Step text color",
+      "default": "#E1E5D2"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Vertical line color",
+      "default": "#263514"
+    },
+    {
+      "type": "number",
+      "id": "section_max_width",
+      "label": "Section max width",
+      "default": 1500
+    },
+    {
+      "type": "number",
+      "id": "steps_max_width",
+      "label": "Steps max width",
+      "default": 900
+    },
+    {
+      "type": "number",
+      "id": "description_max_width",
+      "label": "Description max width",
+      "default": 760
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 150
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 145
+    },
+    {
+      "type": "number",
+      "id": "padding_sides",
+      "label": "Side padding",
+      "default": 24
+    },
+    {
+      "type": "number",
+      "id": "header_margin_bottom",
+      "label": "Header bottom spacing",
+      "default": 68
+    },
+    {
+      "type": "number",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": 52
+    },
+    {
+      "type": "number",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "default": 500
+    },
+    {
+      "type": "number",
+      "id": "heading_letter_spacing",
+      "label": "Heading letter spacing",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "heading_margin_bottom",
+      "label": "Heading bottom spacing",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "description_size",
+      "label": "Description size",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "description_weight",
+      "label": "Description weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "default": "1.6"
+    },
+    {
+      "type": "number",
+      "id": "step_gap",
+      "label": "Gap between steps",
+      "default": 52
+    },
+    {
+      "type": "number",
+      "id": "line_width",
+      "label": "Vertical line width",
+      "default": 5
+    },
+    {
+      "type": "number",
+      "id": "line_height",
+      "label": "Vertical line height",
+      "default": 122
+    },
+    {
+      "type": "number",
+      "id": "line_margin_top",
+      "label": "Vertical line top spacing",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "line_text_gap",
+      "label": "Gap between line and text",
+      "default": 44
+    },
+    {
+      "type": "number",
+      "id": "number_gap",
+      "label": "Gap after number",
+      "default": 8
+    },
+    {
+      "type": "number",
+      "id": "step_title_size",
+      "label": "Step title size",
+      "default": 28
+    },
+    {
+      "type": "number",
+      "id": "step_title_weight",
+      "label": "Step title weight",
+      "default": 600
+    },
+    {
+      "type": "number",
+      "id": "step_title_margin_bottom",
+      "label": "Step title bottom spacing",
+      "default": 26
+    },
+    {
+      "type": "number",
+      "id": "step_text_size",
+      "label": "Step text size",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "step_text_weight",
+      "label": "Step text weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "step_text_line_height",
+      "label": "Step text line height",
+      "default": "1.7"
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_sides",
+      "label": "Mobile side padding",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "default": 34
+    },
+    {
+      "type": "number",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "default": 14
+    },
+    {
+      "type": "number",
+      "id": "mobile_step_gap",
+      "label": "Mobile gap between steps",
+      "default": 36
+    },
+    {
+      "type": "number",
+      "id": "mobile_line_text_gap",
+      "label": "Mobile gap between line and text",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "mobile_step_title_size",
+      "label": "Mobile step title size",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_step_text_size",
+      "label": "Mobile step text size",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "Step title",
+          "default": "Inspiration & Research"
+        },
+        {
+          "type": "textarea",
+          "id": "step_text",
+          "label": "Step text",
+          "default": "Every fragrance begins with a question or an image—an emotion, a memory of jasmine at dawn, the smoke of temple incense. We research materials, study traditional methods, and build a creative brief."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How We Create",
+      "category": "About Page",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Inspiration & Research",
+            "step_text": "Every fragrance begins with a question or an image—an emotion, a memory of jasmine at dawn, the smoke of temple incense. We research materials, study traditional methods, and build a creative brief."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Material Sourcing",
+            "step_text": "We source ingredients specifically for each composition. This might mean waiting for harvest season, visiting new distilleries, or importing rare molecules that perfectly capture a specific facet."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Formula Development",
+            "step_text": "Multiple trials are composed and tested over weeks or months. We evaluate longevity, projection, development, and emotional resonance. Formulas are refined until they meet our standards."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Maturation & Bottling",
+            "step_text": "The final formula is produced in small batches, matured to allow the components to marry, then filtered and hand-bottled. Each bottle is individually inspected before shipment."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

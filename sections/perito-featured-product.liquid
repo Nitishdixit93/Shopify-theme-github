@@ -1,0 +1,1489 @@
+{% style %}
+  .perito-feature-product {
+    background: {{ section.settings.section_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-feature-product__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: calc(var(--perito-section-space-bottom) + {{ section.settings.padding_bottom }}px);
+}
+
+  .perito-feature-product__grid {
+    display: grid;
+    grid-template-columns: {{ section.settings.image_column_width }}px minmax(0, 1fr);
+    justify-content: start;
+    align-items: start;
+    column-gap: {{ section.settings.column_gap }}px;
+  }
+
+  .perito-feature-product__media {
+    width: 100%;
+  }
+
+  .perito-feature-product__image-wrap {
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    background: {{ section.settings.image_bg }};
+    overflow: hidden;
+  }
+
+  .perito-feature-product__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center center;
+  }
+
+  .perito-feature-product__placeholder {
+    width: 100%;
+    height: 100%;
+    background: {{ section.settings.image_bg }};
+  }
+
+  .perito-feature-product__content {
+    width: 100%;
+    max-width: none;
+    padding-top: {{ section.settings.content_offset_top }}px;
+  }
+
+  .perito-feature-product__eyebrow {
+    margin: 0 0 {{ section.settings.eyebrow_margin_bottom }}px;
+    color: {{ section.settings.eyebrow_color }};
+    font-size: {{ section.settings.eyebrow_font_size }}px;
+    line-height: {{ section.settings.eyebrow_line_height }};
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.eyebrow_font_weight }};
+    opacity: 0.92;
+  }
+
+  .perito-feature-product__title {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size }}px;
+    line-height: {{ section.settings.heading_line_height }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}em;
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+
+  .perito-feature-product__lead {
+    margin: {{ section.settings.lead_margin_top }}px 0 0;
+    color: {{ section.settings.lead_color }};
+    font-size: {{ section.settings.lead_font_size }}px;
+    line-height: {{ section.settings.lead_line_height }};
+    letter-spacing: {{ section.settings.lead_letter_spacing }}em;
+    font-weight: {{ section.settings.lead_font_weight }};
+    max-width: 100%;
+    opacity: 0.95;
+  }
+
+  .perito-feature-product__body {
+    margin: {{ section.settings.body_margin_top }}px 0 0;
+    color: {{ section.settings.body_color }};
+    font-size: {{ section.settings.body_font_size }}px;
+    line-height: {{ section.settings.body_line_height }};
+    letter-spacing: {{ section.settings.body_letter_spacing }}em;
+    font-weight: {{ section.settings.body_font_weight }};
+    max-width: 100%;
+    opacity: 0.92;
+  }
+
+  .perito-feature-product__notes {
+    margin-top: {{ section.settings.notes_margin_top }}px;
+    padding-top: {{ section.settings.notes_padding_top }}px;
+    border-top: 1px solid {{ section.settings.divider_color }};
+    display: flex;
+    justify-content: space-between;
+    gap: {{ section.settings.notes_gap }}px;
+  }
+
+  .perito-feature-product__note-label {
+    margin: 0 0 {{ section.settings.note_label_margin_bottom }}px;
+    color: {{ section.settings.note_label_color }};
+    font-size: {{ section.settings.note_label_font_size }}px;
+    line-height: {{ section.settings.note_label_line_height }};
+    letter-spacing: {{ section.settings.note_label_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.note_label_font_weight }};
+    opacity: 0.9;
+  }
+
+  .perito-feature-product__note-text {
+    margin: 0;
+    color: {{ section.settings.note_text_color }};
+    font-size: {{ section.settings.note_text_font_size }}px;
+    line-height: {{ section.settings.note_text_line_height }};
+    letter-spacing: {{ section.settings.note_text_letter_spacing }}em;
+    font-weight: {{ section.settings.note_text_font_weight }};
+    opacity: 0.95;
+  }
+
+  .perito-feature-product__bottom {
+    width: 100%;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: {{ section.settings.bottom_gap }}px;
+    margin-top: {{ section.settings.bottom_margin_top }}px;
+  }
+
+.perito-feature-product__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: {{ section.settings.button_height }}px;
+  padding: 0 {{ section.settings.button_padding_x }}px;
+  background: {{ section.settings.button_bg }};
+  color: {{ section.settings.button_text }};
+  border: 1px solid {{ section.settings.button_bg }};
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: {{ section.settings.button_font_size }}px;
+  line-height: 1;
+  letter-spacing: {{ section.settings.button_letter_spacing }}em;
+  font-weight: {{ section.settings.button_font_weight }};
+  transition: opacity 0.2s ease;
+  box-sizing: border-box;
+}
+
+  .perito-feature-product__price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: {{ section.settings.price_gap }}px;
+    color: {{ section.settings.price_color }};
+  }
+
+  .perito-feature-product__price {
+    margin: 0;
+    font-size: {{ section.settings.price_font_size }}px;
+    line-height: 1;
+    letter-spacing: {{ section.settings.price_letter_spacing }}em;
+    font-weight: {{ section.settings.price_font_weight }};
+  }
+
+  .perito-feature-product__size {
+    margin: 0;
+    color: {{ section.settings.size_color }};
+    font-size: {{ section.settings.size_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.size_letter_spacing }}em;
+    font-weight: {{ section.settings.size_font_weight }};
+    opacity: 0.92;
+  }
+
+  .perito-feature-product__button:hover {
+    opacity: 0.92;
+  }
+
+
+  @media screen and (max-width: 989px) {
+    .perito-feature-product__inner {
+      padding:
+        {{ section.settings.mobile_padding_top }}px
+        {{ section.settings.mobile_padding_x }}px
+        {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-feature-product__grid {
+      grid-template-columns: 1fr;
+      row-gap: {{ section.settings.mobile_row_gap }}px;
+    }
+
+    .perito-feature-product__image-wrap {
+      height: {{ section.settings.mobile_image_height }}px;
+    }
+
+    .perito-feature-product__content {
+      max-width: 100%;
+      padding-top: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .perito-feature-product__title {
+      font-size: {{ section.settings.mobile_heading_font_size }}px;
+    }
+
+    .perito-feature-product__lead {
+      font-size: {{ section.settings.mobile_lead_font_size }}px;
+      max-width: 100%;
+    }
+
+    .perito-feature-product__body {
+      font-size: {{ section.settings.mobile_body_font_size }}px;
+      max-width: 100%;
+    }
+
+    .perito-feature-product__notes {
+      grid-template-columns: 1fr;
+      row-gap: 14px;
+    }
+
+    .perito-feature-product__bottom {
+      align-items: stretch;
+    }
+
+    .perito-feature-product__button {
+      min-width: 100%;
+      width: 100%;
+      height: {{ section.settings.mobile_button_height }}px;
+      font-size: {{ section.settings.mobile_button_font_size }}px;
+    }
+  }
+  @media screen and (min-width: 990px) {
+  .perito-feature-product__grid {
+    width: 100%;
+    grid-template-columns: {{ section.settings.image_column_width }}px minmax(0, 1fr);
+  }
+}
+
+.perito-feature-product__content {
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+}
+
+.perito-feature-product__notes,
+.perito-feature-product__bottom,
+.perito-feature-product__button {
+  width: 100%;
+  max-width: none;
+}
+
+.perito-feature-product__eyebrow,
+.perito-feature-product__title,
+.perito-feature-product__lead,
+.perito-feature-product__body {
+  max-width: {{ section.settings.content_max_width }}px;
+}
+
+/* Feature product mobile containment fix */
+.section-perito-feature-product,
+.section-perito-feature-product *,
+.perito-feature-product,
+.perito-feature-product * {
+  box-sizing: border-box;
+}
+
+.section-perito-feature-product,
+.perito-feature-product {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.perito-feature-product__inner,
+.perito-feature-product__grid,
+.perito-feature-product__media,
+.perito-feature-product__image-wrap,
+.perito-feature-product__content,
+.perito-feature-product__notes,
+.perito-feature-product__bottom,
+.perito-feature-product__button {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.perito-feature-product__image {
+  display: block;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 989px) {
+  .section-perito-feature-product,
+  .perito-feature-product {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .perito-feature-product__inner {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding:
+      {{ section.settings.mobile_padding_top }}px
+      {{ section.settings.mobile_padding_x }}px
+      {{ section.settings.mobile_padding_bottom }}px !important;
+  }
+
+  .perito-feature-product__grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) !important;
+    column-gap: 0 !important;
+    row-gap: 18px;
+  }
+
+  .perito-feature-product__media {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .perito-feature-product__image-wrap {
+    width: 100%;
+    height: clamp(180px, 68vw, 280px) !important;
+    overflow: hidden;
+  }
+
+  .perito-feature-product__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: none !important;
+  }
+
+  .perito-feature-product__content {
+    width: 100%;
+    max-width: 100%;
+    padding-top: 0 !important;
+    display: block;
+  }
+
+  .perito-feature-product__eyebrow,
+  .perito-feature-product__title,
+  .perito-feature-product__lead,
+  .perito-feature-product__body {
+    max-width: 100% !important;
+    overflow-wrap: anywhere;
+  }
+
+  .perito-feature-product__notes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .perito-feature-product__bottom {
+    width: 100%;
+    margin-top: 18px;
+    align-items: stretch;
+  }
+
+  .perito-feature-product__price-wrap {
+    flex-wrap: wrap;
+  }
+
+  .perito-feature-product__button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    height: {{ section.settings.mobile_button_height }}px;
+    white-space: normal;
+    text-align: center;
+  }
+  @media screen and (max-width: 989px) {
+  .perito-feature-product__content {
+    text-align: center !important;
+  }
+
+  .perito-feature-product__eyebrow,
+  .perito-feature-product__title,
+  .perito-feature-product__lead,
+  .perito-feature-product__body {
+    width: 100%;
+    max-width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+  }
+
+  .perito-feature-product__notes {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .perito-feature-product__note {
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center !important;
+  }
+
+  .perito-feature-product__note-label,
+  .perito-feature-product__note-text {
+    width: 100%;
+    text-align: center !important;
+  }
+
+  .perito-feature-product__price-wrap {
+    width: 100%;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+}
+}
+{% endstyle %}
+
+{% capture feature_sizes %}(min-width: 990px) {{ section.settings.image_column_width }}px, 100vw{% endcapture %}
+
+{% liquid
+  assign featured_product = section.settings.featured_product
+
+  assign feature_image = section.settings.image
+  assign feature_eyebrow = section.settings.eyebrow
+  assign feature_title = section.settings.title
+  assign feature_lead = section.settings.lead
+  assign feature_body = section.settings.body
+  assign feature_note_1_label = section.settings.note_1_label
+  assign feature_note_1_text = section.settings.note_1_text
+  assign feature_note_2_label = section.settings.note_2_label
+  assign feature_note_2_text = section.settings.note_2_text
+  assign feature_note_3_label = section.settings.note_3_label
+  assign feature_note_3_text = section.settings.note_3_text
+  assign feature_size = section.settings.size
+  assign feature_url = section.settings.button_link | default: '#'
+  assign feature_button_label = section.settings.button_label
+
+  if featured_product != blank
+    assign current_variant = featured_product.selected_or_first_available_variant
+    assign description_text = featured_product.description | strip_html
+
+    assign story_text = description_text
+    assign top_notes = ''
+    assign middle_notes = ''
+    assign base_notes = ''
+
+    if description_text contains 'TOP NOTES'
+      assign story_text = description_text | split: 'TOP NOTES' | first | strip
+
+      assign after_top = description_text | split: 'TOP NOTES' | last
+      assign top_notes = after_top | split: 'MIDDLE NOTES' | first | strip
+    endif
+
+    if description_text contains 'MIDDLE NOTES'
+      assign after_middle = description_text | split: 'MIDDLE NOTES' | last
+      assign middle_notes = after_middle | split: 'BASE NOTES' | first | strip
+    endif
+
+    if description_text contains 'BASE NOTES'
+      assign base_notes = description_text | split: 'BASE NOTES' | last | strip
+    endif
+
+    assign top_notes_clean = top_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+    assign middle_notes_clean = middle_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+    assign base_notes_clean = base_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+
+    assign feature_image = featured_product.featured_image
+    assign feature_title = featured_product.title
+    assign feature_url = featured_product.url
+    assign feature_button_label = 'Explore ' | append: featured_product.title
+
+    if featured_product.metafields.custom.collection_name != blank
+      assign feature_eyebrow = featured_product.metafields.custom.collection_name
+    elsif featured_product.collections.first != blank
+      assign feature_eyebrow = featured_product.collections.first.title
+    else
+      assign feature_eyebrow = featured_product.vendor
+    endif
+
+    if featured_product.metafields.custom.short_description != blank
+      assign feature_lead = featured_product.metafields.custom.short_description
+    elsif story_text != blank
+      assign feature_lead = story_text | truncate: 150
+    else
+      assign feature_lead = description_text | truncate: 150
+    endif
+
+    if story_text != blank
+      assign feature_body = story_text | truncate: 260
+    else
+      assign feature_body = ''
+    endif
+
+    assign feature_note_1_label = 'TOP'
+    assign feature_note_1_text = top_notes_clean
+    assign feature_note_2_label = 'HEART'
+    assign feature_note_2_text = middle_notes_clean
+    assign feature_note_3_label = 'BASE'
+    assign feature_note_3_text = base_notes_clean
+
+    assign variant_title_downcase = current_variant.title | downcase
+    assign feature_size = ''
+
+    if variant_title_downcase contains 'ml'
+      assign feature_size = current_variant.title | split: ' / ' | first
+    elsif featured_product.metafields.custom.size != blank
+      assign feature_size = featured_product.metafields.custom.size
+    endif
+  endif
+%}
+
+<section class="perito-feature-product">
+  <div class="perito-feature-product__inner perito-container perito-section-inner">
+    <div class="perito-feature-product__grid">
+      <div class="perito-feature-product__media">
+        <div class="perito-feature-product__image-wrap">
+          {% if feature_image != blank %}
+            {{
+              feature_image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'perito-feature-product__image',
+                loading: 'lazy',
+                widths: '500, 700, 900, 1200, 1600',
+                sizes: feature_sizes,
+                alt: feature_title
+            }}
+          {% else %}
+            <div class="perito-feature-product__placeholder"></div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="perito-feature-product__content">
+        {% if feature_eyebrow != blank %}
+          <p class="perito-feature-product__eyebrow">{{ feature_eyebrow }}</p>
+        {% endif %}
+
+        {% if feature_title != blank %}
+          <h2 class="perito-feature-product__title">{{ feature_title }}</h2>
+        {% endif %}
+
+        {% if feature_lead != blank %}
+          <div class="perito-feature-product__lead">{{ feature_lead }}</div>
+        {% endif %}
+
+        {% if feature_body != blank %}
+          <div class="perito-feature-product__body">{{ feature_body }}</div>
+        {% endif %}
+
+        {% if feature_note_1_text != blank or feature_note_2_text != blank or feature_note_3_text != blank %}
+          <div class="perito-feature-product__notes">
+            {% if feature_note_1_text != blank %}
+              <div class="perito-feature-product__note">
+                <p class="perito-feature-product__note-label">{{ feature_note_1_label }}</p>
+                <p class="perito-feature-product__note-text">{{ feature_note_1_text }}</p>
+              </div>
+            {% endif %}
+
+            {% if feature_note_2_text != blank %}
+              <div class="perito-feature-product__note">
+                <p class="perito-feature-product__note-label">{{ feature_note_2_label }}</p>
+                <p class="perito-feature-product__note-text">{{ feature_note_2_text }}</p>
+              </div>
+            {% endif %}
+
+            {% if feature_note_3_text != blank %}
+              <div class="perito-feature-product__note">
+                <p class="perito-feature-product__note-label">{{ feature_note_3_label }}</p>
+                <p class="perito-feature-product__note-text">{{ feature_note_3_text }}</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="perito-feature-product__bottom">
+          <div class="perito-feature-product__price-wrap">
+            {% if featured_product != blank and current_variant != blank %}
+              <p class="perito-feature-product__price">
+                {% render 'format-price', price: current_variant.price %}
+              </p>
+            {% elsif section.settings.price != blank %}
+              <p class="perito-feature-product__price">{{ section.settings.price }}</p>
+            {% endif %}
+
+            {% if feature_size != blank %}
+              <p class="perito-feature-product__size">{{ feature_size }}</p>
+            {% endif %}
+          </div>
+
+          {% if feature_button_label != blank %}
+            <a
+              href="{{ feature_url }}"
+              class="perito-feature-product__button"
+            >
+              {{ feature_button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito Feature Product",
+  "tag": "section",
+  "class": "section-perito-feature-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured product"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "HAUTE COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Glacier at Dawn"
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "Lead text",
+      "default": "Inspired by the pristine beauty of Patagonian ice fields at first light. A meditation on stillness, clarity, and the raw power of nature."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body text",
+      "default": "Opening with crisp bergamot and frozen mint, the heart reveals delicate white florals suspended in time. The base grounds you in weathered cedarwood and glacial minerals."
+    },
+
+    {
+      "type": "text",
+      "id": "note_1_label",
+      "label": "Note 1 label",
+      "default": "TOP"
+    },
+    {
+      "type": "text",
+      "id": "note_1_text",
+      "label": "Note 1 text",
+      "default": "Bergamot, Frozen Mint"
+    },
+    {
+      "type": "text",
+      "id": "note_2_label",
+      "label": "Note 2 label",
+      "default": "HEART"
+    },
+    {
+      "type": "text",
+      "id": "note_2_text",
+      "label": "Note 2 text",
+      "default": "White Florals, Ice Accord"
+    },
+    {
+      "type": "text",
+      "id": "note_3_label",
+      "label": "Note 3 label",
+      "default": "BASE"
+    },
+    {
+      "type": "text",
+      "id": "note_3_text",
+      "label": "Note 3 text",
+      "default": "Cedar, Minerals"
+    },
+
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "¥12,500"
+    },
+    {
+      "type": "text",
+      "id": "size",
+      "label": "Size",
+      "default": "50ml"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "EXPLORE GLACIER AT DAWN"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1100,
+      "max": 1600,
+      "step": 20,
+      "default": 1440,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 140,
+      "step": 2,
+      "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 140,
+      "step": 2,
+      "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Side padding",
+      "min": 16,
+      "max": 120,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_column_width",
+      "label": "Image width",
+      "min": 280,
+      "max": 700,
+      "step": 5,
+      "default": 360,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 320,
+      "max": 760,
+      "step": 5,
+      "default": 400,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 260,
+      "max": 620,
+      "step": 10,
+      "default": 330,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_offset_top",
+      "label": "Content top offset",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 82,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 6,
+      "max": 18,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_line_height",
+      "label": "Eyebrow line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow letter spacing",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_margin_bottom",
+      "label": "Eyebrow bottom margin",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 22,
+      "max": 52,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 1.6,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading letter spacing",
+      "min": -0.1,
+      "max": 0.1,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "label": "Heading weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+
+    {
+      "type": "range",
+      "id": "lead_font_size",
+      "label": "Lead font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "lead_line_height",
+      "label": "Lead line height",
+      "min": 1,
+      "max": 2.4,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "lead_letter_spacing",
+      "label": "Lead letter spacing",
+      "min": -0.1,
+      "max": 0.2,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "lead_font_weight",
+      "label": "Lead weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "lead_margin_top",
+      "label": "Lead top margin",
+      "min": 4,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "lead_max_width",
+      "label": "Lead max width",
+      "min": 200,
+      "max": 520,
+      "step": 10,
+      "default": 300,
+      "unit": "px"
+    },
+
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "label": "Body line height",
+      "min": 1,
+      "max": 2.4,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "body_letter_spacing",
+      "label": "Body letter spacing",
+      "min": -0.1,
+      "max": 0.2,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "body_font_weight",
+      "label": "Body weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "body_margin_top",
+      "label": "Body top margin",
+      "min": 4,
+      "max": 32,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_max_width",
+      "label": "Body max width",
+      "min": 220,
+      "max": 560,
+      "step": 10,
+      "default": 300,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Notes row"
+    },
+    {
+      "type": "range",
+      "id": "notes_margin_top",
+      "label": "Notes top margin",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "notes_padding_top",
+      "label": "Notes top padding",
+      "min": 8,
+      "max": 30,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "notes_gap",
+      "label": "Notes column gap",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "note_label_font_size",
+      "label": "Note label font size",
+      "min": 6,
+      "max": 14,
+      "step": 1,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "note_label_line_height",
+      "label": "Note label line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "note_label_letter_spacing",
+      "label": "Note label letter spacing",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "note_label_font_weight",
+      "label": "Note label weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "note_label_margin_bottom",
+      "label": "Note label bottom margin",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "note_text_font_size",
+      "label": "Note text font size",
+      "min": 7,
+      "max": 14,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "note_text_line_height",
+      "label": "Note text line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "note_text_letter_spacing",
+      "label": "Note text letter spacing",
+      "min": -0.1,
+      "max": 0.2,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "note_text_font_weight",
+      "label": "Note text weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+
+    {
+      "type": "header",
+      "content": "Bottom row"
+    },
+    {
+      "type": "range",
+      "id": "bottom_margin_top",
+      "label": "Bottom row top margin",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "bottom_gap",
+        "label": "Price/button gap",
+        "min": 4,
+        "max": 24,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_gap",
+      "label": "Price/size gap",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "label": "Price font size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_letter_spacing",
+      "label": "Price letter spacing",
+      "min": -0.1,
+      "max": 0.1,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "price_font_weight",
+      "label": "Price weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "size_font_size",
+      "label": "Size font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "size_letter_spacing",
+      "label": "Size letter spacing",
+      "min": -0.1,
+      "max": 0.2,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "size_font_weight",
+      "label": "Size weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button height",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "label": "Button horizontal padding",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "min": 0,
+      "max": 0.4,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "label": "Button weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_x",
+      "label": "Mobile side padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_gap",
+      "label": "Mobile row gap",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile image height",
+      "min": 240,
+      "max": 500,
+      "step": 5,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "label": "Mobile heading font size",
+      "min": 22,
+      "max": 40,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_lead_font_size",
+      "label": "Mobile lead font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_font_size",
+      "label": "Mobile body font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_height",
+      "label": "Mobile button height",
+      "min": 36,
+      "max": 60,
+      "step": 1,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_font_size",
+      "label": "Mobile button font size",
+      "min": 8,
+      "max": 14,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#6b7834"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#f2ebde"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#c9c4b6"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f6f1e7"
+    },
+    {
+      "type": "color",
+      "id": "lead_color",
+      "label": "Lead text color",
+      "default": "#ddd6c7"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#d9d1c0"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#b8b096"
+    },
+    {
+      "type": "color",
+      "id": "note_label_color",
+      "label": "Note label color",
+      "default": "#c9c4b6"
+    },
+    {
+      "type": "color",
+      "id": "note_text_color",
+      "label": "Note text color",
+      "default": "#f1eadf"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#f6f1e7"
+    },
+    {
+      "type": "color",
+      "id": "size_color",
+      "label": "Size color",
+      "default": "#ddd6c7"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#f0e8d7"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#4b5221"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image background",
+      "default": "#bfe3f1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Feature Product",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

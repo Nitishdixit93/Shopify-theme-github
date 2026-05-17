@@ -1,0 +1,1523 @@
+{% style %}
+  .perito-collection-page {
+    background: {{ section.settings.section_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-collection-page__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: calc(var(--perito-section-space-bottom) + {{ section.settings.padding_bottom }}px);
+  }
+
+  .perito-collection-page__intro {
+    max-width: {{ section.settings.intro_width }}px;
+    margin: 0 auto {{ section.settings.intro_margin_bottom }}px;
+    text-align: center;
+  }
+
+  .perito-collection-page__eyebrow {
+    margin: 0 0 {{ section.settings.eyebrow_margin_bottom }}px;
+    color: {{ section.settings.eyebrow_color }};
+    font-size: {{ section.settings.eyebrow_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.eyebrow_font_weight }};
+  }
+
+  .perito-collection-page__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size }}px;
+    line-height: {{ section.settings.heading_line_height }};
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+
+  .perito-collection-page__description {
+    margin: {{ section.settings.description_margin_top }}px auto 0;
+    max-width: {{ section.settings.description_width }}px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.description_font_size }}px;
+    line-height: {{ section.settings.description_line_height }};
+  }
+
+  .perito-collection-page__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: {{ section.settings.toolbar_margin_bottom }}px;
+    padding-bottom: {{ section.settings.toolbar_padding_bottom }}px;
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  .perito-collection-page__filters {
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.filter_gap }}px;
+    flex-wrap: wrap;
+  }
+
+  .perito-collection-page__filter,
+  .perito-collection-page__filter-toggle,
+  .perito-collection-page__sort-select {
+    height: {{ section.settings.control_height }}px;
+    border: 1px solid {{ section.settings.control_border }};
+    background: transparent;
+    color: {{ section.settings.control_text }};
+    text-transform: uppercase;
+    font-size: {{ section.settings.control_font_size }}px;
+    letter-spacing: {{ section.settings.control_letter_spacing }}em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .perito-collection-page__filter {
+    padding: 0 {{ section.settings.filter_padding_x }}px;
+  }
+
+  .perito-collection-page__filter-toggle {
+    gap: 10px;
+    padding: 0 {{ section.settings.filter_toggle_padding_x }}px;
+  }
+
+  .perito-collection-page__filter.is-active {
+    background: {{ section.settings.active_filter_bg }};
+    color: {{ section.settings.active_filter_text }};
+    border-color: {{ section.settings.active_filter_bg }};
+  }
+
+  .perito-collection-page__sort {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.sort_label_size }}px;
+  }
+
+  .perito-collection-page__sort-select {
+    min-width: {{ section.settings.sort_width }}px;
+    padding: 0 14px;
+    cursor: pointer;
+  }
+
+  .perito-collection-page__count {
+    margin: 0 0 {{ section.settings.count_margin_bottom }}px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.count_font_size }}px;
+  }
+
+  .perito-collection-page__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: {{ section.settings.column_gap }}px;
+    row-gap: {{ section.settings.row_gap }}px;
+  }
+
+  .perito-collection-page__card {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .perito-collection-page__media {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.image_height }}px;
+    overflow: hidden;
+    background: {{ section.settings.image_bg }};
+    margin-bottom: {{ section.settings.card_content_top }}px;
+  }
+
+  .perito-collection-page__image {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center center;
+    transition: transform 0.35s ease;
+  }
+
+  .perito-collection-page__card:hover .perito-collection-page__image {
+    transform: scale(1.025);
+  }
+
+  .perito-collection-page__badges {
+    position: absolute;
+    top: {{ section.settings.badge_top }}px;
+    left: {{ section.settings.badge_left }}px;
+    display: grid;
+    gap: {{ section.settings.badge_gap }}px;
+    z-index: 2;
+  }
+
+  .perito-collection-page__badge {
+    min-width: {{ section.settings.badge_width }}px;
+    height: {{ section.settings.badge_height }}px;
+    padding: 0 10px;
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text }};
+    display: inline-flex;
+    align-items: center;
+    font-size: {{ section.settings.badge_font_size }}px;
+    letter-spacing: {{ section.settings.badge_letter_spacing }}em;
+    text-transform: uppercase;
+  }
+
+  .perito-collection-page__wishlist {
+    position: absolute;
+    top: {{ section.settings.wishlist_top }}px;
+    right: {{ section.settings.wishlist_right }}px;
+    width: {{ section.settings.wishlist_size }}px;
+    height: {{ section.settings.wishlist_size }}px;
+    background: {{ section.settings.wishlist_bg }};
+    color: {{ section.settings.wishlist_color }};
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .perito-collection-page__wishlist svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .perito-collection-page__vendor {
+    margin: 0 0 {{ section.settings.vendor_margin_bottom }}px;
+    color: {{ section.settings.vendor_color }};
+    font-size: {{ section.settings.vendor_font_size }}px;
+    letter-spacing: {{ section.settings.vendor_letter_spacing }}em;
+    text-transform: uppercase;
+  }
+
+  .perito-collection-page__title {
+    margin: 0 0 {{ section.settings.title_margin_bottom }}px;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_font_size }}px;
+    line-height: {{ section.settings.title_line_height }};
+    font-weight: {{ section.settings.title_font_weight }};
+  }
+
+  .perito-collection-page__product-desc {
+    margin: 0 0 {{ section.settings.product_desc_margin_bottom }}px;
+    color: {{ section.settings.product_desc_color }};
+    font-size: {{ section.settings.product_desc_font_size }}px;
+    line-height: {{ section.settings.product_desc_line_height }};
+
+    display: -webkit-box;
+    -webkit-line-clamp: {{ section.settings.product_desc_lines }};
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .perito-collection-page__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .perito-collection-page__price {
+    color: {{ section.settings.price_color }};
+    font-size: {{ section.settings.price_font_size }}px;
+  }
+
+  .perito-collection-page__size {
+    color: {{ section.settings.size_color }};
+    font-size: {{ section.settings.size_font_size }}px;
+  }
+
+  @keyframes heart-pop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .perito-collection-page__wishlist.heart-pop svg {
+    animation: heart-pop 0.5s ease-in-out;
+  }
+
+  .perito-collection-page__wishlist.active svg {
+    fill: #e63946;
+    stroke: #e63946;
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-collection-page__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-collection-page__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-collection-page__toolbar {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .perito-collection-page__grid {
+      grid-template-columns: 1fr;
+      row-gap: {{ section.settings.mobile_row_gap }}px;
+    }
+
+    .perito-collection-page__media {
+      height: {{ section.settings.mobile_image_height }}px;
+    }
+  }
+{% endstyle %}
+
+{% liquid
+  assign selected_collection = collection
+
+  if selected_collection == blank
+    assign selected_collection = section.settings.collection
+  endif
+
+  if selected_collection == blank
+    assign selected_collection = collections.all
+  endif
+
+  assign badge_1_tag = section.settings.badge_1_type | prepend: 'badge:'
+  assign badge_2_tag = section.settings.badge_2_type | prepend: 'badge:'
+  assign badge_3_tag = section.settings.badge_3_type | prepend: 'badge:'
+
+  assign current_sort = collection.sort_by | default: collection.default_sort_by
+%}
+
+<section class="perito-collection-page">
+  <div class="perito-collection-page__inner perito-container perito-section-inner">
+    <div class="perito-collection-page__intro">
+      <p class="perito-collection-page__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="perito-collection-page__heading">{{ section.settings.heading }}</h1>
+      <div class="perito-collection-page__description">{{ section.settings.description }}</div>
+    </div>
+
+    <div class="perito-collection-page__toolbar">
+      <div class="perito-collection-page__filters">
+        <button class="perito-collection-page__filter-toggle" type="button">
+          <span>☷</span>
+          {{ section.settings.filter_label }}
+        </button>
+
+        
+          <a href="/collections/all"
+          class="perito-collection-page__filter {% if selected_collection.handle == 'all' %}is-active{% endif %}"
+        >
+          ALL
+        </a>
+
+        {% for filter_collection in collections %}
+          {% unless filter_collection.handle == 'all' %}
+            {% if filter_collection.products_count > 0 %}
+              
+                <a href="{{ filter_collection.url }}"
+                class="perito-collection-page__filter {% if selected_collection.handle == filter_collection.handle %}is-active{% endif %}"
+              >
+                {{ filter_collection.title }}
+              </a>
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      <div class="perito-collection-page__sort">
+        <span>{{ section.settings.sort_label }}</span>
+        <select class="perito-collection-page__sort-select" id="perito-sort-select">
+          <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
+          <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price, low to high</option>
+          <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price, high to low</option>
+          <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
+        </select>
+      </div>
+    </div>
+
+    {% if selected_collection != blank %}
+      <p class="perito-collection-page__count">
+        Showing {{ selected_collection.products_count }} fragrances
+      </p>
+
+      <div class="perito-collection-page__grid">
+        {% for product in selected_collection.products limit: section.settings.products_limit %}
+
+          {% liquid
+            assign product_size = ''
+            assign display_variant = product.selected_or_first_available_variant
+
+            if display_variant == blank
+              assign display_variant = product.variants.first
+            endif
+
+            assign variant_title = display_variant.title | strip
+            assign variant_title_downcase = variant_title | downcase
+
+            assign option_1 = display_variant.option1 | strip
+            assign option_1_downcase = option_1 | downcase
+
+            assign option_2 = display_variant.option2 | strip
+            assign option_2_downcase = option_2 | downcase
+
+            assign option_3 = display_variant.option3 | strip
+            assign option_3_downcase = option_3 | downcase
+
+            if option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'ml'
+              assign product_size = option_1
+            elsif option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'gm'
+              assign product_size = option_1
+            elsif option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'gram'
+              assign product_size = option_1
+            elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'ml'
+              assign product_size = option_2
+            elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'gm'
+              assign product_size = option_2
+            elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'gram'
+              assign product_size = option_2
+            elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'ml'
+              assign product_size = option_3
+            elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'gm'
+              assign product_size = option_3
+            elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'gram'
+              assign product_size = option_3
+            elsif variant_title_downcase contains 'ml'
+              assign product_size = variant_title | split: ' / ' | first
+            elsif variant_title_downcase contains 'gm'
+              assign product_size = variant_title | split: ' / ' | first
+            elsif variant_title_downcase contains 'gram'
+              assign product_size = variant_title | split: ' / ' | first
+            endif
+
+            assign metafield_size = ''
+
+            if product.metafields.custom.size != blank
+              assign metafield_size = product.metafields.custom.size.value | default: product.metafields.custom.size | strip
+
+              if metafield_size == '0'
+                assign metafield_size = ''
+              endif
+            endif
+
+            if product_size == blank and metafield_size != blank
+              assign product_size = metafield_size
+            endif
+
+            if product_size == blank
+              assign title_words = product.title | replace: '-', ' ' | replace: '/', ' ' | replace: ',', ' ' | split: ' '
+              assign previous_word = ''
+
+              for word in title_words
+                assign word_clean = word | strip
+                assign word_downcase = word_clean | downcase
+
+                if word_downcase == 'ml'
+                  if previous_word != blank
+                    assign product_size = previous_word | append: 'ml'
+                    break
+                  endif
+                elsif word_downcase == 'gm'
+                  if previous_word != blank
+                    assign product_size = previous_word | append: 'gm'
+                    break
+                  endif
+                elsif word_downcase == 'gram'
+                  if previous_word != blank
+                    assign product_size = previous_word | append: ' Gram'
+                    break
+                  endif
+                elsif word_downcase == 'grams'
+                  if previous_word != blank
+                    assign product_size = previous_word | append: ' Grams'
+                    break
+                  endif
+                elsif word_downcase contains 'ml'
+                  assign product_size = word_clean
+                  break
+                elsif word_downcase contains 'gm'
+                  assign product_size = word_clean
+                  break
+                elsif word_downcase contains 'gram'
+                  assign product_size = word_clean
+                  break
+                endif
+
+                assign previous_word = word_clean
+              endfor
+            endif
+          %}
+
+          <a
+            class="perito-collection-page__card"
+            href="{{ product.url }}"
+            data-sort-index="{{ forloop.index0 }}"
+            data-sort-price="{{ display_variant.price }}"
+            data-sort-created="{{ product.created_at | date: '%s' }}"
+          >
+            <div class="perito-collection-page__media">
+              <div class="perito-collection-page__badges">
+                {% if section.settings.badge_1_type != 'none' and product.tags contains badge_1_tag %}
+                  <span class="perito-collection-page__badge">{{ section.settings.badge_1_label }}</span>
+                {% endif %}
+
+                {% if section.settings.badge_2_type != 'none' and product.tags contains badge_2_tag %}
+                  <span class="perito-collection-page__badge">{{ section.settings.badge_2_label }}</span>
+                {% endif %}
+
+                {% if section.settings.badge_3_type != 'none' and product.tags contains badge_3_tag %}
+                  <span class="perito-collection-page__badge">{{ section.settings.badge_3_label }}</span>
+                {% endif %}
+              </div>
+
+              <button
+                class="perito-collection-page__wishlist"
+                data-handle="{{ product.handle }}"
+                aria-label="Add to wishlist"
+                type="button"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M15.8337 11.6667C17.0753 10.45 18.3337 8.99167 18.3337 7.08333C18.3337 5.86776 17.8508 4.70197 16.9912 3.84243C16.1317 2.98289 14.9659 2.5 13.7503 2.5C12.2837 2.5 11.2503 2.91667 10.0003 4.16667C8.75033 2.91667 7.71699 2.5 6.25033 2.5C5.03475 2.5 3.86896 2.98289 3.00942 3.84243C2.14988 4.70197 1.66699 5.86776 1.66699 7.08333C1.66699 9 2.91699 10.4583 4.16699 11.6667L10.0003 17.5L15.8337 11.6667Z" stroke="#283416" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              {% if product.featured_image != blank %}
+                {{
+                  product.featured_image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'perito-collection-page__image',
+                    loading: 'lazy',
+                    widths: '400, 600, 700, 900',
+                    sizes: '(min-width: 990px) 33vw, 100vw',
+                    alt: product.title
+                }}
+              {% else %}
+                <div class="perito-collection-page__placeholder"></div>
+              {% endif %}
+            </div>
+
+            <p class="perito-collection-page__vendor">
+              {% if product.metafields.custom.collection_name != blank %}
+                {{ product.metafields.custom.collection_name }}
+              {% elsif product.collections.first != blank %}
+                {{ product.collections.first.title }}
+              {% else %}
+                {{ product.vendor }}
+              {% endif %}
+            </p>
+
+            <h2 class="perito-collection-page__title">{{ product.title }}</h2>
+
+            <p class="perito-collection-page__product-desc">
+              {% if section.settings.product_desc_source == 'custom' %}
+                {% if product.metafields.custom.short_description != blank %}
+                  {{ product.metafields.custom.short_description }}
+                {% elsif section.settings.product_desc_custom_fallback %}
+                  {{ product.description | strip_html }}
+                {% endif %}
+              {% else %}
+                {{ product.description | strip_html }}
+              {% endif %}
+            </p>
+
+            <div class="perito-collection-page__price-row">
+              <span class="perito-collection-page__price">
+                {% render 'format-price', price: display_variant.price %}
+              </span>
+
+              {% if product_size != blank %}
+                <span class="perito-collection-page__size">{{ product_size }}</span>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="perito-collection-page__count">
+        Select a collection in the section settings.
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // --- Sort ---
+  // --- Sort ---
+const sortSelect = document.getElementById('perito-sort-select');
+const productGrid = document.querySelector('.perito-collection-page__grid');
+
+function sortProductCards(sortValue) {
+  if (!productGrid) return;
+
+  const cards = Array.from(productGrid.querySelectorAll('.perito-collection-page__card'));
+
+  cards.sort((a, b) => {
+    const priceA = Number(a.dataset.sortPrice || 0);
+    const priceB = Number(b.dataset.sortPrice || 0);
+    const createdA = Number(a.dataset.sortCreated || 0);
+    const createdB = Number(b.dataset.sortCreated || 0);
+    const indexA = Number(a.dataset.sortIndex || 0);
+    const indexB = Number(b.dataset.sortIndex || 0);
+
+    if (sortValue === 'price-ascending') return priceA - priceB;
+    if (sortValue === 'price-descending') return priceB - priceA;
+    if (sortValue === 'created-descending') return createdB - createdA;
+
+    return indexA - indexB;
+  });
+
+  cards.forEach(card => productGrid.appendChild(card));
+}
+
+if (sortSelect) {
+  const url = new URL(window.location.href);
+  const initialSort = url.searchParams.get('sort_by') || sortSelect.value;
+
+  sortSelect.value = initialSort;
+  sortProductCards(initialSort);
+
+  sortSelect.addEventListener('change', function() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort_by', this.value);
+    window.history.replaceState({}, '', url.toString());
+
+    sortProductCards(this.value);
+  });
+}
+
+  // --- Wishlist ---
+  const wishlistKey = 'peritoWishlist';
+
+  function getWishlist() {
+    try {
+      return JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function saveWishlist(list) {
+    localStorage.setItem(wishlistKey, JSON.stringify(list));
+  }
+
+  function toggleWishlist(handle, btn) {
+    let list = getWishlist();
+    const index = list.indexOf(handle);
+
+    if (index >= 0) {
+      list.splice(index, 1);
+      btn.classList.remove('active');
+    } else {
+      list.push(handle);
+      btn.classList.add('active');
+    }
+
+    saveWishlist(list);
+
+    btn.classList.add('heart-pop');
+    setTimeout(() => btn.classList.remove('heart-pop'), 600);
+
+    window.dispatchEvent(new CustomEvent('perito:wishlist-updated', {
+      detail: { wishlist: list }
+    }));
+  }
+
+  const buttons = document.querySelectorAll('.perito-collection-page__wishlist');
+
+  buttons.forEach(btn => {
+    const handle = btn.dataset.handle;
+    if (!handle) return;
+
+    const list = getWishlist();
+    if (list.includes(handle)) btn.classList.add('active');
+
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleWishlist(handle, btn);
+    });
+  });
+
+  window.addEventListener('storage', () => {
+    buttons.forEach(btn => {
+      const handle = btn.dataset.handle;
+      const list = getWishlist();
+      btn.classList.toggle('active', list.includes(handle));
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Perito Collection Page",
+  "tag": "section",
+  "class": "section-perito-collection-page",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Fallback products collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products to show",
+      "min": 3,
+      "max": 60,
+      "step": 3,
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ALL COLLECTIONS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover Your Signature"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Each fragrance is a carefully composed narrative, crafted in small batches from the world's finest ingredients."
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter label",
+      "default": "FILTERS"
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Sort label",
+      "default": "Sort by:"
+    },
+    {
+      "type": "header",
+      "content": "Badge selector"
+    },
+    {
+      "type": "select",
+      "id": "badge_1_type",
+      "label": "Badge 1 source tag",
+      "default": "limited",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "limited", "label": "Limited" },
+        { "value": "bestseller", "label": "Bestseller" },
+        { "value": "sample-available", "label": "Sample available" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "badge_1_label",
+      "label": "Badge 1 label",
+      "default": "LIMITED"
+    },
+    {
+      "type": "select",
+      "id": "badge_2_type",
+      "label": "Badge 2 source tag",
+      "default": "sample-available",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "limited", "label": "Limited" },
+        { "value": "bestseller", "label": "Bestseller" },
+        { "value": "sample-available", "label": "Sample available" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "badge_2_label",
+      "label": "Badge 2 label",
+      "default": "SAMPLE AVAILABLE"
+    },
+    {
+      "type": "select",
+      "id": "badge_3_type",
+      "label": "Badge 3 source tag",
+      "default": "bestseller",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "limited", "label": "Limited" },
+        { "value": "bestseller", "label": "Bestseller" },
+        { "value": "sample-available", "label": "Sample available" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "badge_3_label",
+      "label": "Badge 3 label",
+      "default": "BESTSELLER"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 140,
+      "step": 2,
+      "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "intro_width",
+      "label": "Intro width",
+      "min": 500,
+      "max": 1000,
+      "step": 20,
+      "default": 760,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "intro_margin_bottom",
+      "label": "Intro bottom margin",
+      "min": 40,
+      "max": 110,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "toolbar_margin_bottom",
+      "label": "Toolbar bottom margin",
+      "min": 24,
+      "max": 70,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "toolbar_padding_bottom",
+      "label": "Toolbar divider spacing",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "filter_gap",
+      "label": "Filter gap",
+      "min": 6,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "control_height",
+      "label": "Control height",
+      "min": 28,
+      "max": 50,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "filter_padding_x",
+      "label": "Filter horizontal padding",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "filter_toggle_padding_x",
+      "label": "Filter toggle horizontal padding",
+      "min": 18,
+      "max": 50,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "sort_width",
+      "label": "Sort select width",
+      "min": 120,
+      "max": 220,
+      "step": 5,
+      "default": 150,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "count_margin_bottom",
+      "label": "Count bottom margin",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 16,
+      "max": 50,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 40,
+      "max": 110,
+      "step": 2,
+      "default": 76,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Product image height",
+      "min": 280,
+      "max": 520,
+      "step": 5,
+      "default": 415,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_content_top",
+      "label": "Card content top",
+      "min": 12,
+      "max": 34,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "range",
+      "id": "badge_top",
+      "label": "Badge top",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_left",
+      "label": "Badge left",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_gap",
+      "label": "Badge gap",
+      "min": 4,
+      "max": 14,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_width",
+      "label": "Badge min width",
+      "min": 80,
+      "max": 150,
+      "step": 5,
+      "default": 115,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_height",
+      "label": "Badge height",
+      "min": 20,
+      "max": 36,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "wishlist_top",
+      "label": "Wishlist top",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "wishlist_right",
+      "label": "Wishlist right",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "wishlist_size",
+      "label": "Wishlist size",
+      "min": 28,
+      "max": 52,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 6,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow letter spacing",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.4
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_margin_bottom",
+      "label": "Eyebrow bottom margin",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 1.4,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "label": "Heading weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "description_margin_top",
+      "label": "Description top margin",
+      "min": 12,
+      "max": 38,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_width",
+      "label": "Description width",
+      "min": 420,
+      "max": 760,
+      "step": 20,
+      "default": 640,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Description size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "control_font_size",
+      "label": "Control font size",
+      "min": 6,
+      "max": 13,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "control_letter_spacing",
+      "label": "Control letter spacing",
+      "min": 0,
+      "max": 0.4,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "sort_label_size",
+      "label": "Sort label size",
+      "min": 7,
+      "max": 14,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "count_font_size",
+      "label": "Count font size",
+      "min": 7,
+      "max": 14,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_font_size",
+      "label": "Badge font size",
+      "min": 6,
+      "max": 12,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "badge_letter_spacing",
+      "label": "Badge letter spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "vendor_font_size",
+      "label": "Vendor font size",
+      "min": 6,
+      "max": 13,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "vendor_letter_spacing",
+      "label": "Vendor letter spacing",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "vendor_margin_bottom",
+      "label": "Vendor bottom margin",
+      "min": 6,
+      "max": 18,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Product title size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Product title line height",
+      "min": 1,
+      "max": 1.6,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "Product title weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "title_margin_bottom",
+      "label": "Product title bottom margin",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "product_desc_source",
+      "label": "Product description source",
+      "default": "product",
+      "options": [
+        {
+          "value": "product",
+          "label": "Product description"
+        },
+        {
+          "value": "custom",
+          "label": "Custom metafield"
+        }
+      ]
+    },
+    {
+      "type" : "header",
+      "content": "Use (custom.short_description) custom metafield"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_desc_custom_fallback",
+      "label": "Use product description if custom metafield is empty",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "product_desc_font_size",
+      "label": "Product description size",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "product_desc_line_height",
+      "label": "Product description line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.7
+    },
+    {
+      "type": "range",
+      "id": "product_desc_lines",
+      "label": "Product description lines",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "product_desc_margin_bottom",
+      "label": "Product description bottom margin",
+      "min": 18,
+      "max": 42,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "label": "Price size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "size_font_size",
+      "label": "Size size",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 26,
+      "max": 48,
+      "step": 1,
+      "default": 34,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_gap",
+      "label": "Mobile row gap",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile image height",
+      "min": 260,
+      "max": 460,
+      "step": 5,
+      "default": 340,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#efe9d8"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#a5ad92"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#c1c8b5"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#a5ad92"
+    },
+    {
+      "type": "color",
+      "id": "control_border",
+      "label": "Control border",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "control_text",
+      "label": "Control text",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "active_filter_bg",
+      "label": "Active filter background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "active_filter_text",
+      "label": "Active filter text",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image background",
+      "default": "#d9d9d9"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_bg",
+      "label": "Wishlist background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_color",
+      "label": "Wishlist color",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "vendor_color",
+      "label": "Vendor color",
+      "default": "#a5ad92"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Product title",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "product_desc_color",
+      "label": "Product description",
+      "default": "#c1c8b5"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "size_color",
+      "label": "Size",
+      "default": "#c1c8b5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Collection Page",
+      "category": "Collections"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+{% style %}
+/* 404 Page Styles */
+.perito-404 {
+  background-color: #283416; /* dark green */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 64px 16px;
+}
+
+.perito-404 h1 {
+  font-size: 3rem;
+  margin-bottom: {{ section.settings.heading_spacing }}px;
+}
+
+.perito-404 img {
+  max-width: 400px;
+  width: 80%;
+  height: auto;
+  margin-bottom: {{ section.settings.image_spacing }}px;
+}
+
+.perito-404 .subheading {
+  font-size: 1.5rem;
+  color: #b0b68b; /* lighter green accent */
+}
+{% endstyle %}
+
+<div class="perito-404">
+  <h1>{{ section.settings.heading }}</h1>
+  {% if section.settings.image %}
+    <img src="{{ section.settings.image | img_url: 'master' }}" alt="404 graphic">
+  {% endif %}
+  <div class="subheading">{{ section.settings.subheading }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "Perito 404 Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "404 Page Not Found"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Oops! ERROR"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "404 Image"
+    },
+    {
+      "type": "number",
+      "id": "heading_spacing",
+      "label": "Spacing below Heading (px)",
+      "default": 48
+    },
+    {
+      "type": "number",
+      "id": "image_spacing",
+      "label": "Spacing below Image (px)",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito 404 Page",
+      "category": "Page"
+    }
+  ]
+}
+{% endschema %}

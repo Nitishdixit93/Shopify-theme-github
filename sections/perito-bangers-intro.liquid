@@ -1,0 +1,136 @@
+{% style %}
+  .perito-bangers {
+    background: #283416;
+    color: #ffffff;
+  }
+
+  .perito-bangers__intro {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 86px 24px 72px;
+    text-align: center;
+  }
+
+  .perito-bangers__intro h1 {
+    margin: 0 0 24px;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.1;
+    font-weight: 600;
+  }
+
+  .perito-bangers__intro p {
+    max-width: 690px;
+    margin: 0 auto 28px;
+    font-size: {{ section.settings.paragraph_size }}px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-bangers__intro p:last-child {
+    margin-bottom: 0;
+    color: rgba(250, 248, 245, 0.7);
+  }
+
+  @media screen and (max-width: 749px) {
+    .perito-bangers__intro {
+      padding: 64px 20px 54px;
+    }
+
+    .perito-bangers__intro h1 {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-bangers__intro p {
+      font-size: {{ section.settings.mobile_paragraph_size }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-bangers">
+  <div class="perito-bangers__intro">
+    <h1>{{ section.settings.heading }}</h1>
+
+    {% if section.settings.text_1 != blank %}
+      <p>{{ section.settings.text_1 }}</p>
+    {% endif %}
+
+    {% if section.settings.text_2 != blank %}
+      <p>{{ section.settings.text_2 }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito monthly intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Are Monthly Bangers?"
+    },
+    {
+      "type": "textarea",
+      "id": "text_1",
+      "label": "First paragraph",
+      "default": "Not every fragrance performs equally well in every season. Monthly Bangers highlights the compositions from our collection that are absolutely perfect for the current month’s weather, mood, and cultural moment."
+    },
+    {
+      "type": "textarea",
+      "id": "text_2",
+      "label": "Second paragraph",
+      "default": "This selection changes month to month — our expert curation reflects weather recommendations based on seasonal performance, and atmosphere."
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 24,
+      "max": 70,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_size",
+      "label": "Mobile paragraph font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito monthly intro"
+    }
+  ]
+}
+{% endschema %}

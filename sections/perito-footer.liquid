@@ -1,0 +1,860 @@
+{% style %}
+  .perito-footer {
+    background: {{ section.settings.footer_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-footer__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .perito-footer__newsletter {
+    display: grid;
+    grid-template-columns: minmax(260px, {{ section.settings.newsletter_text_width }}px) minmax(360px, 1fr);
+    align-items: start;
+    column-gap: {{ section.settings.newsletter_gap }}px;
+    margin-bottom: {{ section.settings.newsletter_margin_bottom }}px;
+  }
+
+  .perito-footer__newsletter-heading {
+    margin: 0 0 {{ section.settings.newsletter_text_gap }}px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.newsletter_heading_size }}px;
+    line-height: 1.2;
+    font-weight: {{ section.settings.newsletter_heading_weight }};
+  }
+
+  .perito-footer__newsletter-text {
+    margin: 0;
+    max-width: {{ section.settings.newsletter_description_width }}px;
+    color: {{ section.settings.muted_color }};
+    font-size: {{ section.settings.newsletter_text_size }}px;
+    line-height: {{ section.settings.newsletter_text_line_height }};
+  }
+
+  .perito-footer__form {
+    display: grid;
+    grid-template-columns: 1fr {{ section.settings.button_width }}px;
+    gap: {{ section.settings.form_gap }}px;
+    padding-top: {{ section.settings.form_offset_top }}px;
+  }
+
+  .perito-footer__input {
+    width: 100%;
+    height: {{ section.settings.input_height }}px;
+    border: none;
+    border-radius: 0;
+    background: {{ section.settings.input_bg }};
+    color: {{ section.settings.input_text }};
+    padding: 0 18px;
+    font-size: {{ section.settings.input_font_size }}px;
+  }
+
+  .perito-footer__button {
+    height: {{ section.settings.input_height }}px;
+    border: 1px solid {{ section.settings.button_bg }};
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    text-transform: uppercase;
+    font-size: {{ section.settings.button_font_size }}px;
+    letter-spacing: {{ section.settings.button_letter_spacing }}em;
+    font-weight: {{ section.settings.button_font_weight }};
+    cursor: pointer;
+  }
+
+  .perito-footer__main {
+    display: grid;
+    grid-template-columns: {{ section.settings.brand_column_width }}px repeat(3, minmax(0, 1fr));
+    column-gap: {{ section.settings.column_gap }}px;
+    margin-bottom: {{ section.settings.main_margin_bottom }}px;
+  }
+
+  .perito-footer__brand-title {
+    margin: 0 0 {{ section.settings.brand_title_margin_bottom }}px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.brand_title_size }}px;
+    line-height: 1.2;
+    font-weight: {{ section.settings.brand_title_weight }};
+  }
+
+  .perito-footer__brand-text,
+  .perito-footer__contact-item,
+  .perito-footer__link {
+    color: {{ section.settings.muted_color }};
+    font-size: {{ section.settings.body_font_size }}px;
+    line-height: {{ section.settings.body_line_height }};
+    font-weight: {{ section.settings.body_font_weight }};
+  }
+
+  .perito-footer__brand-text {
+    margin: 0 0 {{ section.settings.brand_text_margin_bottom }}px;
+  }
+
+  .perito-footer__contact {
+    display: grid;
+    gap: {{ section.settings.contact_gap }}px;
+  }
+
+  .perito-footer__contact-item {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    column-gap: 10px;
+    align-items: start;
+  }
+
+  .perito-footer__contact-item svg {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+  }
+
+  .perito-footer__column-title {
+    margin: 0 0 {{ section.settings.column_title_margin_bottom }}px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.column_title_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.column_title_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.column_title_weight }};
+  }
+
+  .perito-footer__links {
+    display: grid;
+    gap: {{ section.settings.link_gap }}px;
+  }
+
+  .perito-footer__link {
+    text-decoration: none;
+  }
+
+  .perito-footer__bottom {
+    border-top: 1px solid {{ section.settings.divider_color }};
+    padding-top: {{ section.settings.bottom_padding_top }}px;
+    display: flex;
+    justify-content: center;
+    gap: {{ section.settings.bottom_gap }}px;
+    color: {{ section.settings.bottom_color }};
+    font-size: {{ section.settings.bottom_font_size }}px;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-footer__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-footer__newsletter,
+    .perito-footer__main {
+      grid-template-columns: 1fr;
+      row-gap: 34px;
+    }
+
+    .perito-footer__form {
+      grid-template-columns: 1fr;
+    }
+
+    .perito-footer__main {
+      row-gap: 38px;
+    }
+
+    .perito-footer__bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<footer class="perito-footer">
+  <div class="perito-footer__inner perito-container">
+    {% for block in section.blocks %}
+      {% if block.type == 'newsletter' %}
+        <div class="perito-footer__newsletter" {{ block.shopify_attributes }}>
+          <div>
+            <h2 class="perito-footer__newsletter-heading">{{ block.settings.heading }}</h2>
+            <p class="perito-footer__newsletter-text">{{ block.settings.text }}</p>
+          </div>
+
+          {% form 'customer', class: 'perito-footer__form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input
+              class="perito-footer__input"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ block.settings.placeholder }}"
+              required
+            >
+            <button class="perito-footer__button" type="submit">
+              {{ block.settings.button_label }}
+            </button>
+          {% endform %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="perito-footer__main">
+      <div class="perito-footer__brand">
+        <h3 class="perito-footer__brand-title">{{ section.settings.brand_title }}</h3>
+        <p class="perito-footer__brand-text">{{ section.settings.brand_text }}</p>
+
+        <div class="perito-footer__contact">
+          <div class="perito-footer__contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M13.3327 6.66659C13.3327 9.99525 9.64002 13.4619 8.40002 14.5326C8.2845 14.6194 8.14388 14.6664 7.99935 14.6664C7.85482 14.6664 7.7142 14.6194 7.59868 14.5326C6.35868 13.4619 2.66602 9.99525 2.66602 6.66659C2.66602 5.2521 3.22792 3.89554 4.22811 2.89535C5.22831 1.89516 6.58486 1.33325 7.99935 1.33325C9.41384 1.33325 10.7704 1.89516 11.7706 2.89535C12.7708 3.89554 13.3327 5.2521 13.3327 6.66659Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 8.66675C9.10457 8.66675 10 7.77132 10 6.66675C10 5.56218 9.10457 4.66675 8 4.66675C6.89543 4.66675 6 5.56218 6 6.66675C6 7.77132 6.89543 8.66675 8 8.66675Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ section.settings.address }}</span>
+          </div>
+
+          <div class="perito-footer__contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M8.00065 14.6666C11.6825 14.6666 14.6673 11.6818 14.6673 7.99992C14.6673 4.31802 11.6825 1.33325 8.00065 1.33325C4.31875 1.33325 1.33398 4.31802 1.33398 7.99992C1.33398 11.6818 4.31875 14.6666 8.00065 14.6666Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 4V8L10.6667 9.33333" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ section.settings.hours }}</span>
+          </div>
+
+          <div class="perito-footer__contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M14.6669 11.28V13.28C14.6677 13.4657 14.6297 13.6494 14.5553 13.8195C14.4809 13.9897 14.3718 14.1424 14.235 14.2679C14.0982 14.3934 13.9367 14.489 13.7608 14.5485C13.5849 14.6079 13.3985 14.63 13.2136 14.6133C11.1622 14.3904 9.19161 13.6894 7.46028 12.5667C5.8495 11.5431 4.48384 10.1774 3.46028 8.56665C2.3336 6.82745 1.63244 4.84731 1.41361 2.78665C1.39695 2.60229 1.41886 2.41649 1.47795 2.24107C1.53703 2.06564 1.63199 1.90444 1.75679 1.76773C1.88159 1.63102 2.03348 1.52179 2.20281 1.447C2.37213 1.37221 2.55517 1.33349 2.74028 1.33332H4.74028C5.06382 1.33013 5.37748 1.4447 5.62279 1.65567C5.8681 1.86664 6.02833 2.15961 6.07361 2.47998C6.15803 3.12003 6.31458 3.74847 6.54028 4.35332C6.62998 4.59193 6.64939 4.85126 6.59622 5.10057C6.54305 5.34988 6.41952 5.57872 6.24028 5.75998L5.39361 6.60665C6.34265 8.27568 7.72458 9.65761 9.39361 10.6067L10.2403 9.75998C10.4215 9.58074 10.6504 9.45722 10.8997 9.40405C11.149 9.35088 11.4083 9.37029 11.6469 9.45998C12.2518 9.68568 12.8802 9.84224 13.5203 9.92665C13.8441 9.97234 14.1399 10.1355 14.3513 10.385C14.5627 10.6345 14.6751 10.953 14.6669 11.28Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ section.settings.phone }}</span>
+          </div>
+
+          <div class="perito-footer__contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M13.334 2.66675H2.66732C1.93094 2.66675 1.33398 3.2637 1.33398 4.00008V12.0001C1.33398 12.7365 1.93094 13.3334 2.66732 13.3334H13.334C14.0704 13.3334 14.6673 12.7365 14.6673 12.0001V4.00008C14.6673 3.2637 14.0704 2.66675 13.334 2.66675Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14.6673 4.66675L8.68732 8.46675C8.4815 8.5957 8.24353 8.66409 8.00065 8.66409C7.75777 8.66409 7.5198 8.5957 7.31398 8.46675L1.33398 4.66675" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ section.settings.email }}</span>
+          </div>
+        </div>
+      </div>
+
+      {% for block in section.blocks %}
+        {% if block.type == 'link_column' %}
+          <div class="perito-footer__column" {{ block.shopify_attributes }}>
+            <h4 class="perito-footer__column-title">{{ block.settings.title }}</h4>
+            <div class="perito-footer__links">
+              {% for link in block.settings.menu.links %}
+                <a class="perito-footer__link" href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="perito-footer__bottom">
+      <span>{{ section.settings.copyright }}</span>
+      <span>{{ section.settings.credit }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Perito Footer",
+  "tag": "section",
+  "class": "section-perito-footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand title",
+      "default": "Perito Moreno"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Brand text",
+      "default": "Artisan Perfumery\nMumbai, India"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "Atelier No. 12, Heritage Square,\nColaba, Mumbai 400001,\nMaharashtra, India"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours",
+      "default": "Mon to Sat · 11am - 7:30pm"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "Order query: +91 98-3355-6611"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "care@peritomoreno.com"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright",
+      "default": "© 2026 PeritoMoreno.com"
+    },
+    {
+      "type": "text",
+      "id": "credit",
+      "label": "Credit",
+      "default": "✦ Crafted with Intention"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_text_width",
+      "label": "Newsletter text width",
+      "min": 300,
+      "max": 600,
+      "step": 10,
+      "default": 420,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_gap",
+      "label": "Newsletter column gap",
+      "min": 40,
+      "max": 180,
+      "step": 4,
+      "default": 120,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_margin_bottom",
+      "label": "Newsletter bottom margin",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "default": 70,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "form_gap",
+      "label": "Form gap",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "form_offset_top",
+      "label": "Form top offset",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "input_height",
+      "label": "Input height",
+      "min": 34,
+      "max": 70,
+      "step": 1,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "label": "Subscribe button width",
+      "min": 90,
+      "max": 180,
+      "step": 5,
+      "default": 120,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "brand_column_width",
+      "label": "Brand column width",
+      "min": 220,
+      "max": 360,
+      "step": 10,
+      "default": 270,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Footer column gap",
+      "min": 40,
+      "max": 130,
+      "step": 2,
+      "default": 72,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "main_margin_bottom",
+      "label": "Main content bottom margin",
+      "min": 40,
+      "max": 110,
+      "step": 2,
+      "default": 58,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding_top",
+      "label": "Bottom bar top padding",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bottom_gap",
+      "label": "Bottom text gap",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_heading_size",
+      "label": "Newsletter heading size",
+      "min": 18,
+      "max": 42,
+      "step": 1,
+      "default": 27,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_heading_weight",
+      "label": "Newsletter heading weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "newsletter_text_gap",
+      "label": "Newsletter text gap",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_description_width",
+      "label": "Newsletter description width",
+      "min": 300,
+      "max": 520,
+      "step": 10,
+      "default": 430,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_text_size",
+      "label": "Newsletter text size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_text_line_height",
+      "label": "Newsletter text line height",
+      "min": 1.2,
+      "max": 2.4,
+      "step": 0.1,
+      "default": 1.9
+    },
+    {
+      "type": "range",
+      "id": "brand_title_size",
+      "label": "Brand title size",
+      "min": 16,
+      "max": 30,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "brand_title_weight",
+      "label": "Brand title weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "brand_title_margin_bottom",
+      "label": "Brand title bottom margin",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "brand_text_margin_bottom",
+      "label": "Brand text bottom margin",
+      "min": 18,
+      "max": 40,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_title_size",
+      "label": "Column title size",
+      "min": 7,
+      "max": 15,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_title_letter_spacing",
+      "label": "Column title letter spacing",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.4
+    },
+    {
+      "type": "range",
+      "id": "column_title_weight",
+      "label": "Column title weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "column_title_margin_bottom",
+      "label": "Column title bottom margin",
+      "min": 18,
+      "max": 40,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body font size",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "label": "Body line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "body_font_weight",
+      "label": "Body weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "link_gap",
+      "label": "Link gap",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "contact_gap",
+      "label": "Contact gap",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "label": "Input font size",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 7,
+      "max": 13,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "min": 0,
+      "max": 0.4,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "label": "Button weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "bottom_font_size",
+      "label": "Bottom font size",
+      "min": 7,
+      "max": 13,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 24,
+      "max": 90,
+      "step": 2,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 24,
+      "max": 90,
+      "step": 2,
+      "default": 34,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Footer background",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#f2ecdc"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Input background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "input_text",
+      "label": "Input text",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#768249"
+    },
+    {
+      "type": "color",
+      "id": "bottom_color",
+      "label": "Bottom text",
+      "default": "#cbd0ba"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "newsletter",
+      "name": "Newsletter block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Join Our Circle"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Be the first to discover new releases, exclusive stories from the atelier, and insider access to limited editions."
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Input placeholder"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "SUBSCRIBE"
+        }
+      ]
+    },
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column title",
+          "default": "LEGAL"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Footer",
+      "category": "Footer",
+      "blocks": [
+        {
+          "type": "newsletter"
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "title": "LEGAL"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "title": "CUSTOMER CARE"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "title": "MAIN MENU"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

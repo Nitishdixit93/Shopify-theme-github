@@ -1,0 +1,767 @@
+{% style %}
+  .perito-discovery {
+    background: {{ section.settings.section_bg }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .perito-discovery__inner {
+    padding-top: calc(var(--perito-section-space-top) + {{ section.settings.padding_top }}px);
+    padding-bottom: calc(var(--perito-section-space-bottom) + {{ section.settings.padding_bottom }}px);
+    text-align: center;
+  }
+
+  .perito-discovery__intro {
+    max-width: {{ section.settings.intro_width }}px;
+    margin: 0 auto {{ section.settings.intro_margin_bottom }}px;
+  }
+
+  .perito-discovery__eyebrow {
+    margin: 0 0 {{ section.settings.eyebrow_margin_bottom }}px;
+    color: {{ section.settings.eyebrow_color }};
+    font-size: {{ section.settings.eyebrow_font_size }}px;
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.eyebrow_letter_spacing }}em;
+    text-transform: uppercase;
+    font-weight: {{ section.settings.eyebrow_font_weight }};
+  }
+
+  .perito-discovery__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_font_size }}px;
+    line-height: {{ section.settings.heading_line_height }};
+    font-weight: {{ section.settings.heading_font_weight }};
+  }
+
+  .perito-discovery__description {
+    margin: {{ section.settings.description_margin_top }}px auto 0;
+    max-width: {{ section.settings.description_width }}px;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.description_font_size }}px;
+    line-height: {{ section.settings.description_line_height }};
+    font-weight: {{ section.settings.description_font_weight }};
+  }
+
+  .perito-discovery__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: {{ section.settings.item_gap }}px;
+    margin-bottom: {{ section.settings.button_margin_top }}px;
+  }
+
+  .perito-discovery__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .perito-discovery__icon {
+    width: {{ section.settings.icon_box_size }}px;
+    height: {{ section.settings.icon_box_size }}px;
+    border: 1px solid {{ section.settings.icon_border }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: {{ section.settings.icon_margin_bottom }}px;
+    color: {{ section.settings.icon_color }};
+  }
+
+  .perito-discovery__icon svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+  }
+
+  .perito-discovery__title {
+    margin: 0 0 {{ section.settings.item_title_margin_bottom }}px;
+    color: {{ section.settings.item_title_color }};
+    font-size: {{ section.settings.item_title_size }}px;
+    line-height: 1.25;
+    font-weight: {{ section.settings.item_title_weight }};
+  }
+
+  .perito-discovery__text {
+    margin: 0;
+    max-width: {{ section.settings.item_text_width }}px;
+    color: {{ section.settings.item_text_color }};
+    font-size: {{ section.settings.item_text_size }}px;
+    line-height: {{ section.settings.item_text_line_height }};
+    font-weight: {{ section.settings.item_text_weight }};
+  }
+
+  .perito-discovery__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.button_width }}px;
+    height: {{ section.settings.button_height }}px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    border: 1px solid {{ section.settings.button_border }};
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: {{ section.settings.button_font_size }}px;
+    letter-spacing: {{ section.settings.button_letter_spacing }}em;
+    font-weight: {{ section.settings.button_font_weight }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-discovery__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .perito-discovery__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-discovery__description {
+      font-size: {{ section.settings.mobile_description_size }}px;
+    }
+
+    .perito-discovery__items {
+      grid-template-columns: 1fr;
+      row-gap: {{ section.settings.mobile_item_gap }}px;
+    }
+
+    .perito-discovery__button {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-discovery">
+  <div class="perito-discovery__inner perito-container perito-section-inner">
+    <div class="perito-discovery__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="perito-discovery__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="perito-discovery__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="perito-discovery__description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="perito-discovery__items">
+      {% for block in section.blocks %}
+        <div class="perito-discovery__item" {{ block.shopify_attributes }}>
+          <div class="perito-discovery__icon">
+            {% case block.settings.icon %}
+              {% when 'sparkle' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M11.593 18.0833C11.4889 17.6795 11.2784 17.3111 10.9836 17.0162C10.6887 16.7214 10.3203 16.511 9.91651 16.4068L2.75902 14.5611C2.6369 14.5265 2.52943 14.4529 2.4529 14.3517C2.37637 14.2504 2.33496 14.1269 2.33496 14C2.33496 13.873 2.37637 13.7496 2.4529 13.6483C2.52943 13.547 2.6369 13.4735 2.75902 13.4388L9.91651 11.592C10.3201 11.4879 10.6885 11.2776 10.9833 10.983C11.2781 10.6884 11.4887 10.3202 11.593 9.91663L13.4387 2.75913C13.473 2.63654 13.5465 2.52853 13.6479 2.45159C13.7493 2.37465 13.8731 2.33301 14.0004 2.33301C14.1277 2.33301 14.2515 2.37465 14.353 2.45159C14.4544 2.52853 14.5279 2.63654 14.5622 2.75913L16.4067 9.91663C16.5108 10.3204 16.7213 10.6888 17.0161 10.9837C17.311 11.2785 17.6794 11.489 18.0832 11.5931L25.2407 13.4376C25.3638 13.4716 25.4723 13.545 25.5497 13.6466C25.627 13.7481 25.6689 13.8723 25.6689 14C25.6689 14.1276 25.627 14.2518 25.5497 14.3534C25.4723 14.455 25.3638 14.5283 25.2407 14.5623L18.0832 16.4068C17.6794 16.511 17.311 16.7214 17.0161 17.0162C16.7213 17.3111 16.5108 17.6795 16.4067 18.0833L14.561 25.2408C14.5267 25.3634 14.4532 25.4714 14.3518 25.5483C14.2504 25.6253 14.1266 25.6669 13.9993 25.6669C13.872 25.6669 13.7481 25.6253 13.6467 25.5483C13.5453 25.4714 13.4718 25.3634 13.4375 25.2408L11.593 18.0833Z" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M23.333 3.5V8.16667" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M25.6667 5.83301H21" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4.66699 19.833V22.1663" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5.83333 21H3.5" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% when 'box' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M12.8333 25.3519C13.188 25.5567 13.5904 25.6645 14 25.6645C14.4096 25.6645 14.812 25.5567 15.1667 25.3519L23.3333 20.6852C23.6877 20.4806 23.982 20.1864 24.1868 19.8322C24.3916 19.4779 24.4996 19.0761 24.5 18.6669V9.33354C24.4996 8.92436 24.3916 8.52249 24.1868 8.16823C23.982 7.81398 23.6877 7.5198 23.3333 7.31521L15.1667 2.64854C14.812 2.44375 14.4096 2.33594 14 2.33594C13.5904 2.33594 13.188 2.44375 12.8333 2.64854L4.66667 7.31521C4.31231 7.5198 4.01798 7.81398 3.81321 8.16823C3.60843 8.52249 3.50042 8.92436 3.5 9.33354V18.6669C3.50042 19.0761 3.60843 19.4779 3.81321 19.8322C4.01798 20.1864 4.31231 20.4806 4.66667 20.6852L12.8333 25.3519Z" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 25.6667V14" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3.83789 8.16699L13.9996 14.0003L24.1612 8.16699" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.75 4.98145L19.25 10.9898" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <path d="M23.3333 9.33301H4.66667C4.02233 9.33301 3.5 9.85534 3.5 10.4997V12.833C3.5 13.4773 4.02233 13.9997 4.66667 13.9997H23.3333C23.9777 13.9997 24.5 13.4773 24.5 12.833V10.4997C24.5 9.85534 23.9777 9.33301 23.3333 9.33301Z" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 9.33301V24.4997" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M22.1663 14V22.1667C22.1663 22.7855 21.9205 23.379 21.4829 23.8166C21.0453 24.2542 20.4518 24.5 19.833 24.5H8.16634C7.5475 24.5 6.95401 24.2542 6.51643 23.8166C6.07884 23.379 5.83301 22.7855 5.83301 22.1667V14" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.74967 9.33287C7.97613 9.33287 7.23426 9.02558 6.68728 8.47859C6.1403 7.93161 5.83301 7.18975 5.83301 6.4162C5.83301 5.64265 6.1403 4.90079 6.68728 4.35381C7.23426 3.80682 7.97613 3.49953 8.74967 3.49953C9.87514 3.47992 10.978 4.026 11.9145 5.06655C12.851 6.10711 13.5777 7.59384 13.9997 9.33287C14.4217 7.59384 15.1483 6.10711 16.0848 5.06655C17.0213 4.026 18.1242 3.47992 19.2497 3.49953C20.0232 3.49953 20.7651 3.80682 21.3121 4.35381C21.859 4.90079 22.1663 5.64265 22.1663 6.4162C22.1663 7.18975 21.859 7.93161 21.3121 8.47859C20.7651 9.02558 20.0232 9.33287 19.2497 9.33287" stroke="currentColor" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            {% endcase %}
+          </div>
+
+          <h3 class="perito-discovery__title">{{ block.settings.title }}</h3>
+          <p class="perito-discovery__text">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.button_label != blank %}
+      <a class="perito-discovery__button" href="{{ section.settings.button_link | default: '#' }}">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito Discovery Program",
+  "tag": "section",
+  "class": "section-perito-discovery",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "DISCOVERY PROGRAM"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Begin Your Scent Journey"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Not sure where to start? Our sample program allows you to explore our collections before committing to a full bottle."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "EXPLORE SAMPLE SETS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "default": 102,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "default": 112,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "intro_width",
+      "label": "Intro width",
+      "min": 520,
+      "max": 1100,
+      "step": 20,
+      "default": 920,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "intro_margin_bottom",
+      "label": "Intro bottom margin",
+      "min": 50,
+      "max": 150,
+      "step": 2,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Item column gap",
+      "min": 40,
+      "max": 180,
+      "step": 2,
+      "default": 92,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "label": "Button top space",
+      "min": 50,
+      "max": 150,
+      "step": 2,
+      "default": 94,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow font size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow letter spacing",
+      "min": 0,
+      "max": 0.7,
+      "step": 0.1,
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_margin_bottom",
+      "label": "Eyebrow bottom margin",
+      "min": 12,
+      "max": 42,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 36,
+      "max": 78,
+      "step": 1,
+      "default": 58,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 1.4,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "label": "Heading weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "description_margin_top",
+      "label": "Description top margin",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_width",
+      "label": "Description width",
+      "min": 500,
+      "max": 980,
+      "step": 20,
+      "default": 780,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Description font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 19,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "description_font_weight",
+      "label": "Description weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Items"
+    },
+    {
+      "type": "range",
+      "id": "icon_box_size",
+      "label": "Icon box size",
+      "min": 54,
+      "max": 100,
+      "step": 2,
+      "default": 74,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 20,
+      "max": 42,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_margin_bottom",
+      "label": "Icon bottom margin",
+      "min": 20,
+      "max": 52,
+      "step": 1,
+      "default": 34,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_title_size",
+      "label": "Item title size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_title_weight",
+      "label": "Item title weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "item_title_margin_bottom",
+      "label": "Item title bottom margin",
+      "min": 16,
+      "max": 46,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_text_width",
+      "label": "Item text width",
+      "min": 220,
+      "max": 440,
+      "step": 10,
+      "default": 360,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_text_size",
+      "label": "Item text size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "item_text_line_height",
+      "label": "Item text line height",
+      "min": 1.2,
+      "max": 2.2,
+      "step": 0.1,
+      "default": 1.7
+    },
+    {
+      "type": "range",
+      "id": "item_text_weight",
+      "label": "Item text weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "label": "Button width",
+      "min": 220,
+      "max": 480,
+      "step": 5,
+      "default": 295,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button height",
+      "min": 48,
+      "max": 84,
+      "step": 1,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 9,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "min": 0,
+      "max": 0.4,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "label": "Button weight",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 140,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 28,
+      "max": 52,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_gap",
+      "label": "Mobile item gap",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "default": 52,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Base text color",
+      "default": "#f2ecdc"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d5d6c5"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_border",
+      "label": "Icon border",
+      "default": "#8d9870"
+    },
+    {
+      "type": "color",
+      "id": "item_title_color",
+      "label": "Item title color",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "item_text_color",
+      "label": "Item text color",
+      "default": "#d7dac9"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Button border",
+      "default": "#f4f1e8"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Discovery item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "sparkle",
+          "options": [
+            {
+              "value": "sparkle",
+              "label": "Sparkle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "gift",
+              "label": "Gift"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Curated Selection"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Explore our most beloved fragrances in travel-friendly sizes"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Discovery Program",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Curated Selection",
+            "text": "Explore our most beloved fragrances in travel-friendly sizes"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "box",
+            "title": "Sample Sets",
+            "text": "Thoughtfully composed discovery sets for every season and mood"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Complimentary with Purchase",
+            "text": "Choose 2 samples with every full bottle order"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

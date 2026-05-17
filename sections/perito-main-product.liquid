@@ -1,0 +1,1551 @@
+{% style %}
+  .perito-product {
+    background: {{ section.settings.bg }};
+    color: {{ section.settings.text }};
+  }
+
+  .perito-product__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 64px {{ section.settings.padding_bottom }}px;
+  }
+
+  .perito-product__top {
+    display: grid;
+    grid-template-columns: 520px 520px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .perito-product__main-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #d9d9d9;
+    overflow: hidden;
+  }
+
+  .perito-product__main-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .perito-product__thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .perito-product__thumb {
+    aspect-ratio: 1 / 1;
+    background: #eee9df;
+    overflow: hidden;
+    border: 1px solid transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .perito-product__thumb.is-active {
+    border-color: {{ section.settings.gold }};
+  }
+
+  .perito-product__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .perito-product__badges {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .perito-product__badge {
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text }};
+    font-size: {{ section.settings.badge_size }}px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+  }
+
+  .perito-product__vendor {
+    margin: 0 0 8px;
+    font-size: {{ section.settings.vendor_size }}px;
+    line-height: 1.2;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .perito-product__title {
+    margin: 0 0 12px;
+    color: {{ section.settings.text }};
+    font-size: {{ section.settings.title_size }}px;
+    line-height: 1.05;
+    font-weight: 600;
+  }
+
+  .perito-product__subtitle {
+    margin: 0 0 38px;
+    max-width: 430px;
+    font-size: {{ section.settings.subtitle_size }}px;
+    line-height: 1.55;
+    opacity: 0.9;
+  }
+
+  .perito-product__divider {
+    height: 1px;
+    background: {{ section.settings.text }};
+    opacity: 0.75;
+    margin-bottom: 22px;
+  }
+
+  .perito-product__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .perito-product__price {
+    font-size: {{ section.settings.price_size }}px;
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  .perito-product__size {
+    font-size: {{ section.settings.size_size }}px;
+    opacity: 0.85;
+  }
+
+  .perito-product__size-label {
+    margin: 0 0 8px;
+    font-size: {{ section.settings.size_label_size }}px;
+    line-height: 1;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .perito-product__variants {
+    display: flex;
+    gap: 9px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .perito-product__variant-input {
+    display: none;
+  }
+
+  .perito-product__variant-label {
+    min-width: 68px;
+    height: 38px;
+    border: 1px solid {{ section.settings.text }};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.text }};
+    font-size: {{ section.settings.variant_size }}px;
+    cursor: pointer;
+    padding: 0 12px;
+  }
+
+  .perito-product__variant-input:checked + .perito-product__variant-label {
+    background: {{ section.settings.text }};
+    color: {{ section.settings.bg }};
+  }
+
+  .perito-product__variant-input:disabled + .perito-product__variant-label {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .perito-product__stock {
+    margin: 0 0 34px;
+    font-size: {{ section.settings.stock_size }}px;
+    line-height: 1.4;
+  }
+
+  .perito-product__stock-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #00d96b;
+    margin-right: 8px;
+  }
+
+  .perito-product__button,
+  .perito-product__wishlist {
+    width: 100%;
+    height: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 400;
+  }
+
+  .perito-product__button {
+    border: 1px solid {{ section.settings.button_bg }};
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  .perito-product__button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .perito-product__wishlist {
+    border: 1px solid {{ section.settings.text }};
+    background: transparent;
+    color: {{ section.settings.text }};
+    cursor: pointer;
+  }
+
+  .perito-product__wishlist.active {
+    background: {{ section.settings.text }};
+    color: {{ section.settings.bg }};
+  }
+
+  .perito-product__notes {
+    margin-top: 94px;
+    text-align: center;
+  }
+
+  .perito-product__section-title {
+    margin: 0 0 28px;
+    font-size: {{ section.settings.section_title_size }}px;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  .perito-product__notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .perito-product__note {
+    font-size: {{ section.settings.note_size }}px;
+    line-height: 1.9;
+  }
+
+  .perito-product__story {
+    max-width: 900px;
+    margin: 76px auto 0;
+  }
+
+  .perito-product__story h2 {
+    margin: 0 0 24px;
+    font-size: {{ section.settings.story_heading_size }}px;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  .perito-product__story-text {
+    font-size: {{ section.settings.story_text_size }}px;
+    line-height: 1.8;
+  }
+
+  .perito-product__story-text p {
+    margin: 0 0 24px;
+  }
+
+  .perito-product__verdict {
+    max-width: 900px;
+    margin: 62px auto 0;
+    padding: 32px 0;
+    border-top: 1px solid {{ section.settings.text }};
+    border-bottom: 1px solid {{ section.settings.text }};
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+  }
+
+  .perito-product__verdict-icon svg {
+    width: 48px;
+    height: 48px;
+    display: block;
+  }
+
+  .perito-product__verdict h3 {
+    margin: 0 0 14px;
+    font-size: {{ section.settings.verdict_heading_size }}px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .perito-product__verdict p {
+    margin: 0;
+    font-size: {{ section.settings.verdict_text_size }}px;
+    line-height: 1.75;
+  }
+
+  .perito-product__icons {
+    max-width: 900px;
+    margin: 58px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 42px;
+    text-align: center;
+  }
+
+  .perito-product__icon {
+    margin-bottom: 14px;
+  }
+
+  .perito-product__icon svg {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+  }
+
+  .perito-product__icon-title {
+    margin: 0 0 9px;
+    font-size: {{ section.settings.feature_title_size }}px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .perito-product__icon-text {
+    margin: 0;
+    font-size: {{ section.settings.feature_text_size }}px;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 989px) {
+    .perito-product__inner {
+      padding: 32px 20px 60px;
+    }
+
+    .perito-product__top {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+
+    .perito-product__badge {
+      font-size: {{ section.settings.mobile_badge_size }}px;
+    }
+
+    .perito-product__vendor {
+      font-size: {{ section.settings.mobile_vendor_size }}px;
+    }
+
+    .perito-product__title {
+      font-size: {{ section.settings.mobile_title_size }}px;
+    }
+
+    .perito-product__subtitle {
+      font-size: {{ section.settings.mobile_subtitle_size }}px;
+    }
+
+    .perito-product__price {
+      font-size: {{ section.settings.mobile_price_size }}px;
+    }
+
+    .perito-product__size {
+      font-size: {{ section.settings.mobile_size_size }}px;
+    }
+
+    .perito-product__size-label {
+      font-size: {{ section.settings.mobile_size_label_size }}px;
+    }
+
+    .perito-product__variant-label {
+      font-size: {{ section.settings.mobile_variant_size }}px;
+    }
+
+    .perito-product__stock {
+      font-size: {{ section.settings.mobile_stock_size }}px;
+    }
+
+    .perito-product__button,
+    .perito-product__wishlist {
+      font-size: {{ section.settings.mobile_button_size }}px;
+    }
+
+    .perito-product__notes {
+      margin-top: 64px;
+    }
+
+    .perito-product__section-title {
+      font-size: {{ section.settings.mobile_section_title_size }}px;
+    }
+
+    .perito-product__note {
+      font-size: {{ section.settings.mobile_note_size }}px;
+    }
+
+    .perito-product__notes-grid,
+    .perito-product__icons {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      text-align: center;
+    }
+
+    .perito-product__story,
+    .perito-product__verdict {
+      margin-top: 54px;
+    }
+
+    .perito-product__story h2 {
+      font-size: {{ section.settings.mobile_story_heading_size }}px;
+    }
+
+    .perito-product__story-text {
+      font-size: {{ section.settings.mobile_story_text_size }}px;
+    }
+
+    .perito-product__verdict {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .perito-product__verdict-icon {
+      display: flex;
+      justify-content: center;
+    }
+
+    .perito-product__verdict h3 {
+      font-size: {{ section.settings.mobile_verdict_heading_size }}px;
+    }
+
+    .perito-product__verdict p {
+      font-size: {{ section.settings.mobile_verdict_text_size }}px;
+    }
+
+    .perito-product__icon-title {
+      font-size: {{ section.settings.mobile_feature_title_size }}px;
+    }
+
+    .perito-product__icon-text {
+      font-size: {{ section.settings.mobile_feature_text_size }}px;
+    }
+  }
+{% endstyle %}
+
+{% liquid
+  assign description_text = product.description | strip_html
+
+  assign story_text = description_text
+  assign top_notes = ''
+  assign middle_notes = ''
+  assign base_notes = ''
+
+  if description_text contains 'TOP NOTES'
+    assign story_text = description_text | split: 'TOP NOTES' | first | strip
+
+    assign after_top = description_text | split: 'TOP NOTES' | last
+    assign top_notes = after_top | split: 'MIDDLE NOTES' | first | strip
+  endif
+
+  if description_text contains 'MIDDLE NOTES'
+    assign after_middle = description_text | split: 'MIDDLE NOTES' | last
+    assign middle_notes = after_middle | split: 'BASE NOTES' | first | strip
+  endif
+
+  if description_text contains 'BASE NOTES'
+    assign base_notes = description_text | split: 'BASE NOTES' | last | strip
+  endif
+
+  assign top_notes_clean = top_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+  assign middle_notes_clean = middle_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+  assign base_notes_clean = base_notes | replace: ',', '<br>' | replace: '•', '<br>' | strip
+
+  assign current_variant = product.selected_or_first_available_variant
+
+  if current_variant == blank
+    assign current_variant = product.variants.first
+  endif
+
+  assign current_product_size = ''
+
+  assign variant_title = current_variant.title | strip
+  assign variant_title_downcase = variant_title | downcase
+
+  assign option_1 = current_variant.option1 | strip
+  assign option_1_downcase = option_1 | downcase
+
+  assign option_2 = current_variant.option2 | strip
+  assign option_2_downcase = option_2 | downcase
+
+  assign option_3 = current_variant.option3 | strip
+  assign option_3_downcase = option_3 | downcase
+
+  if option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'ml'
+    assign current_product_size = option_1
+  elsif option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'gm'
+    assign current_product_size = option_1
+  elsif option_1 != blank and option_1 != 'Default Title' and option_1_downcase contains 'gram'
+    assign current_product_size = option_1
+  elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'ml'
+    assign current_product_size = option_2
+  elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'gm'
+    assign current_product_size = option_2
+  elsif option_2 != blank and option_2 != 'Default Title' and option_2_downcase contains 'gram'
+    assign current_product_size = option_2
+  elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'ml'
+    assign current_product_size = option_3
+  elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'gm'
+    assign current_product_size = option_3
+  elsif option_3 != blank and option_3 != 'Default Title' and option_3_downcase contains 'gram'
+    assign current_product_size = option_3
+  elsif variant_title_downcase contains 'ml'
+    assign current_product_size = variant_title | split: ' / ' | first
+  elsif variant_title_downcase contains 'gm'
+    assign current_product_size = variant_title | split: ' / ' | first
+  elsif variant_title_downcase contains 'gram'
+    assign current_product_size = variant_title | split: ' / ' | first
+  endif
+
+  assign metafield_size = ''
+
+  if product.metafields.custom.size != blank
+    assign metafield_size = product.metafields.custom.size.value | default: product.metafields.custom.size | strip
+
+    if metafield_size == '0'
+      assign metafield_size = ''
+    endif
+  endif
+
+  if current_product_size == blank and metafield_size != blank
+    assign current_product_size = metafield_size
+  endif
+
+  if current_product_size == blank
+    assign title_words = product.title | replace: '-', ' ' | replace: '/', ' ' | replace: ',', ' ' | split: ' '
+    assign previous_word = ''
+
+    for word in title_words
+      assign word_clean = word | strip
+      assign word_downcase = word_clean | downcase
+
+      if word_downcase == 'ml'
+        if previous_word != blank
+          assign current_product_size = previous_word | append: 'ml'
+          break
+        endif
+      elsif word_downcase == 'gm'
+        if previous_word != blank
+          assign current_product_size = previous_word | append: 'gm'
+          break
+        endif
+      elsif word_downcase == 'gram'
+        if previous_word != blank
+          assign current_product_size = previous_word | append: ' Gram'
+          break
+        endif
+      elsif word_downcase == 'grams'
+        if previous_word != blank
+          assign current_product_size = previous_word | append: ' Grams'
+          break
+        endif
+      elsif word_downcase contains 'ml'
+        assign current_product_size = word_clean
+        break
+      elsif word_downcase contains 'gm'
+        assign current_product_size = word_clean
+        break
+      elsif word_downcase contains 'gram'
+        assign current_product_size = word_clean
+        break
+      endif
+
+      assign previous_word = word_clean
+    endfor
+  endif
+%}
+
+<section class="perito-product" data-perito-product-section>
+  <div class="perito-product__inner">
+    <div class="perito-product__top">
+      <div class="perito-product__gallery">
+        <div class="perito-product__main-image">
+          {% if product.featured_image != blank %}
+            {{
+              product.featured_image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'eager',
+                alt: product.title,
+                data-product-main-image: ''
+            }}
+          {% endif %}
+        </div>
+
+        <div class="perito-product__thumbs">
+          {% for media in product.media limit: 4 %}
+            {% if media.preview_image != blank %}
+              <button
+                class="perito-product__thumb {% if forloop.first %}is-active{% endif %}"
+                type="button"
+                data-product-thumb
+                data-full-image="{{ media.preview_image | image_url: width: 1200 }}"
+                data-alt="{{ product.title | escape }}"
+              >
+                {{
+                  media.preview_image
+                  | image_url: width: 260
+                  | image_tag: loading: 'lazy', alt: product.title
+                }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="perito-product__summary">
+        <div class="perito-product__badges">
+          {% for tag in product.tags %}
+            {% if tag contains 'badge:' %}
+              <span class="perito-product__badge">
+                {{ tag | remove: 'badge:' | replace: '-', ' ' | upcase }}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <p class="perito-product__vendor">
+          {% if product.metafields.custom.collection_name != blank %}
+            {{ product.metafields.custom.collection_name }}
+          {% elsif product.collections.first != blank %}
+            {{ product.collections.first.title }}
+          {% else %}
+            {{ product.vendor }}
+          {% endif %}
+        </p>
+
+        <h1 class="perito-product__title">{{ product.title }}</h1>
+
+        <p class="perito-product__subtitle">
+          {% if product.metafields.custom.short_description != blank %}
+            {{ product.metafields.custom.short_description }}
+          {% elsif story_text != blank %}
+            {{ story_text | truncate: 120 }}
+          {% else %}
+            {{ product.description | strip_html | truncate: 120 }}
+          {% endif %}
+        </p>
+
+        <div class="perito-product__divider"></div>
+
+        {% form 'product', product, class: 'perito-product__form' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-product-variant-id>
+
+          <div class="perito-product__price-row">
+            <div class="perito-product__price" data-product-price>
+              {% render 'format-price', price: current_variant.price %}
+            </div>
+
+            <span
+              class="perito-product__size"
+              data-product-size
+              {% if current_product_size == blank %}style="display: none;"{% endif %}
+            >
+              {{ current_product_size }}
+            </span>
+          </div>
+
+          {% unless product.has_only_default_variant %}
+            <p class="perito-product__size-label">Select Size</p>
+
+            <div class="perito-product__variants">
+              {% for variant in product.variants %}
+                <input
+                  class="perito-product__variant-input"
+                  type="radio"
+                  name="variant-picker"
+                  value="{{ variant.id }}"
+                  id="Variant-{{ section.id }}-{{ variant.id }}"
+                  data-variant-id="{{ variant.id }}"
+                  {% if variant.id == current_variant.id %}checked{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                <label class="perito-product__variant-label" for="Variant-{{ section.id }}-{{ variant.id }}">
+                  {{ variant.title }}
+                </label>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          <p class="perito-product__stock" data-product-stock>
+            {% if current_variant.available %}
+              <span class="perito-product__stock-dot"></span>
+              In Stock - Ships within 2-3 days
+            {% else %}
+              Out of stock
+            {% endif %}
+          </p>
+
+          <button
+            class="perito-product__button"
+            type="submit"
+            name="add"
+            data-product-add-button
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {% if current_variant.available %}
+              Add to Cart
+            {% else %}
+              Unavailable
+            {% endif %}
+          </button>
+
+          <button
+            class="perito-product__wishlist"
+            type="button"
+            data-product-wishlist
+            data-handle="{{ product.handle }}"
+            aria-pressed="false"
+          >
+            ♡ Add to Wishlist
+          </button>
+        {% endform %}
+      </div>
+    </div>
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+
+        {% when 'fragrance_notes' %}
+          <div class="perito-product__notes" {{ block.shopify_attributes }}>
+            <h2 class="perito-product__section-title">{{ block.settings.heading }}</h2>
+
+            <div class="perito-product__notes-grid">
+              <div class="perito-product__note">
+                {{ top_notes_clean }}
+              </div>
+
+              <div class="perito-product__note">
+                {{ middle_notes_clean }}
+              </div>
+
+              <div class="perito-product__note">
+                {{ base_notes_clean }}
+              </div>
+            </div>
+          </div>
+
+        {% when 'story' %}
+          <div class="perito-product__story" {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.heading }}</h2>
+
+            <div class="perito-product__story-text">
+              {% if product.metafields.custom.story != blank %}
+                {{ product.metafields.custom.story | metafield_tag }}
+              {% elsif story_text != blank %}
+                {{ story_text | newline_to_br }}
+              {% else %}
+                <p>Add story text before the TOP NOTES label in your product description.</p>
+              {% endif %}
+            </div>
+          </div>
+
+        {% when 'perfumer_verdict' %}
+          <div class="perito-product__verdict" {{ block.shopify_attributes }}>
+            <div class="perito-product__verdict-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path d="M30.9535 25.78L33.9835 42.832C34.0174 43.0328 33.9893 43.2392 33.9028 43.4235C33.8162 43.6079 33.6755 43.7614 33.4994 43.8636C33.3232 43.9658 33.1201 44.0118 32.9171 43.9954C32.7141 43.9791 32.521 43.9011 32.3635 43.772L25.2035 38.398C24.8579 38.1398 24.438 38.0003 24.0065 38.0003C23.575 38.0003 23.1552 38.1398 22.8095 38.398L15.6375 43.77C15.4801 43.8989 15.2872 43.9767 15.0845 43.9931C14.8818 44.0095 14.6788 43.9637 14.5028 43.8618C14.3268 43.7598 14.1861 43.6067 14.0993 43.4227C14.0126 43.2387 13.9841 43.0327 14.0175 42.832L17.0455 25.78" stroke="#C6A769" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M24 28C30.6274 28 36 22.6274 36 16C36 9.37258 30.6274 4 24 4C17.3726 4 12 9.37258 12 16C12 22.6274 17.3726 28 24 28Z" stroke="#C6A769" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div>
+              <h3>{{ block.settings.heading }}</h3>
+              <p>
+                {% if product.metafields.custom.perfumer_verdict != blank %}
+                  {{ product.metafields.custom.perfumer_verdict }}
+                {% else %}
+                  {{ block.settings.fallback_text | newline_to_br }}
+                {% endif %}
+              </p>
+            </div>
+          </div>
+
+        {% when 'product_features' %}
+          <div class="perito-product__icons" {{ block.shopify_attributes }}>
+            <div>
+              <div class="perito-product__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path d="M18.3333 36.2166C18.8401 36.5091 19.4149 36.6632 20 36.6632C20.5851 36.6632 21.1599 36.5091 21.6667 36.2166L33.3333 29.5499C33.8396 29.2576 34.26 28.8374 34.5526 28.3313C34.8451 27.8252 34.9994 27.2511 35 26.6666V13.3333C34.9994 12.7487 34.8451 12.1746 34.5526 11.6685C34.26 11.1624 33.8396 10.7422 33.3333 10.4499L21.6667 3.78325C21.1599 3.49069 20.5851 3.33667 20 3.33667C19.4149 3.33667 18.8401 3.49069 18.3333 3.78325L6.66667 10.4499C6.16044 10.7422 5.73997 11.1624 5.44744 11.6685C5.1549 12.1746 5.0006 12.7487 5 13.3333V26.6666C5.0006 27.2511 5.1549 27.8252 5.44744 28.3313C5.73997 28.8374 6.16044 29.2576 6.66667 29.5499L18.3333 36.2166Z" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20 36.6667V20" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5.48242 11.6667L19.9991 20.0001L34.5158 11.6667" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12.5 7.1167L27.5 15.7" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="perito-product__icon-title">{{ block.settings.title_1 }}</p>
+              <p class="perito-product__icon-text">{{ block.settings.text_1 }}</p>
+            </div>
+
+            <div>
+              <div class="perito-product__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path d="M18.3329 33.3333C15.4063 33.3421 12.5833 32.2508 10.4238 30.2756C8.26419 28.3005 6.92584 25.5858 6.67412 22.6701C6.4224 19.7544 7.27571 16.8505 9.06481 14.5345C10.8539 12.2185 13.4481 10.6594 16.3329 10.1666C25.8329 8.33325 28.3329 7.46659 31.6662 3.33325C33.3329 6.66659 34.9996 10.2999 34.9996 16.6666C34.9996 25.8333 27.0329 33.3333 18.3329 33.3333Z" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3.33398 35C3.33398 30 6.41732 26.0667 11.8007 25C15.834 24.2 20.0006 21.6667 21.6673 20" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="perito-product__icon-title">{{ block.settings.title_2 }}</p>
+              <p class="perito-product__icon-text">{{ block.settings.text_2 }}</p>
+            </div>
+
+            <div>
+              <div class="perito-product__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path d="M16.5617 25.8334C16.4129 25.2566 16.1123 24.7303 15.6911 24.3091C15.2699 23.8879 14.7435 23.5872 14.1667 23.4384L3.94173 20.8018C3.76728 20.7522 3.61374 20.6472 3.50442 20.5025C3.39509 20.3578 3.33594 20.1814 3.33594 20.0001C3.33594 19.8187 3.39509 19.6424 3.50442 19.4977C3.61374 19.353 3.76728 19.2479 3.94173 19.1984L14.1667 16.5601C14.7433 16.4114 15.2695 16.111 15.6907 15.6902C16.1119 15.2693 16.4127 14.7432 16.5617 14.1668L19.1984 3.94176C19.2474 3.76662 19.3524 3.61233 19.4973 3.50241C19.6422 3.3925 19.819 3.33301 20.0009 3.33301C20.1828 3.33301 20.3596 3.3925 20.5045 3.50241C20.6494 3.61233 20.7544 3.76662 20.8034 3.94176L23.4384 14.1668C23.5872 14.7435 23.8878 15.2699 24.309 15.6911C24.7302 16.1123 25.2566 16.413 25.8334 16.5618L36.0584 19.1968C36.2342 19.2453 36.3893 19.3501 36.4998 19.4952C36.6103 19.6403 36.6701 19.8177 36.6701 20.0001C36.6701 20.1825 36.6103 20.3598 36.4998 20.505C36.3893 20.6501 36.2342 20.7549 36.0584 20.8034L25.8334 23.4384C25.2566 23.5872 24.7302 23.8879 24.309 24.3091C23.8878 24.7303 23.5872 25.2566 23.4384 25.8334L20.8017 36.0584C20.7527 36.2336 20.6478 36.3879 20.5029 36.4978C20.358 36.6077 20.1811 36.6672 19.9992 36.6672C19.8174 36.6672 19.6405 36.6077 19.4956 36.4978C19.3507 36.3879 19.2457 36.2336 19.1967 36.0584L16.5617 25.8334Z" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M33.334 5V11.6667" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M36.6667 8.33325H30" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6.66602 28.3333V31.6666" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.33333 30H5" stroke="#C6A769" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <p class="perito-product__icon-title">{{ block.settings.title_3 }}</p>
+              <p class="perito-product__icon-text">{{ block.settings.text_3 }}</p>
+            </div>
+          </div>
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-perito-product-section]');
+    if (!section) return;
+
+    const variants = [
+      {% for variant in product.variants %}
+        {% capture formatted_variant_price %}
+          {% render 'format-price', price: variant.price %}
+        {% endcapture %}
+        {
+          id: {{ variant.id | json }},
+          title: {{ variant.title | json }},
+          option1: {{ variant.option1 | json }},
+          option2: {{ variant.option2 | json }},
+          option3: {{ variant.option3 | json }},
+          price: {{ variant.price | json }},
+          formatted_price: {{ formatted_variant_price | strip | json }},
+          available: {{ variant.available | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    const productTitle = {{ product.title | json }};
+
+    {% capture product_metafield_size_js %}
+      {% if product.metafields.custom.size != blank %}
+        {{ product.metafields.custom.size.value | default: product.metafields.custom.size }}
+      {% endif %}
+    {% endcapture %}
+
+    const productMetafieldSize = {{ product_metafield_size_js | strip | json }};
+
+    const mainImage = section.querySelector('[data-product-main-image]');
+    const thumbs = section.querySelectorAll('[data-product-thumb]');
+    const hiddenVariantInput = section.querySelector('[data-product-variant-id]');
+    const priceEl = section.querySelector('[data-product-price]');
+    const sizeEl = section.querySelector('[data-product-size]');
+    const stockEl = section.querySelector('[data-product-stock]');
+    const addButton = section.querySelector('[data-product-add-button]');
+    const variantInputs = section.querySelectorAll('.perito-product__variant-input');
+    const wishlistButton = section.querySelector('[data-product-wishlist]');
+
+    function cleanMetafieldSize(value) {
+      const size = String(value || '').trim();
+      return size && size !== '0' ? size : '';
+    }
+
+    function hasSize(value) {
+      return /\d+(?:\.\d+)?\s*(ml|gm|gram|grams)/i.test(value || '');
+    }
+
+    function extractSizeFromText(value) {
+      const match = String(value || '').match(/(\d+(?:\.\d+)?)\s*(ml|gm|gram|grams)\b/i);
+      if (!match) return '';
+
+      const number = match[1];
+      const unit = match[2].toLowerCase();
+
+      if (unit === 'gram') return `${number} Gram`;
+      if (unit === 'grams') return `${number} Grams`;
+
+      return `${number}${unit}`;
+    }
+
+    function getVariantSize(variant) {
+      const options = [variant.option1, variant.option2, variant.option3];
+
+      for (const option of options) {
+        if (option && option !== 'Default Title' && hasSize(option)) {
+          return option;
+        }
+      }
+
+      if (variant.title && variant.title !== 'Default Title' && hasSize(variant.title)) {
+        return variant.title.split(' / ')[0];
+      }
+
+      const metafieldSize = cleanMetafieldSize(productMetafieldSize);
+      if (metafieldSize) return metafieldSize;
+
+      return extractSizeFromText(productTitle);
+    }
+
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const fullImage = thumb.dataset.fullImage;
+        const alt = thumb.dataset.alt || '';
+
+        if (mainImage && fullImage) {
+          mainImage.src = fullImage;
+          mainImage.srcset = '';
+          mainImage.alt = alt;
+        }
+
+        thumbs.forEach((item) => item.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      });
+    });
+
+    variantInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        const variant = variants.find((item) => String(item.id) === String(input.value));
+        if (!variant) return;
+
+        if (hiddenVariantInput) hiddenVariantInput.value = variant.id;
+        if (priceEl) priceEl.innerHTML = variant.formatted_price;
+
+        if (sizeEl) {
+          const size = getVariantSize(variant);
+          sizeEl.textContent = size;
+          sizeEl.style.display = size ? '' : 'none';
+        }
+
+        if (stockEl) {
+          stockEl.innerHTML = variant.available
+            ? '<span class="perito-product__stock-dot"></span>In Stock - Ships within 2-3 days'
+            : 'Out of stock';
+        }
+
+        if (addButton) {
+          addButton.disabled = !variant.available;
+          addButton.textContent = variant.available ? 'Add to Cart' : 'Unavailable';
+        }
+      });
+    });
+
+    const wishlistKey = 'peritoWishlist';
+
+    function getWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function saveWishlist(list) {
+      localStorage.setItem(wishlistKey, JSON.stringify(list));
+    }
+
+    function updateWishlistButton() {
+      if (!wishlistButton) return;
+
+      const handle = wishlistButton.dataset.handle;
+      const list = getWishlist();
+      const isActive = list.includes(handle);
+
+      wishlistButton.classList.toggle('active', isActive);
+      wishlistButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      wishlistButton.textContent = isActive ? '♥ Added to Wishlist' : '♡ Add to Wishlist';
+    }
+
+    if (wishlistButton) {
+      updateWishlistButton();
+
+      wishlistButton.addEventListener('click', () => {
+        const handle = wishlistButton.dataset.handle;
+        if (!handle) return;
+
+        const list = getWishlist();
+        const index = list.indexOf(handle);
+
+        if (index >= 0) {
+          list.splice(index, 1);
+        } else {
+          list.push(handle);
+        }
+
+        saveWishlist(list);
+        updateWishlistButton();
+
+        window.dispatchEvent(new CustomEvent('perito:wishlist-updated', {
+          detail: { wishlist: list }
+        }));
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Perito Main Product",
+  "tag": "section",
+  "class": "section-perito-main-product",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 40,
+      "max": 160,
+      "step": 2,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#273315"
+    },
+    {
+      "type": "color",
+      "id": "text",
+      "label": "Text",
+      "default": "#f4efe4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Add button background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Add button text",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge background",
+      "default": "#f4f1e8"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "#637236"
+    },
+    {
+      "type": "color",
+      "id": "gold",
+      "label": "Gold accent",
+      "default": "#d7b762"
+    },
+    {
+      "type": "header",
+      "content": "Desktop font sizes"
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Badge font size",
+      "min": 6,
+      "max": 18,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "vendor_size",
+      "label": "Vendor font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Product title font size",
+      "min": 20,
+      "max": 70,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle font size",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price font size",
+      "min": 14,
+      "max": 50,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "size_size",
+      "label": "Product size text font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "size_label_size",
+      "label": "Size label font size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "variant_size",
+      "label": "Variant option font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "stock_size",
+      "label": "Stock text font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "label": "Section title font size",
+      "min": 16,
+      "max": 50,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "note_size",
+      "label": "Fragrance notes font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_heading_size",
+      "label": "Story heading font size",
+      "min": 16,
+      "max": 50,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "story_text_size",
+      "label": "Story text font size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "verdict_heading_size",
+      "label": "Verdict heading font size",
+      "min": 12,
+      "max": 38,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "verdict_text_size",
+      "label": "Verdict text font size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "label": "Feature title font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "label": "Feature text font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile font sizes"
+    },
+    {
+      "type": "range",
+      "id": "mobile_badge_size",
+      "label": "Mobile badge font size",
+      "min": 6,
+      "max": 18,
+      "step": 1,
+      "default": 7,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_vendor_size",
+      "label": "Mobile vendor font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "label": "Mobile product title font size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_subtitle_size",
+      "label": "Mobile subtitle font size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_price_size",
+      "label": "Mobile price font size",
+      "min": 14,
+      "max": 42,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_size_size",
+      "label": "Mobile product size text font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_size_label_size",
+      "label": "Mobile size label font size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_variant_size",
+      "label": "Mobile variant option font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_stock_size",
+      "label": "Mobile stock text font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_size",
+      "label": "Mobile button font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_title_size",
+      "label": "Mobile section title font size",
+      "min": 16,
+      "max": 44,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_note_size",
+      "label": "Mobile fragrance notes font size",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_story_heading_size",
+      "label": "Mobile story heading font size",
+      "min": 16,
+      "max": 44,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_story_text_size",
+      "label": "Mobile story text font size",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_verdict_heading_size",
+      "label": "Mobile verdict heading font size",
+      "min": 12,
+      "max": 34,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_verdict_text_size",
+      "label": "Mobile verdict text font size",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_feature_title_size",
+      "label": "Mobile feature title font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 9,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_feature_text_size",
+      "label": "Mobile feature text font size",
+      "min": 8,
+      "max": 22,
+      "step": 1,
+      "default": 10,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fragrance_notes",
+      "name": "Fragrance Notes",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Fragrance Notes"
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "name": "Product Story",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The Story"
+        }
+      ]
+    },
+    {
+      "type": "perfumer_verdict",
+      "name": "Perfumer Verdict",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Perfumer's Verdict"
+        },
+        {
+          "type": "textarea",
+          "id": "fallback_text",
+          "label": "Fallback text",
+          "default": "\"Glacier at Dawn required three years to perfect. The challenge was capturing 'coldness' without astringency, 'purity' without sterility. I worked with a molecular distillation expert to create our proprietary ice accord, which gives the fragrance its distinctive crystalline quality. It's one of the most technically complex compositions I've ever created, yet it wears with effortless simplicity.\"\n\n— ARJUN MEHTA, MASTER PERFUMER"
+        }
+      ]
+    },
+    {
+      "type": "product_features",
+      "name": "Product Features",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Feature 1 title",
+          "default": "Small Batch"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Feature 1 text",
+          "default": "Limited to 500 bottles per batch"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Feature 2 title",
+          "default": "Sustainable"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Feature 2 text",
+          "default": "Ethically sourced ingredients"
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Feature 3 title",
+          "default": "Artisan Crafted"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Feature 3 text",
+          "default": "Hand-blended in our atelier"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Main Product",
+      "blocks": [
+        {
+          "type": "fragrance_notes"
+        },
+        {
+          "type": "story"
+        },
+        {
+          "type": "perfumer_verdict"
+        },
+        {
+          "type": "product_features"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

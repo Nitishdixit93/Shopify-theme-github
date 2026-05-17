@@ -1,0 +1,217 @@
+{% style %}
+  .perito-article {
+    background: {{ section.settings.bg }};
+    color: {{ section.settings.text }};
+  }
+
+  .perito-article__hero {
+  min-height: {{ section.settings.hero_height }}px;
+  background-image:
+    linear-gradient(rgba(9, 20, 16, {{ section.settings.overlay_opacity | divided_by: 100.0 }}), rgba(9, 20, 16, {{ section.settings.overlay_opacity | divided_by: 100.0 }})),
+    {% if article.image != blank %}
+      url({{ article.image | image_url: width: 2200 }})
+    {% elsif section.settings.fallback_hero_image != blank %}
+      url({{ section.settings.fallback_hero_image | image_url: width: 2200 }})
+    {% else %}
+      none
+    {% endif %};
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+}
+
+  .perito-article__hero h1 {
+    margin: 0;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    color: {{ section.settings.hero_text }};
+    text-transform: uppercase;
+  }
+
+  .perito-article__hero p {
+    margin: 18px 0 0;
+    font-size: 12px;
+    color: {{ section.settings.hero_text }};
+  }
+
+  .perito-article__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 46px 64px 120px;
+  }
+
+  .perito-article__meta {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 18px;
+  }
+
+  .perito-article__title {
+    font-size: 24px;
+    line-height: 1.2;
+    margin: 0 0 28px;
+    font-weight: 600;
+  }
+
+  .perito-article__content {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 0.82;
+  }
+
+  .perito-article__content p {
+    margin: 0 0 24px;
+  }
+
+  .perito-article__content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .perito-article__hero {
+      min-height: {{ section.settings.mobile_hero_height }}px;
+      padding: 0 20px;
+    }
+
+    .perito-article__hero h1 {
+      font-size: 34px;
+    }
+
+    .perito-article__inner {
+      padding: 34px 20px 80px;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-article">
+  <div class="perito-article__hero">
+    <div>
+      <h1>{{ section.settings.hero_title }}</h1>
+
+      {% if section.settings.hero_subtitle != blank %}
+        <p>{{ section.settings.hero_subtitle }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <article class="perito-article__inner">
+    <div class="perito-article__meta">
+      {% if blog.title != blank %}
+        {{ blog.title }}
+      {% else %}
+        The Journal
+      {% endif %}
+    </div>
+
+    <h2 class="perito-article__title">
+      {% if article.title != blank %}
+        {{ article.title }}
+      {% else %}
+        Perfumer’s Journal
+      {% endif %}
+    </h2>
+
+    <div class="perito-article__content">
+      {% if article.content != blank %}
+        {{ article.content }}
+      {% else %}
+        <p>
+          Perfumery might seem like a lofty, foreign business. It’s about personal scent more than anything else. But as one of the largest global luxury industries, perfume making can have a significant impact on certain plants and animals valued for their rare scents.
+        </p>
+        <p>
+          Most perfume manufacturers use modern aroma molecules and extraction methods, but the ritual of composing fragrance remains rooted in storytelling, memory, and atmosphere.
+        </p>
+        <p>
+          Perito Moreno approaches each fragrance as a crafted composition — small batch, intentional, and shaped by the emotional experience of scent.
+        </p>
+      {% endif %}
+    </div>
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "Perito article journal",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#1D3210"
+    },
+    {
+      "type": "color",
+      "id": "text",
+      "label": "Text",
+      "default": "#F4F0E7"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_hero_image",
+      "label": "Fallback hero image"
+    },
+    {
+  "type": "range",
+  "id": "hero_height",
+  "label": "Hero height",
+  "min": 220,
+  "max": 700,
+  "step": 10,
+  "default": 430,
+  "unit": "px"
+},
+{
+  "type": "range",
+  "id": "mobile_hero_height",
+  "label": "Mobile hero height",
+  "min": 220,
+  "max": 560,
+  "step": 10,
+  "default": 330,
+  "unit": "px"
+},
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Hero overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 65
+    },
+    {
+      "type": "color",
+      "id": "hero_text",
+      "label": "Hero text",
+      "default": "#F4F0E7"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "JOURNAL"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Stories of scent, seasonality, and craft"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito article journal"
+    }
+  ]
+}
+{% endschema %}

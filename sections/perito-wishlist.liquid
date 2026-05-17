@@ -1,0 +1,393 @@
+{% style %}
+  .perito-wishlist {
+    background: #283416;
+    color: #fff;
+    padding: 88px 24px 120px;
+  }
+
+  .perito-wishlist__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .perito-wishlist__eyebrow {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 18px;
+  }
+
+  .perito-wishlist h1 {
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.05;
+    font-weight: 600;
+    margin: 0 0 24px;
+    color: #ffffff;
+  }
+
+  .perito-wishlist__subheading {
+    max-width: 620px;
+    margin: 0 auto 96px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-wishlist__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 82px 28px;
+  }
+
+  .perito-wishlist-card {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .perito-wishlist-card__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1.32;
+    background: #d9d9d9;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .perito-wishlist-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .perito-wishlist-card__remove {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    background: #ffffff;
+    color: #ff1616;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 0;
+  }
+
+  .perito-wishlist-card__remove svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .perito-wishlist-card__badges {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  .perito-wishlist-card__badge {
+    background: #ffffff;
+    color: #969393;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 7px 13px;
+    min-width: 122px;
+  }
+
+  .perito-wishlist-card__category {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.48);
+    margin-bottom: 12px;
+  }
+
+  .perito-wishlist-card__title {
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #ffffff;
+  }
+
+  .perito-wishlist-card__desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.68);
+    margin: 0 0 22px;
+  }
+
+  .perito-wishlist-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+
+  .perito-wishlist-card__size {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .perito-wishlist__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  @media screen and (max-width: 990px) {
+    .perito-wishlist h1 {
+      font-size: 40px;
+    }
+
+    .perito-wishlist__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px 28px;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .perito-wishlist {
+      padding: 64px 20px 84px;
+    }
+
+    .perito-wishlist h1 {
+      font-size: 34px;
+    }
+
+    .perito-wishlist__subheading {
+      margin-bottom: 56px;
+    }
+
+    .perito-wishlist__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-wishlist">
+  <div class="perito-wishlist__inner">
+    {% if section.settings.eyebrow != blank %}
+      <div class="perito-wishlist__eyebrow">{{ section.settings.eyebrow }}</div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h1>{{ section.settings.heading }}</h1>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <div class="perito-wishlist__subheading">{{ section.settings.subheading }}</div>
+    {% endif %}
+
+    <div class="perito-wishlist__grid" id="wishlist-grid"></div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const wishlistKey = 'peritoWishlist';
+    const wishlistGrid = document.getElementById('wishlist-grid');
+
+    if (!wishlistGrid) return;
+
+    function getWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveWishlist(list) {
+      localStorage.setItem(wishlistKey, JSON.stringify(list));
+    }
+
+    function formatMoney(cents) {
+      // Use the dynamic currency symbol from Shopify's currency settings
+      const currencySymbol = '{{ shop.currency }}'; // This will output the store's currency symbol
+
+      if (window.Shopify && typeof Shopify.formatMoney === 'function') {
+        return Shopify.formatMoney(cents);
+      }
+
+      return currencySymbol + (cents / 100).toFixed(2);  // Using the dynamic currency symbol here
+    }
+
+    window.removeFromWishlist = function (handle) {
+      const list = getWishlist().filter(function (item) {
+        return item !== handle;
+      });
+
+      saveWishlist(list);
+      renderWishlist();
+
+      window.dispatchEvent(new CustomEvent('perito:wishlist-updated', {
+        detail: { wishlist: list }
+      }));
+    };
+
+    async function renderWishlist() {
+      const handles = getWishlist();
+      wishlistGrid.innerHTML = '';
+
+      if (!handles.length) {
+        wishlistGrid.innerHTML = '<div class="perito-wishlist__empty">{{ section.settings.empty_text }}</div>';
+        return;
+      }
+
+      for (const handle of handles) {
+        try {
+          const response = await fetch('/products/' + handle + '.js');
+
+          if (!response.ok) continue;
+
+          const product = await response.json();
+          const image = product.featured_image || '';
+          const price = formatMoney(product.price);
+          const description = product.description
+            ? product.description.replace(/<[^>]*>/g, '').slice(0, 95)
+            : '';
+          const size = product.variants && product.variants[0] && product.variants[0].title !== 'Default Title'
+            ? product.variants[0].title
+            : '{{ section.settings.default_size }}';
+
+          // Fetch product tags
+          const productTags = product.tags;
+
+          // Check for badges based on tags
+          const badges = [];
+          if (productTags.includes('badge:limited')) {
+            badges.push('{{ section.settings.badge_1 }}');
+          }
+          if (productTags.includes('badge:bestseller')) {
+            badges.push('{{ section.settings.badge_2 }}');
+          }
+          if (productTags.includes('badge:sample-available')) {
+            badges.push('{{ section.settings.badge_3 }}');
+          }
+
+          // Create card and render badges dynamically
+          const card = document.createElement('div');
+          card.className = 'perito-wishlist-card';
+
+          card.innerHTML = `
+            <a href="${product.url}" class="perito-wishlist-card__link">
+              <div class="perito-wishlist-card__image">
+                <div class="perito-wishlist-card__badges">
+                  ${badges.map(badge => `<span class="perito-wishlist-card__badge">${badge}</span>`).join('')}
+                </div>
+                <button class="perito-wishlist-card__remove" type="button" aria-label="Remove ${product.title} from wishlist" onclick="event.preventDefault(); event.stopPropagation(); removeFromWishlist('${handle}')">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </button>
+
+                ${image ? `<img src="${image}" alt="${product.title}" loading="lazy">` : ''}
+              </div>
+
+              <div class="perito-wishlist-card__category">{{ section.settings.card_eyebrow }}</div>
+              <h3 class="perito-wishlist-card__title">${product.title}</h3>
+              <p class="perito-wishlist-card__desc">${description}</p>
+
+              <div class="perito-wishlist-card__meta">
+                <span>${price}</span>
+                <span class="perito-wishlist-card__size">${size}</span>
+              </div>
+            </a>
+          `;
+
+          wishlistGrid.appendChild(card);
+        } catch (error) {
+          console.warn('Wishlist product could not be loaded:', handle);
+        }
+      }
+    }
+
+    renderWishlist();
+
+    window.addEventListener('storage', function (event) {
+      if (event.key === wishlistKey) renderWishlist();
+    });
+
+    window.addEventListener('perito:wishlist-updated', renderWishlist);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Perito Wishlist",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "All Collections"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Favorite Perfume List"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Each fragrance is a carefully composed narrative, crafted in small batches from the world's finest ingredients."
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty wishlist text",
+      "default": "No products in your wishlist yet."
+    },
+    {
+      "type": "text",
+      "id": "card_eyebrow",
+      "label": "Card eyebrow fallback",
+      "default": "Haute Collection"
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "First badge text",
+      "default": "Limited"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Second badge text",
+      "default": "Sample Available"
+    },
+    {
+      "type": "text",
+      "id": "default_size",
+      "label": "Default size text",
+      "default": "50ml"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito Wishlist"
+    }
+  ]
+}
+{% endschema %}

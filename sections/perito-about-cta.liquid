@@ -1,0 +1,452 @@
+{% style %}
+.perito-experience-craft-{{ section.id }} {
+  background-color: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  text-align: center;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.padding_bottom }}px;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__inner {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__heading {
+  color: {{ section.settings.heading_color }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: {{ section.settings.heading_weight }};
+  line-height: 1.2;
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__text {
+  color: {{ section.settings.description_color }};
+  font-size: {{ section.settings.description_size }}px;
+  font-weight: {{ section.settings.description_weight }};
+  line-height: {{ section.settings.description_line_height }};
+  max-width: {{ section.settings.description_width }}px;
+  margin: 0 auto {{ section.settings.description_margin_bottom }}px;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: {{ section.settings.button_gap }}px;
+  flex-wrap: wrap;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: {{ section.settings.button_min_width }}px;
+  min-height: {{ section.settings.button_height }}px;
+  padding: 0 {{ section.settings.button_padding_sides }}px;
+  font-size: {{ section.settings.button_font_size }}px;
+  font-weight: {{ section.settings.button_font_weight }};
+  line-height: 1;
+  letter-spacing: {{ section.settings.button_letter_spacing }}px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.25s ease;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__button:hover {
+  opacity: 0.82;
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__button--primary {
+  background-color: {{ section.settings.primary_button_bg }};
+  color: {{ section.settings.primary_button_text }};
+  border: {{ section.settings.button_border_width }}px solid {{ section.settings.primary_button_border }};
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__button--secondary {
+  background-color: transparent;
+  color: {{ section.settings.secondary_button_text }};
+  border: {{ section.settings.button_border_width }}px solid {{ section.settings.secondary_button_border }};
+}
+
+.perito-experience-craft-{{ section.id }} .perito-experience-craft__arrow {
+  margin-left: {{ section.settings.arrow_gap }}px;
+  font-size: {{ section.settings.arrow_size }}px;
+  line-height: 1;
+}
+
+.perito-experience-craft-bottom-{{ section.id }} {
+  display: {% if section.settings.show_bottom_div %}block{% else %}none{% endif %};
+  height: {{ section.settings.bottom_div_height }}px;
+  background-color: {{ section.settings.bottom_div_color }};
+}
+
+@media screen and (max-width: 749px) {
+  .perito-experience-craft-{{ section.id }} {
+    padding: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_sides }}px {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  .perito-experience-craft-{{ section.id }} .perito-experience-craft__heading {
+    font-size: {{ section.settings.mobile_heading_size }}px;
+  }
+
+  .perito-experience-craft-{{ section.id }} .perito-experience-craft__text {
+    font-size: {{ section.settings.mobile_description_size }}px;
+  }
+
+  .perito-experience-craft-{{ section.id }} .perito-experience-craft__buttons {
+    gap: {{ section.settings.mobile_button_gap }}px;
+  }
+
+  .perito-experience-craft-{{ section.id }} .perito-experience-craft__button {
+    width: {% if section.settings.mobile_buttons_full_width %}100%{% else %}auto{% endif %};
+  }
+
+  .perito-experience-craft-bottom-{{ section.id }} {
+    height: {{ section.settings.mobile_bottom_div_height }}px;
+  }
+}
+{% endstyle %}
+
+<section class="perito-experience-craft-{{ section.id }}">
+  <div class="perito-experience-craft__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="perito-experience-craft__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p class="perito-experience-craft__text">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    <div class="perito-experience-craft__buttons">
+      {% if section.settings.primary_button_label != blank %}
+        <a class="perito-experience-craft__button perito-experience-craft__button--primary" href="{{ section.settings.primary_button_link }}">
+          {{ section.settings.primary_button_label }}
+
+          {% if section.settings.show_primary_arrow %}
+            <span class="perito-experience-craft__arrow">
+              →
+            </span>
+          {% endif %}
+        </a>
+      {% endif %}
+
+      {% if section.settings.secondary_button_label != blank %}
+        <a class="perito-experience-craft__button perito-experience-craft__button--secondary" href="{{ section.settings.secondary_button_link }}">
+          {{ section.settings.secondary_button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="perito-experience-craft-bottom-{{ section.id }}"></div>
+
+{% schema %}
+{
+  "name": "Experience Our Craft",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Experience Our Craft"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover fragrances that represent the intersection of Indian heritage and contemporary artistry."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#5F7137"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#D8DEC4"
+    },
+    {
+      "type": "number",
+      "id": "container_width",
+      "label": "Container width",
+      "default": 760
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 82
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 82
+    },
+    {
+      "type": "number",
+      "id": "padding_sides",
+      "label": "Side padding",
+      "default": 24
+    },
+    {
+      "type": "number",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": 28
+    },
+    {
+      "type": "number",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "default": 600
+    },
+    {
+      "type": "number",
+      "id": "heading_margin_bottom",
+      "label": "Heading bottom spacing",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "description_width",
+      "label": "Description width",
+      "default": 580
+    },
+    {
+      "type": "number",
+      "id": "description_size",
+      "label": "Description size",
+      "default": 11
+    },
+    {
+      "type": "number",
+      "id": "description_weight",
+      "label": "Description weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "default": "1.6"
+    },
+    {
+      "type": "number",
+      "id": "description_margin_bottom",
+      "label": "Description bottom spacing",
+      "default": 34
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_primary_arrow",
+      "label": "Show arrow on primary button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button label",
+      "default": "Find a Retailer"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Primary button background",
+      "default": "#263514"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_border",
+      "label": "Primary button border",
+      "default": "#263514"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#C8D0B7"
+    },
+    {
+      "type": "number",
+      "id": "button_gap",
+      "label": "Button gap",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "button_min_width",
+      "label": "Button minimum width",
+      "default": 150
+    },
+    {
+      "type": "number",
+      "id": "button_height",
+      "label": "Button height",
+      "default": 36
+    },
+    {
+      "type": "number",
+      "id": "button_padding_sides",
+      "label": "Button side padding",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "button_border_width",
+      "label": "Button border width",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "default": 9
+    },
+    {
+      "type": "number",
+      "id": "button_font_weight",
+      "label": "Button font weight",
+      "default": 400
+    },
+    {
+      "type": "number",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "arrow_gap",
+      "label": "Arrow gap",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "arrow_size",
+      "label": "Arrow size",
+      "default": 13
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_div",
+      "label": "Show green div below section",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bottom_div_color",
+      "label": "Bottom div color",
+      "default": "#213312"
+    },
+    {
+      "type": "number",
+      "id": "bottom_div_height",
+      "label": "Bottom div height",
+      "default": 92
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "default": 58
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "default": 58
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_sides",
+      "label": "Mobile side padding",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "default": 24
+    },
+    {
+      "type": "number",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "default": 11
+    },
+    {
+      "type": "number",
+      "id": "mobile_button_gap",
+      "label": "Mobile button gap",
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_buttons_full_width",
+      "label": "Mobile buttons full width",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "mobile_bottom_div_height",
+      "label": "Mobile bottom div height",
+      "default": 70
+    }
+  ],
+  "presets": [
+    {
+      "name": "Experience Our Craft",
+      "category": "About Page"
+    }
+  ]
+}
+{% endschema %}

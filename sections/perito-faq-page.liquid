@@ -1,0 +1,701 @@
+{% style %}
+.perito-faq-page-{{ section.id }} {
+  background-color: {{ section.settings.page_bg_color }};
+  color: {{ section.settings.text_color }};
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero {
+  position: relative;
+  min-height: {{ section.settings.hero_height }}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: {{ section.settings.hero_padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.hero_padding_bottom }}px;
+  overflow: hidden;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: {{ section.settings.hero_overlay_color }};
+  opacity: {{ section.settings.hero_overlay_opacity | divided_by: 100.0 }};
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: {{ section.settings.hero_content_width }}px;
+  margin: 0 auto;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-heading {
+  color: {{ section.settings.hero_heading_color }};
+  font-size: {{ section.settings.hero_heading_size }}px;
+  font-weight: {{ section.settings.hero_heading_weight }};
+  line-height: 1.2;
+  letter-spacing: {{ section.settings.hero_heading_letter_spacing }}px;
+  margin: 0 0 {{ section.settings.hero_heading_margin_bottom }}px;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__hero-text {
+  color: {{ section.settings.hero_text_color }};
+  font-size: {{ section.settings.hero_text_size }}px;
+  font-weight: {{ section.settings.hero_text_weight }};
+  line-height: {{ section.settings.hero_text_line_height }};
+  max-width: {{ section.settings.hero_text_width }}px;
+  margin: 0 auto;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__main {
+  padding: {{ section.settings.main_padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.main_padding_bottom }}px;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__accordion {
+  max-width: {{ section.settings.accordion_width }}px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: {{ section.settings.item_gap }}px;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__item {
+  background-color: {{ section.settings.item_bg_color }};
+  border: {{ section.settings.item_border_width }}px solid {{ section.settings.item_border_color }};
+  border-radius: {{ section.settings.item_radius }}px;
+  overflow: hidden;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: {{ section.settings.question_color }};
+  font-size: {{ section.settings.question_size }}px;
+  font-weight: {{ section.settings.question_weight }};
+  line-height: 1.4;
+  padding: {{ section.settings.item_padding_top }}px {{ section.settings.item_padding_sides }}px {{ section.settings.item_padding_bottom }}px;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__summary::-webkit-details-marker {
+  display: none;
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__icon {
+  width: {{ section.settings.icon_size }}px;
+  height: {{ section.settings.icon_size }}px;
+  flex: 0 0 {{ section.settings.icon_size }}px;
+  color: {{ section.settings.icon_color }};
+  transition: transform 0.25s ease;
+}
+
+.perito-faq-page-{{ section.id }} details[open] .perito-faq-page__icon {
+  transform: rotate(180deg);
+}
+
+.perito-faq-page-{{ section.id }} .perito-faq-page__answer {
+  color: {{ section.settings.answer_color }};
+  font-size: {{ section.settings.answer_size }}px;
+  font-weight: {{ section.settings.answer_weight }};
+  line-height: {{ section.settings.answer_line_height }};
+  padding: 0 {{ section.settings.item_padding_sides }}px {{ section.settings.answer_padding_bottom }}px;
+}
+
+@media screen and (max-width: 749px) {
+  .perito-faq-page-{{ section.id }} .perito-faq-page__hero {
+    min-height: {{ section.settings.mobile_hero_height }}px;
+    padding: {{ section.settings.mobile_hero_padding_top }}px {{ section.settings.mobile_padding_sides }}px {{ section.settings.mobile_hero_padding_bottom }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__hero-heading {
+    font-size: {{ section.settings.mobile_hero_heading_size }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__hero-text {
+    font-size: {{ section.settings.mobile_hero_text_size }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__main {
+    padding: {{ section.settings.mobile_main_padding_top }}px {{ section.settings.mobile_padding_sides }}px {{ section.settings.mobile_main_padding_bottom }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__accordion {
+    gap: {{ section.settings.mobile_item_gap }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__summary {
+    font-size: {{ section.settings.mobile_question_size }}px;
+    padding: {{ section.settings.mobile_item_padding_top }}px {{ section.settings.mobile_item_padding_sides }}px {{ section.settings.mobile_item_padding_bottom }}px;
+  }
+
+  .perito-faq-page-{{ section.id }} .perito-faq-page__answer {
+    font-size: {{ section.settings.mobile_answer_size }}px;
+    padding: 0 {{ section.settings.mobile_item_padding_sides }}px {{ section.settings.mobile_answer_padding_bottom }}px;
+  }
+}
+{% endstyle %}
+
+<section class="perito-faq-page-{{ section.id }}">
+  {% if section.settings.show_hero %}
+    <div class="perito-faq-page__hero">
+      {% if section.settings.hero_image != blank %}
+        <div class="perito-faq-page__hero-image">
+          {{ section.settings.hero_image | image_url: width: 2400 | image_tag: loading: 'eager' }}
+        </div>
+      {% endif %}
+
+      <div class="perito-faq-page__hero-overlay"></div>
+
+      <div class="perito-faq-page__hero-content">
+        {% if section.settings.hero_heading != blank %}
+          <h1 class="perito-faq-page__hero-heading">
+            {{ section.settings.hero_heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.hero_text != blank %}
+          <p class="perito-faq-page__hero-text">
+            {{ section.settings.hero_text }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="perito-faq-page__main">
+    <div class="perito-faq-page__accordion">
+      {% for block in section.blocks %}
+        <details class="perito-faq-page__item" {% if section.settings.open_first_item and forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="perito-faq-page__summary">
+            <span>
+              {{ block.settings.question }}
+            </span>
+
+            <svg class="perito-faq-page__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+
+          {% if block.settings.answer != blank %}
+            <div class="perito-faq-page__answer">
+              {{ block.settings.answer | newline_to_br }}
+            </div>
+          {% endif %}
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    function initFaqAccordion() {
+      var faqSection = document.querySelector('.perito-faq-page-{{ section.id }}');
+
+      if (!faqSection) return;
+
+      var faqItems = faqSection.querySelectorAll('.perito-faq-page__item');
+
+      faqItems.forEach(function (item) {
+        item.addEventListener('toggle', function () {
+          if (!item.open) return;
+
+          faqItems.forEach(function (otherItem) {
+            if (otherItem !== item) {
+              otherItem.removeAttribute('open');
+            }
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFaqAccordion);
+    } else {
+      initFaqAccordion();
+    }
+
+    document.addEventListener('shopify:section:load', initFaqAccordion);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Hero text",
+      "default": "Here you'll find answers to the most common questions about orders, shipping, and our products."
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_item",
+      "label": "Open first FAQ item by default",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "page_bg_color",
+      "label": "Page background color",
+      "default": "#213312"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Page text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "hero_overlay_color",
+      "label": "Hero overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "number",
+      "id": "hero_overlay_opacity",
+      "label": "Hero overlay opacity",
+      "default": 62
+    },
+    {
+      "type": "color",
+      "id": "hero_heading_color",
+      "label": "Hero heading color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "hero_text_color",
+      "label": "Hero text color",
+      "default": "#D8DEC4"
+    },
+    {
+      "type": "color",
+      "id": "item_bg_color",
+      "label": "FAQ item background color",
+      "default": "#63743B"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "FAQ item border color",
+      "default": "#63743B"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer color",
+      "default": "#DDE4CD"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "number",
+      "id": "padding_sides",
+      "label": "Side padding",
+      "default": 24
+    },
+    {
+      "type": "number",
+      "id": "hero_height",
+      "label": "Hero height",
+      "default": 360
+    },
+    {
+      "type": "number",
+      "id": "hero_padding_top",
+      "label": "Hero top padding",
+      "default": 90
+    },
+    {
+      "type": "number",
+      "id": "hero_padding_bottom",
+      "label": "Hero bottom padding",
+      "default": 90
+    },
+    {
+      "type": "number",
+      "id": "hero_content_width",
+      "label": "Hero content width",
+      "default": 760
+    },
+    {
+      "type": "number",
+      "id": "hero_heading_size",
+      "label": "Hero heading size",
+      "default": 44
+    },
+    {
+      "type": "number",
+      "id": "hero_heading_weight",
+      "label": "Hero heading weight",
+      "default": 300
+    },
+    {
+      "type": "number",
+      "id": "hero_heading_letter_spacing",
+      "label": "Hero heading letter spacing",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "hero_heading_margin_bottom",
+      "label": "Hero heading bottom spacing",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "hero_text_width",
+      "label": "Hero text width",
+      "default": 620
+    },
+    {
+      "type": "number",
+      "id": "hero_text_size",
+      "label": "Hero text size",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "hero_text_weight",
+      "label": "Hero text weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "hero_text_line_height",
+      "label": "Hero text line height",
+      "default": "1.7"
+    },
+    {
+      "type": "number",
+      "id": "main_padding_top",
+      "label": "FAQ top padding",
+      "default": 105
+    },
+    {
+      "type": "number",
+      "id": "main_padding_bottom",
+      "label": "FAQ bottom padding",
+      "default": 105
+    },
+    {
+      "type": "number",
+      "id": "accordion_width",
+      "label": "Accordion width",
+      "default": 720
+    },
+    {
+      "type": "number",
+      "id": "item_gap",
+      "label": "Gap between FAQ items",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "item_radius",
+      "label": "FAQ item border radius",
+      "default": 14
+    },
+    {
+      "type": "number",
+      "id": "item_border_width",
+      "label": "FAQ item border width",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "item_padding_top",
+      "label": "Question top padding",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "item_padding_bottom",
+      "label": "Question bottom padding",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "item_padding_sides",
+      "label": "FAQ side padding",
+      "default": 34
+    },
+    {
+      "type": "number",
+      "id": "question_size",
+      "label": "Question size",
+      "default": 14
+    },
+    {
+      "type": "number",
+      "id": "question_weight",
+      "label": "Question weight",
+      "default": 300
+    },
+    {
+      "type": "number",
+      "id": "answer_size",
+      "label": "Answer size",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "answer_weight",
+      "label": "Answer weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "answer_line_height",
+      "label": "Answer line height",
+      "default": "1.7"
+    },
+    {
+      "type": "number",
+      "id": "answer_padding_bottom",
+      "label": "Answer bottom padding",
+      "default": 26
+    },
+    {
+      "type": "number",
+      "id": "icon_size",
+      "label": "Icon size",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_sides",
+      "label": "Mobile side padding",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_hero_height",
+      "label": "Mobile hero height",
+      "default": 300
+    },
+    {
+      "type": "number",
+      "id": "mobile_hero_padding_top",
+      "label": "Mobile hero top padding",
+      "default": 70
+    },
+    {
+      "type": "number",
+      "id": "mobile_hero_padding_bottom",
+      "label": "Mobile hero bottom padding",
+      "default": 70
+    },
+    {
+      "type": "number",
+      "id": "mobile_hero_heading_size",
+      "label": "Mobile hero heading size",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "mobile_hero_text_size",
+      "label": "Mobile hero text size",
+      "default": 11
+    },
+    {
+      "type": "number",
+      "id": "mobile_main_padding_top",
+      "label": "Mobile FAQ top padding",
+      "default": 65
+    },
+    {
+      "type": "number",
+      "id": "mobile_main_padding_bottom",
+      "label": "Mobile FAQ bottom padding",
+      "default": 65
+    },
+    {
+      "type": "number",
+      "id": "mobile_item_gap",
+      "label": "Mobile FAQ item gap",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "mobile_item_padding_top",
+      "label": "Mobile question top padding",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "mobile_item_padding_bottom",
+      "label": "Mobile question bottom padding",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "mobile_item_padding_sides",
+      "label": "Mobile FAQ side padding",
+      "default": 22
+    },
+    {
+      "type": "number",
+      "id": "mobile_question_size",
+      "label": "Mobile question size",
+      "default": 13
+    },
+    {
+      "type": "number",
+      "id": "mobile_answer_size",
+      "label": "Mobile answer size",
+      "default": 12
+    },
+    {
+      "type": "number",
+      "id": "mobile_answer_padding_bottom",
+      "label": "Mobile answer bottom padding",
+      "default": 22
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I choose the right perfume for me?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Start with the fragrance families you naturally enjoy, such as fresh, woody, floral, amber, or spicy. You can also explore our discovery sets before choosing a full-size bottle."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Page",
+      "category": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I choose the right perfume for me?",
+            "answer": "Start with the fragrance families you naturally enjoy, such as fresh, woody, floral, amber, or spicy. You can also explore our discovery sets before choosing a full-size bottle."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the difference between Eau de Parfum and Eau de Toilette?",
+            "answer": "Eau de Parfum usually has a higher concentration of fragrance oils, so it tends to feel richer and last longer. Eau de Toilette is usually lighter and fresher."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does a perfume last on the skin?",
+            "answer": "Longevity depends on the formula, your skin type, weather, and how much you apply. Most perfumes last several hours, while deeper woody or amber scents may last longer."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I apply perfume for the best results?",
+            "answer": "Apply perfume to pulse points such as the wrists, neck, and behind the ears. Avoid rubbing your wrists together, as this can affect how the fragrance develops."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I wear perfume every day?",
+            "answer": "Yes. Choose lighter scents for daily wear and reserve richer compositions for evenings, special occasions, or cooler weather."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I store my perfume?",
+            "answer": "Store your perfume in a cool, dry place away from direct sunlight and heat. Keeping the bottle in its box can help preserve the fragrance."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are your perfumes original and authentic?",
+            "answer": "Yes. All perfumes sold through our official store and authorized retail partners are original and authentic."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer returns or exchanges?",
+            "answer": "Return and exchange eligibility depends on the condition of the product and the policy shown at checkout. Please contact customer care for help with your order."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I test a fragrance before buying?",
+            "answer": "Yes. We recommend trying a sample or discovery set before committing to a full-size bottle whenever available."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do perfumes expire?",
+            "answer": "Perfumes can change over time, especially when exposed to heat, sunlight, or air. Proper storage helps maintain their quality for longer."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

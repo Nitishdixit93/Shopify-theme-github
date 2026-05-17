@@ -1,0 +1,135 @@
+{% style %}
+  .perito-seasonal-wisdom {
+    background: #283416;
+    color: #ffffff;
+    text-align: center;
+    padding: 125px 24px;
+  }
+
+  .perito-seasonal-wisdom__inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .perito-seasonal-wisdom h2 {
+    margin: 0 0 20px;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  .perito-seasonal-wisdom p {
+    max-width: 650px;
+    margin: 0 auto 18px;
+    font-size: {{ section.settings.paragraph_size }}px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-seasonal-wisdom p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .perito-seasonal-wisdom {
+      padding: 82px 20px;
+    }
+
+    .perito-seasonal-wisdom h2 {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    .perito-seasonal-wisdom p {
+      font-size: {{ section.settings.mobile_paragraph_size }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-seasonal-wisdom">
+  <div class="perito-seasonal-wisdom__inner">
+    <h2>{{ section.settings.heading }}</h2>
+
+    {% if section.settings.text_1 != blank %}
+      <p>{{ section.settings.text_1 }}</p>
+    {% endif %}
+
+    {% if section.settings.text_2 != blank %}
+      <p>{{ section.settings.text_2 }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito seasonal wisdom",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Seasonal Fragrance Wisdom"
+    },
+    {
+      "type": "textarea",
+      "id": "text_1",
+      "label": "First paragraph",
+      "default": "Wearing the right fragrance for the season isn't just about performance — it's about harmony. A heavy oud in summer feels oppressive. A fresh citrus in winter feels insubstantial."
+    },
+    {
+      "type": "textarea",
+      "id": "text_2",
+      "label": "Second paragraph",
+      "default": "Monthly Bangers exists to guide you toward compositions that resonate with the current moment, helping you build a rotating wardrobe of fragrances rather than defaulting to a single signature."
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size",
+      "label": "Paragraph font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_paragraph_size",
+      "label": "Mobile paragraph font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito seasonal wisdom"
+    }
+  ]
+}
+{% endschema %}

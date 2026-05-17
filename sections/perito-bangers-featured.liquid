@@ -1,0 +1,394 @@
+{% style %}
+  .perito-monthly-featured {
+    background: #5E6B36;
+    color: #ffffff;
+    padding: 70px 32px 130px;
+  }
+
+  .perito-monthly-featured__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .perito-monthly-featured__heading {
+    text-align: center;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.1;
+    margin: 0 0 72px;
+    font-weight: 600;
+  }
+
+  .perito-monthly-featured__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    margin-bottom: 96px;
+  }
+
+  .perito-monthly-featured__row:nth-child(odd) .perito-monthly-featured__image {
+    order: 2;
+  }
+
+  .perito-monthly-featured__image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .perito-monthly-featured__content {
+    max-width: 560px;
+  }
+
+  .perito-monthly-featured__eyebrow {
+    font-size: {{ section.settings.eyebrow_size }}px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 28px;
+  }
+
+  .perito-monthly-featured__title {
+    font-size: {{ section.settings.title_size }}px;
+    line-height: 1.05;
+    margin: 0 0 24px;
+    font-weight: 600;
+  }
+
+  .perito-monthly-featured__subtitle {
+    font-size: {{ section.settings.subtitle_size }}px;
+    line-height: 1.6;
+    margin: 0 0 28px;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .perito-monthly-featured__desc {
+    font-size: {{ section.settings.desc_size }}px;
+    line-height: 1.9;
+    margin: 0 0 28px;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-monthly-featured__why-title {
+    font-size: {{ section.settings.why_title_size }}px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .perito-monthly-featured__why-text {
+    font-size: {{ section.settings.why_text_size }}px;
+    line-height: 1.7;
+    color: rgba(250, 248, 245, 0.78);
+  }
+
+  .perito-monthly-featured__price {
+    font-size: {{ section.settings.price_size }}px;
+    line-height: 1;
+    color: #FAF8F5;
+  }
+
+  .perito-monthly-featured__button {
+    min-width: 170px;
+    min-height: 48px;
+    border: 1px solid rgba(250, 248, 245, 0.9);
+    color: #FAF8F5;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    font-size: {{ section.settings.button_size }}px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 900px) {
+    .perito-monthly-featured {
+      padding: 54px 20px 80px;
+    }
+
+    .perito-monthly-featured__row {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      margin-bottom: 72px;
+    }
+
+    .perito-monthly-featured__row:nth-child(odd) .perito-monthly-featured__image {
+      order: 0;
+    }
+
+    .perito-monthly-featured__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+      margin-bottom: 46px;
+    }
+
+    .perito-monthly-featured__title {
+      font-size: {{ section.settings.mobile_title_size }}px;
+    }
+
+    .perito-monthly-featured__bottom {
+      flex-wrap: wrap;
+    }
+  }
+{% endstyle %}
+
+<section class="perito-monthly-featured">
+  <div class="perito-monthly-featured__inner">
+    <h2 class="perito-monthly-featured__heading">{{ section.settings.heading }}</h2>
+
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+
+        {% if product != blank %}
+          <div class="perito-monthly-featured__row" {{ block.shopify_attributes }}>
+            <div class="perito-monthly-featured__image">
+              {% if product.featured_image != blank %}
+                {{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+              {% endif %}
+            </div>
+
+            <div class="perito-monthly-featured__content">
+              <div class="perito-monthly-featured__eyebrow">
+                {% if block.settings.eyebrow != blank %}
+                  {{ block.settings.eyebrow }}
+                {% elsif product.collections.first != blank %}
+                  {{ product.collections.first.title }}
+                {% elsif product.vendor != blank %}
+                  {{ product.vendor }}
+                {% else %}
+                  Featured
+                {% endif %}
+              </div>
+
+              <h3 class="perito-monthly-featured__title">{{ product.title }}</h3>
+
+              {% if block.settings.subtitle != blank %}
+                <p class="perito-monthly-featured__subtitle">{{ block.settings.subtitle }}</p>
+              {% endif %}
+
+              <p class="perito-monthly-featured__desc">
+                {% if block.settings.description_override != blank %}
+                  {{ block.settings.description_override }}
+                {% else %}
+                  {{ product.description | strip_html | truncate: 260 }}
+                {% endif %}
+              </p>
+
+              <div class="perito-monthly-featured__why">
+                <div class="perito-monthly-featured__why-title">
+                  {{ block.settings.why_title }}
+                </div>
+                <div class="perito-monthly-featured__why-text">
+                  {{ block.settings.why_text }}
+                </div>
+              </div>
+
+              <div class="perito-monthly-featured__bottom">
+                <div class="perito-monthly-featured__price">
+                  {{ product.price | money }}
+                </div>
+
+                <a class="perito-monthly-featured__button" href="{{ product.url }}">
+                  {{ section.settings.button_label }} <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perito monthly featured",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured This Month"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Details"
+    },{
+      "type": "header",
+      "content": "Font sizes"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Product title font size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "default": 42,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Description font size",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "why_title_size",
+      "label": "Why title font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "why_text_size",
+      "label": "Why text font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price font size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button font size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "default": 11,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading font size",
+      "min": 18,
+      "max": 50,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "label": "Mobile product title font size",
+      "min": 18,
+      "max": 50,
+      "step": 1,
+      "default": 34,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_product",
+      "name": "Featured product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow override",
+          "info": "Leave empty to use the product collection or vendor."
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "A regal amber symphony with precious oud and saffron"
+        },
+        {
+          "type": "textarea",
+          "id": "description_override",
+          "label": "Description override",
+          "info": "Leave empty to use the product description."
+        },
+        {
+          "type": "text",
+          "id": "why_title",
+          "label": "Why title",
+          "default": "Why now?"
+        },
+        {
+          "type": "textarea",
+          "id": "why_text",
+          "label": "Why text",
+          "default": "Perfect for this month’s weather. The composition performs beautifully through warm days and cool evenings."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perito monthly featured",
+      "blocks": [
+        {
+          "type": "featured_product"
+        },
+        {
+          "type": "featured_product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

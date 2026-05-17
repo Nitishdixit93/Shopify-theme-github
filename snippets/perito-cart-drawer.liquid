@@ -1,0 +1,417 @@
+{% style %}
+  .perito-cart-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .perito-cart-drawer-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .perito-cart-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(100vw, 640px);
+    height: 100vh;
+    z-index: 9999;
+    background: #637236;
+    color: #f4efe4;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Futura Cyrillic', sans-serif;
+  }
+
+  .perito-cart-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .perito-cart-drawer__header {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px 34px 28px;
+    border-bottom: 1px solid rgba(244, 239, 228, 0.12);
+  }
+
+  .perito-cart-drawer__title {
+    margin: 0 0 10px;
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .perito-cart-drawer__count {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  .perito-cart-drawer__close {
+    background: none;
+    border: 0;
+    color: inherit;
+    font-size: 38px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .perito-cart-drawer__items {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 28px 34px;
+    min-height: 0;
+  }
+
+  .perito-cart-drawer__item {
+    display: grid;
+    grid-template-columns: 112px 1fr 24px;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 34px;
+  }
+
+  .perito-cart-drawer__image {
+    width: 112px;
+    height: 112px;
+    object-fit: cover;
+    display: block;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .perito-cart-drawer__product-title {
+    margin: 4px 0 8px;
+    font-size: 22px;
+    line-height: 1.15;
+    font-weight: 300;
+  }
+
+  .perito-cart-drawer__variant {
+    margin: 0 0 12px;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  .perito-cart-drawer__price {
+    margin: 0 0 16px;
+    font-size: 17px;
+    font-weight: 300;
+  }
+
+  .perito-cart-drawer__qty {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .perito-cart-drawer__qty-btn {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(244, 239, 228, 0.45);
+    background: transparent;
+    color: inherit;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .perito-cart-drawer__qty-value {
+    font-size: 15px;
+    min-width: 12px;
+    text-align: center;
+  }
+
+  .perito-cart-drawer__remove {
+    margin-top: 88px;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .perito-cart-drawer__remove svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .perito-cart-drawer__empty {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .perito-cart-drawer__footer {
+    flex: 0 0 auto;
+    padding: 28px 34px 30px;
+    border-top: 1px solid rgba(244, 239, 228, 0.22);
+  }
+
+  .perito-cart-drawer__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .perito-cart-drawer__divider {
+    height: 1px;
+    background: rgba(244, 239, 228, 0.35);
+    margin: 22px 0;
+  }
+
+  .perito-cart-drawer__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 34px;
+  }
+
+  .perito-cart-drawer__total-label {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .perito-cart-drawer__total-price {
+    font-size: 38px;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .perito-cart-drawer__checkout {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .perito-cart-drawer {
+      width: 100vw;
+    }
+
+    .perito-cart-drawer__header,
+    .perito-cart-drawer__items,
+    .perito-cart-drawer__footer {
+      padding-left: 22px;
+      padding-right: 22px;
+    }
+
+    .perito-cart-drawer__item {
+      grid-template-columns: 96px 1fr 22px;
+      gap: 14px;
+    }
+
+    .perito-cart-drawer__image {
+      width: 96px;
+      height: 96px;
+    }
+
+    .perito-cart-drawer__product-title {
+      font-size: 19px;
+    }
+  }
+{% endstyle %}
+
+<div id="PeritoCartDrawerOverlay" class="perito-cart-drawer-overlay" data-cart-drawer-close></div>
+
+<aside id="PeritoCartDrawer" class="perito-cart-drawer" aria-hidden="true">
+  <div class="perito-cart-drawer__header">
+    <div>
+      <h2 class="perito-cart-drawer__title">Your Cart</h2>
+      <p class="perito-cart-drawer__count">
+        {{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}
+      </p>
+    </div>
+
+    <button class="perito-cart-drawer__close" type="button" data-cart-drawer-close aria-label="Close cart">
+      ×
+    </button>
+  </div>
+
+  <div class="perito-cart-drawer__items">
+    {% if cart.item_count > 0 %}
+      {% for item in cart.items %}
+        <div class="perito-cart-drawer__item">
+          {% if item.image %}
+            {{
+              item.image
+              | image_url: width: 280
+              | image_tag:
+                class: 'perito-cart-drawer__image',
+                loading: 'lazy',
+                alt: item.product.title
+            }}
+          {% endif %}
+
+          <div>
+            <h3 class="perito-cart-drawer__product-title">{{ item.product.title }}</h3>
+
+            {% unless item.product.has_only_default_variant %}
+              <p class="perito-cart-drawer__variant">{{ item.variant.title }}</p>
+            {% else %}
+              <p class="perito-cart-drawer__variant">50ml · Eau de Parfum</p>
+            {% endunless %}
+
+            <p class="perito-cart-drawer__price">{{ item.final_line_price | money }}</p>
+
+            <div class="perito-cart-drawer__qty">
+              <button class="perito-cart-drawer__qty-btn" type="button" data-cart-change="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button>
+              <span class="perito-cart-drawer__qty-value">{{ item.quantity }}</span>
+              <button class="perito-cart-drawer__qty-btn" type="button" data-cart-change="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+            </div>
+          </div>
+
+          <button class="perito-cart-drawer__remove" type="button" data-cart-change="{{ item.key }}" data-qty="0" aria-label="Remove item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 7h16"/>
+              <path d="M10 11v6"/>
+              <path d="M14 11v6"/>
+              <path d="M6 7l1 14h10l1-14"/>
+              <path d="M9 7V4h6v3"/>
+            </svg>
+          </button>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="perito-cart-drawer__empty">Your cart is empty.</p>
+    {% endif %}
+  </div>
+
+  <div class="perito-cart-drawer__footer">
+    <div class="perito-cart-drawer__row">
+      <span>Subtotal</span>
+      <span>{{ cart.total_price | money }}</span>
+    </div>
+
+    <div class="perito-cart-drawer__row">
+      <span>Shipping</span>
+      <span>Complimentary</span>
+    </div>
+
+    <div class="perito-cart-drawer__divider"></div>
+
+    <div class="perito-cart-drawer__total">
+      <span class="perito-cart-drawer__total-label">Total</span>
+      <span class="perito-cart-drawer__total-price">{{ cart.total_price | money }}</span>
+    </div>
+
+    <a class="perito-cart-drawer__checkout" href="/checkout">
+      Proceed to Checkout
+    </a>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const drawer = document.getElementById('PeritoCartDrawer');
+    const overlay = document.getElementById('PeritoCartDrawerOverlay');
+
+    function openDrawer() {
+      drawer.classList.add('is-open');
+      overlay.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function updateHeaderCartCount(count) {
+      document.querySelectorAll('[data-cart-count]').forEach((badge) => {
+        badge.textContent = count;
+      });
+    }
+
+    async function refreshCartDrawer(openAfterRefresh = true) {
+      const cart = await fetch('/cart.js').then((res) => res.json());
+      updateHeaderCartCount(cart.item_count);
+
+      const html = await fetch(window.location.href).then((res) => res.text());
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      const newItems = doc.querySelector('.perito-cart-drawer__items');
+      const newFooter = doc.querySelector('.perito-cart-drawer__footer');
+      const newCount = doc.querySelector('.perito-cart-drawer__count');
+
+      const currentItems = drawer.querySelector('.perito-cart-drawer__items');
+      const currentFooter = drawer.querySelector('.perito-cart-drawer__footer');
+      const currentCount = drawer.querySelector('.perito-cart-drawer__count');
+
+      if (newItems && currentItems) currentItems.innerHTML = newItems.innerHTML;
+      if (newFooter && currentFooter) currentFooter.innerHTML = newFooter.innerHTML;
+      if (newCount && currentCount) currentCount.innerHTML = newCount.innerHTML;
+
+      bindCartButtons();
+
+      if (openAfterRefresh) openDrawer();
+    }
+
+    async function changeCartItem(key, quantity) {
+      await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: Number(quantity) })
+      });
+
+      await refreshCartDrawer(true);
+    }
+
+    function bindCartButtons() {
+      drawer.querySelectorAll('[data-cart-change]').forEach((button) => {
+        button.onclick = () => {
+          changeCartItem(button.dataset.cartChange, button.dataset.qty);
+        };
+      });
+    }
+
+    document.querySelectorAll('[data-cart-drawer-open]').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openDrawer();
+      });
+    });
+
+    document.querySelectorAll('[data-cart-drawer-close]').forEach((button) => {
+      button.addEventListener('click', closeDrawer);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+    });
+
+    bindCartButtons();
+
+    document.addEventListener('submit', async (event) => {
+      const form = event.target;
+
+      if (!form.matches('form[action="/cart/add"], form[action="/cart/add.js"], form[action^="/cart/add"]')) return;
+
+      event.preventDefault();
+
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+
+      await refreshCartDrawer(true);
+    });
+  });
+</script>

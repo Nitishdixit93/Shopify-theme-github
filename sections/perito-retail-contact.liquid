@@ -1,0 +1,404 @@
+{% style %}
+.perito-carrying-cta-{{ section.id }} {
+  background-color: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  text-align: center;
+  padding: {{ section.settings.padding_top }}px {{ section.settings.padding_sides }}px {{ section.settings.padding_bottom }}px;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__inner {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__heading {
+  color: {{ section.settings.heading_color }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: {{ section.settings.heading_weight }};
+  line-height: 1.2;
+  letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__text {
+  color: {{ section.settings.description_color }};
+  font-size: {{ section.settings.description_size }}px;
+  font-weight: {{ section.settings.description_weight }};
+  line-height: {{ section.settings.description_line_height }};
+  max-width: {{ section.settings.description_width }}px;
+  margin: 0 auto {{ section.settings.description_margin_bottom }}px;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: {{ section.settings.button_icon_gap }}px;
+  min-width: {{ section.settings.button_min_width }}px;
+  min-height: {{ section.settings.button_height }}px;
+  padding: 0 {{ section.settings.button_padding_sides }}px;
+  background-color: {{ section.settings.button_bg_color }};
+  color: {{ section.settings.button_text_color }};
+  border: {{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }};
+  font-size: {{ section.settings.button_text_size }}px;
+  font-weight: {{ section.settings.button_text_weight }};
+  line-height: 1;
+  letter-spacing: {{ section.settings.button_letter_spacing }}px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__button:hover {
+  opacity: 0.85;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__button svg {
+  width: {{ section.settings.button_icon_size }}px;
+  height: {{ section.settings.button_icon_size }}px;
+  flex: 0 0 {{ section.settings.button_icon_size }}px;
+}
+
+.perito-carrying-cta-{{ section.id }} .perito-carrying-cta__bottom-space {
+  display: {% if section.settings.show_bottom_space %}block{% else %}none{% endif %};
+  height: {{ section.settings.bottom_space_height }}px;
+}
+
+@media screen and (max-width: 749px) {
+  .perito-carrying-cta-{{ section.id }} {
+    padding: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_sides }}px {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  .perito-carrying-cta-{{ section.id }} .perito-carrying-cta__heading {
+    font-size: {{ section.settings.mobile_heading_size }}px;
+  }
+
+  .perito-carrying-cta-{{ section.id }} .perito-carrying-cta__text {
+    font-size: {{ section.settings.mobile_description_size }}px;
+    margin-bottom: {{ section.settings.mobile_description_margin_bottom }}px;
+  }
+
+  .perito-carrying-cta-{{ section.id }} .perito-carrying-cta__button {
+    min-width: {{ section.settings.mobile_button_min_width }}px;
+    min-height: {{ section.settings.mobile_button_height }}px;
+  }
+
+  .perito-carrying-cta-{{ section.id }} .perito-carrying-cta__bottom-space {
+    height: {{ section.settings.mobile_bottom_space_height }}px;
+  }
+}
+{% endstyle %}
+
+<section class="perito-carrying-cta-{{ section.id }}">
+  <div class="perito-carrying-cta__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="perito-carrying-cta__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p class="perito-carrying-cta__text">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      <a class="perito-carrying-cta__button" href="{{ section.settings.button_link }}">
+        {% if section.settings.show_button_icon %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13.332 2.66675H2.66536C1.92898 2.66675 1.33203 3.2637 1.33203 4.00008V12.0001C1.33203 12.7365 1.92898 13.3334 2.66536 13.3334H13.332C14.0684 13.3334 14.6654 12.7365 14.6654 12.0001V4.00008C14.6654 3.2637 14.0684 2.66675 13.332 2.66675Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.6654 4.66675L8.68536 8.46675C8.47955 8.5957 8.24158 8.66409 7.9987 8.66409C7.75582 8.66409 7.51785 8.5957 7.31203 8.46675L1.33203 4.66675" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        {% endif %}
+
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="perito-carrying-cta__bottom-space"></div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrying CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Interested in Carrying Perito Moreno?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We're always looking to partner with independent perfumeries and luxury retailers who appreciate artisan fragrance. If you're interested in stocking our collection, we'd love to hear from you."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Contact Wholesale"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_icon",
+      "label": "Show button icon",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#5F7137"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#D8DEC4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background color",
+      "default": "#17110F"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#17110F"
+    },
+    {
+      "type": "number",
+      "id": "container_width",
+      "label": "Container width",
+      "default": 920
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 88
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 78
+    },
+    {
+      "type": "number",
+      "id": "padding_sides",
+      "label": "Side padding",
+      "default": 24
+    },
+    {
+      "type": "number",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": 44
+    },
+    {
+      "type": "number",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "default": 500
+    },
+    {
+      "type": "number",
+      "id": "heading_letter_spacing",
+      "label": "Heading letter spacing",
+      "default": 0
+    },
+    {
+      "type": "number",
+      "id": "heading_margin_bottom",
+      "label": "Heading bottom spacing",
+      "default": 32
+    },
+    {
+      "type": "number",
+      "id": "description_width",
+      "label": "Description width",
+      "default": 720
+    },
+    {
+      "type": "number",
+      "id": "description_size",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "description_weight",
+      "label": "Description weight",
+      "default": 300
+    },
+    {
+      "type": "text",
+      "id": "description_line_height",
+      "label": "Description line height",
+      "default": "1.7"
+    },
+    {
+      "type": "number",
+      "id": "description_margin_bottom",
+      "label": "Description bottom spacing",
+      "default": 80
+    },
+    {
+      "type": "number",
+      "id": "button_min_width",
+      "label": "Button minimum width",
+      "default": 270
+    },
+    {
+      "type": "number",
+      "id": "button_height",
+      "label": "Button height",
+      "default": 56
+    },
+    {
+      "type": "number",
+      "id": "button_padding_sides",
+      "label": "Button side padding",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "button_border_width",
+      "label": "Button border width",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "default": 13
+    },
+    {
+      "type": "number",
+      "id": "button_text_weight",
+      "label": "Button text weight",
+      "default": 400
+    },
+    {
+      "type": "number",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing",
+      "default": 2
+    },
+    {
+      "type": "number",
+      "id": "button_icon_size",
+      "label": "Button icon size",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "button_icon_gap",
+      "label": "Button icon gap",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_space",
+      "label": "Show bottom dark spacing",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "bottom_space_height",
+      "label": "Bottom spacing height",
+      "default": 18
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "default": 64
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "default": 64
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_sides",
+      "label": "Mobile side padding",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "mobile_description_size",
+      "label": "Mobile description size",
+      "default": 13
+    },
+    {
+      "type": "number",
+      "id": "mobile_description_margin_bottom",
+      "label": "Mobile description bottom spacing",
+      "default": 46
+    },
+    {
+      "type": "number",
+      "id": "mobile_button_min_width",
+      "label": "Mobile button minimum width",
+      "default": 230
+    },
+    {
+      "type": "number",
+      "id": "mobile_button_height",
+      "label": "Mobile button height",
+      "default": 50
+    },
+    {
+      "type": "number",
+      "id": "mobile_bottom_space_height",
+      "label": "Mobile bottom spacing height",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact for Wholesale",
+      "category": "Retailers"
+    }
+  ]
+}
+{% endschema %}
